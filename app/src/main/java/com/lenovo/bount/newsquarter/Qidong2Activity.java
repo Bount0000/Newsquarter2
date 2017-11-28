@@ -4,21 +4,19 @@ import android.content.Intent;
 import android.view.View;
 
 import com.lenovo.bount.newsquarter.base.BaseActivity;
+import com.lenovo.bount.newsquarter.base.BasePresenter;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Qidong2Activity extends BaseActivity {
 
-/*    public Qidong2Activity(BasePresenter presenter) {
-        super(presenter);
-    }
 
     @Override
-    public BasePresenter initPresenter() {
+    public List<BasePresenter> initPresenter() {
         return null;
-    }*/
-
+    }
     @Override
     public int bindLayout() {
         return R.layout.activity_qidong2;

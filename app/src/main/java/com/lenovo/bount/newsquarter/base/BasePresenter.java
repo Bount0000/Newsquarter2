@@ -5,7 +5,6 @@ package com.lenovo.bount.newsquarter.base;
  */
 
 public class BasePresenter<V> {
-
     private V mView;
 
     public BasePresenter(V mView) {

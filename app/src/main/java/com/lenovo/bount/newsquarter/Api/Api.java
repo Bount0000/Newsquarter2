@@ -5,5 +5,5 @@ package com.lenovo.bount.newsquarter.Api;
  */
 
 public class Api {
-    public static String Url="http://120.27.23.105/user/login";
+    public static String Api_Url="https://www.zhaoapi.cn/";
 }

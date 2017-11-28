@@ -1,18 +1,30 @@
 package com.lenovo.bount.newsquarter;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.lenovo.bount.newsquarter.base.BaseActivity;
+import com.lenovo.bount.newsquarter.base.BasePresenter;
 import com.lenovo.bount.newsquarter.fragment.DuanziFragment;
 import com.lenovo.bount.newsquarter.fragment.LeftFragment;
 import com.lenovo.bount.newsquarter.fragment.ShipinFragment;
 import com.lenovo.bount.newsquarter.fragment.TuijianFragment;
+
+import java.util.List;
+
+import static com.lenovo.bount.newsquarter.App.context;
 
 public class MainActivity extends BaseActivity{
 
@@ -30,17 +42,10 @@ public class MainActivity extends BaseActivity{
     private DrawerLayout drawer;
     private DrawerLayout drawer1;
 
-    /*public MainActivity(BasePresenter presenter) {
-        super(presenter);
-    }
-
-    @Override
-    public BasePresenter initPresenter() {
-        return null;
-    }
-*/
     @Override
     public int bindLayout() {
+        //初始化Fresco
+        Fresco.initialize(MainActivity.this);
         return R.layout.activity_main;
     }
 
@@ -84,7 +89,7 @@ public class MainActivity extends BaseActivity{
              tv_2.setTextColor(Color.BLACK);
              break;
          case R.id.iv_touxiang:
-             drawer.openDrawer(G);
+             drawer.openDrawer(Gravity.LEFT);
              break;
      }
     }
@@ -106,9 +111,26 @@ public class MainActivity extends BaseActivity{
     }
     @Override
     public void initDate() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fl,new DuanziFragment()).commit();
-        iv_1.setImageResource(R.mipmap.one1);
-        tv_1.setTextColor(Color.BLACK);
+            setStatus(false);
+            setshowActionBar(false);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
+            iv_1.setImageResource(R.mipmap.one1);
+            tv_1.setTextColor(Color.BLACK);
+       /* Glide.with(this).load(R.mipmap.raw_1499936862)
+                .bitmapTransform(new GlideCircleTransform(this,10))
+                .into(iv_touxiang);*/
+
+
+            Glide.with(context).load(R.mipmap.raw_1499936862).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                iv_touxiang.setImageDrawable(circularBitmapDrawable);
+            }
+        });
+
         drawer.setScrimColor(Color.TRANSPARENT);
         drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
@@ -130,5 +152,10 @@ public class MainActivity extends BaseActivity{
 
             }
         });
+    }
+
+    @Override
+    public List<BasePresenter> initPresenter() {
+        return null;
     }
 }

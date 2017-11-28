@@ -17,7 +17,6 @@ public abstract class BaseActivity2<P extends BasePresenter> extends AppCompatAc
    {
        this.presenter = presenter;
     }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);

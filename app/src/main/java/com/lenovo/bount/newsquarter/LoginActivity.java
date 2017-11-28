@@ -5,20 +5,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lenovo.bount.newsquarter.base.BaseActivity;
+import com.lenovo.bount.newsquarter.base.BasePresenter;
+
+import java.util.List;
 
 public class LoginActivity extends BaseActivity {
 
     private TextView other_way;
-
-   /* public LoginActivity(BasePresenter presenter) {
-        super(presenter);
-    }
-
     @Override
-    public BasePresenter initPresenter() {
+    public List<BasePresenter> initPresenter() {
         return null;
     }
-*/
+
     @Override
     public int bindLayout() {
         return R.layout.activity_login;

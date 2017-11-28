@@ -55,7 +55,7 @@
             android:name=".Login2Activity"
             android:theme="@style/AppTheme" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".SlidingMeunActivity"></activity>
+
     </application>
 
 </manifest>

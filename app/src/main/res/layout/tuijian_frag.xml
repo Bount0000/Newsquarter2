@@ -8,6 +8,7 @@
        android:layout_width="match_parent"
        android:layout_height="@dimen/y80"
        app:tabGravity="center"
+       app:tabIndicatorColor="#29B6F6"
        app:tabSelectedTextColor="#29B6F6"
        app:tabTextColor="#000000"
        />

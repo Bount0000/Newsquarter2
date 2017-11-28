@@ -95,7 +95,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/but_log"
+        android:id="@+id/btn_zhuce"
         android:layout_width="260dp"
         android:layout_height="45dp"
         android:layout_alignLeft="@+id/rl_background"

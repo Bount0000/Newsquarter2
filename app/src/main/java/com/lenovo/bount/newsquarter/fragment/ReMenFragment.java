@@ -14,13 +14,12 @@ import com.lenovo.bount.newsquarter.R;
 /**
  * Created by lenovo on 2017/11/25.
  */
-
-public class NeMengFragment extends Fragment {
+public class ReMenFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=View.inflate(getContext(),R.layout.remen_layout,null);
+        View view=View.inflate(getContext(),R.layout.guanzhu_layout,null);
         return view;
     }
     @Override

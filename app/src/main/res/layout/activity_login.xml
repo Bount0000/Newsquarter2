@@ -31,12 +31,14 @@
             <ImageView
                 android:layout_width="@dimen/x100"
                 android:layout_height="@dimen/y80"
-                android:layout_marginLeft="@dimen/x35"
+                android:layout_marginLeft="@dimen/x85"
                 android:background="@drawable/backgroup"
+                android:gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/wx" />
 
             <TextView
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="微信登录"
@@ -56,16 +58,16 @@
             <ImageView
                 android:layout_width="@dimen/x65"
                 android:layout_height="@dimen/y60"
-                android:layout_marginLeft="@dimen/x35"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/x85"
                 android:background="@drawable/backgroup"
                 android:scaleType="centerCrop"
-                android:layout_gravity="center"
                 android:src="@mipmap/qq" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity=""
+                android:gravity="center"
                 android:text="QQ登录"
                 android:textColor="#ffffff" />
         </LinearLayout>

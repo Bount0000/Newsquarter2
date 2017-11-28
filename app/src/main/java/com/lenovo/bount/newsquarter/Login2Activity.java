@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lenovo.bount.newsquarter.base.BaseActivity;
+import com.lenovo.bount.newsquarter.base.BasePresenter;
+
+import java.util.List;
 
 public class Login2Activity extends BaseActivity {
 
@@ -12,14 +15,7 @@ public class Login2Activity extends BaseActivity {
     private TextView tv_zhuce;
     private TextView but_log;
 
-    /*public Login2Activity(BasePresenter presenter) {
-        super(presenter);
-    }
-    @Override
-    public BasePresenter initPresenter() {
-        return null;
-    }
-*/
+
     @Override
     public int bindLayout() {
         return R.layout.activity_login2;
@@ -52,5 +48,10 @@ public class Login2Activity extends BaseActivity {
     @Override
     public void initDate() {
 
+    }
+
+    @Override
+    public List<BasePresenter> initPresenter() {
+        return null;
     }
 }
