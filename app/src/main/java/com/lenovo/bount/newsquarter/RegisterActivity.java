@@ -20,7 +20,6 @@ public class RegisterActivity extends BaseActivity implements ZhuceView{
     private EditText et_psd;
     private Button btn_zhuce;
     private ZhucePresenter presenter;
-    private ResponsBodyBean value1;
     @Override
     public List<BasePresenter> initPresenter() {
         List<BasePresenter> zhucelist=new ArrayList<>();
@@ -66,7 +65,6 @@ public class RegisterActivity extends BaseActivity implements ZhuceView{
     }
     @Override
     public void Success(ResponsBodyBean value) {
-        //value1=value;
        showToast(value.msg);
 
     }

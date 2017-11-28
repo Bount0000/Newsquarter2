@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lenovo.bount.newsquarter.BianjiActivity">
+
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:fresco="http://schemas.android.com/apk/res-auto"
+       android:id="@+id/relativeLayout"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/y100"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true"
+       android:layout_alignParentTop="true"
+       android:background="#03A9F4"
+       android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/iv_touxiang"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentStart="true"
+          android:layout_centerVertical="true"
+          android:text="取消"
+          android:textColor="@color/whiteziti"
+          android:textSize="@dimen/y30" />
+
+      <TextView
+          android:id="@+id/tv_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_centerVertical="true"
+          android:text="创作"
+          android:textColor="@color/whiteziti"
+          android:textSize="@dimen/y30" />
+   </RelativeLayout>
+
+   <ImageView
+
+       android:layout_below="@id/relativeLayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:scaleType="centerCrop"
+       android:src="@mipmap/beijing2" />
+
+   <ImageView
+       android:id="@+id/iv_duanzi"
+       android:layout_width="@dimen/x200"
+       android:layout_height="@dimen/y180"
+       android:layout_above="@+id/textView"
+       android:layout_alignEnd="@+id/iv_shiping"
+       android:layout_alignRight="@+id/iv_shiping"
+       android:layout_marginBottom="14dp"
+       android:layout_marginEnd="7dp"
+       android:layout_marginRight="7dp"
+       android:background="@drawable/yuan"
+       android:padding="15dp"
+       android:src="@mipmap/duanzi1" />
+
+   <TextView
+       android:id="@+id/textView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/iv_shiping"
+       android:layout_marginBottom="59dp"
+       android:layout_toLeftOf="@+id/textView2"
+       android:layout_toStartOf="@+id/textView2"
+       android:text="段子"
+       android:textSize="@dimen/y30" />
+
+   <ImageView
+       android:id="@+id/iv_shiping"
+       android:layout_width="@dimen/x200"
+       android:layout_height="@dimen/x180"
+       android:layout_alignParentBottom="true"
+       android:layout_centerHorizontal="true"
+       android:layout_marginBottom="170dp"
+       android:background="@drawable/yuan"
+       android:padding="15dp"
+       android:src="@mipmap/shipin1" />
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignEnd="@+id/iv_duanzi"
+       android:layout_alignRight="@+id/iv_duanzi"
+       android:layout_below="@+id/textView"
+       android:layout_marginTop="62dp"
+       android:textSize="@dimen/y30"
+       android:text="视屏"
+       android:id="@+id/textView2" />
+</RelativeLayout>

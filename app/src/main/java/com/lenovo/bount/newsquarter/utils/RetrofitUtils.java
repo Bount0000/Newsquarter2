@@ -15,7 +15,6 @@ import static com.lenovo.bount.newsquarter.Api.Api.Api_Url;
  */
 
 public class RetrofitUtils {
-
     public static SpUtils.RetrofitUtils retrofitUtils;
     public InterfaceService service;
     public RetrofitUtils(InterfaceService service)
@@ -28,10 +27,9 @@ public class RetrofitUtils {
     }
     public static class Builder
     {
-        OkHttpClient.Builder okbuilder = new OkHttpClient.Builder()
-                .addInterceptor(new MyInterceptor());
-        Retrofit.Builder builder=new Retrofit.Builder().baseUrl(Api_Url).client(okbuilder.build());
-
+        OkHttpClient okbuilder = new OkHttpClient.Builder()
+                .addInterceptor(new MyInterceptor()).build();
+        Retrofit.Builder builder=new Retrofit.Builder().client(okbuilder).baseUrl(Api_Url);
         public Builder addCallAdapterFactory()
         {
             builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());

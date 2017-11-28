@@ -5,5 +5,8 @@ package com.lenovo.bount.newsquarter.bean;
  */
 
 public class Userbean {
-
+public String uid;
+public String  token;
+public String  icon;
+public String  username;
 }

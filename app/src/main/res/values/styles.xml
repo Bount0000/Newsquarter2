@@ -7,13 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:windowAnimationStyle">@style/MyWindowAnimTheme</item>
+        <item name="android:windowAnimationStyle">@style/ActivityStyle</item>
     </style>
-    <style name="MyWindowAnimTheme"
-        >
-        <item name="android:activityOpenEnterAnimation">@anim/top_to_bottom_in</item>
-      <!--  <item name="android:activityOpenExitAnimation">@anim/top_to_bottom_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/bottom_to_top_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/bottom_to_top_out</item>-->
+    <style name="ActivityStyle">
+        <item name="android:activityOpenEnterAnimation">@anim/top_to_bottom_in</item>//A--B  A
+        <item name="android:activityOpenExitAnimation">@anim/top_to_bottom_out</item>//A--B   B
+        <item name="android:activityCloseEnterAnimation">@anim/bottom_to_top_in</item>//B--A  B
+        <item name="android:activityCloseExitAnimation">@anim/bottom_to_top_out</item>//B--A  A
+
     </style>
+
 </resources>

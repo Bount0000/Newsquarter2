@@ -33,13 +33,19 @@ public class ZhuceModel {
 
                     @Override
                     public void onNext(ResponsBodyBean value) {
-                        zhuceInterface.Success(value);
-                        System.out.println("=="+value.msg);
+                        if(value.code.equals("0"))
+                        {
+                            zhuceInterface.Success(value);
+                        }
+                        else
+                        {
+                            zhuceInterface.Error();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        zhuceInterface.Error();
+                        zhuceInterface.onFair();
                     }
 
                     @Override

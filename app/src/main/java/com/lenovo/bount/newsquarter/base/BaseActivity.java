@@ -124,7 +124,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     protected void onDestroy() {
-
         super.onDestroy();
         List<BasePresenter> presenterList = initPresenter();
         if(presenterList!=null)

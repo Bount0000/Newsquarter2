@@ -55,7 +55,8 @@
             android:name=".Login2Activity"
             android:theme="@style/AppTheme" />
         <activity android:name=".RegisterActivity" />
-
+        <activity android:name=".BianjiActivity" />
+        <activity android:name=".PublishJokeActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.lenovo.bount.newsquarter;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.lenovo.bount.newsquarter.fragment.DuanziFragment;
 import com.lenovo.bount.newsquarter.fragment.LeftFragment;
 import com.lenovo.bount.newsquarter.fragment.ShipinFragment;
 import com.lenovo.bount.newsquarter.fragment.TuijianFragment;
+import com.lenovo.bount.newsquarter.utils.SpUtils;
 
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class MainActivity extends BaseActivity{
     private ImageView iv_touxiang;
     private DrawerLayout drawer;
     private DrawerLayout drawer1;
+    private ImageView iv_bianji;
 
     @Override
     public int bindLayout() {
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity{
         lt2.setOnClickListener(this);
         lt3.setOnClickListener(this);
         iv_touxiang.setOnClickListener(this);
+        iv_bianji.setOnClickListener(this);
     }
 
     @Override
@@ -90,7 +94,12 @@ public class MainActivity extends BaseActivity{
              break;
          case R.id.iv_touxiang:
              drawer.openDrawer(Gravity.LEFT);
+             getSupportFragmentManager().beginTransaction().replace(R.id.left_fl,new LeftFragment()).commit();
              break;
+         case R.id.iv_bianji:
+             startActivity(new Intent(this,BianjiActivity.class));
+             break;
+
      }
     }
     @Override
@@ -99,7 +108,7 @@ public class MainActivity extends BaseActivity{
         lt1 = findViewById(R.id.lt1);
         lt2 = findViewById(R.id.lt2);
         lt3 = findViewById(R.id.lt3);
-        iv_1 = findViewById(R.id.iv_1);
+        iv_1 = findViewById(R.id.iv_icon);
         iv_2 = findViewById(R.id.iv_2);
         iv_3 = findViewById(R.id.iv_3);
 
@@ -108,6 +117,7 @@ public class MainActivity extends BaseActivity{
         tv_3 = findViewById(R.id.tv_3);
         drawer = findViewById(R.id.drawer);
         iv_touxiang = findViewById(R.id.iv_touxiang);
+        iv_bianji = findViewById(R.id.iv_bianji);
     }
     @Override
     public void initDate() {
@@ -116,12 +126,10 @@ public class MainActivity extends BaseActivity{
             getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
             iv_1.setImageResource(R.mipmap.one1);
             tv_1.setTextColor(Color.BLACK);
-       /* Glide.with(this).load(R.mipmap.raw_1499936862)
-                .bitmapTransform(new GlideCircleTransform(this,10))
-                .into(iv_touxiang);*/
-
-
-            Glide.with(context).load(R.mipmap.raw_1499936862).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {
+            SpUtils utils=new SpUtils(this,"Login");
+            String icon = utils.getString("icon", "");
+           System.out.println("----icon-------"+icon);
+            Glide.with(context).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =

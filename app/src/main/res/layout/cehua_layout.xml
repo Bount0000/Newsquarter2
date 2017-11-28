@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,6 +12,17 @@
        android:layout_alignParentStart="true"
        android:layout_alignParentTop="true"
        android:background="@mipmap/cehua">
+       <!--<com.facebook.drawee.view.SimpleDraweeView
+           android:id="@+id/iv"
+           android:layout_width="@dimen/x80"
+           android:layout_height="@dimen/y80"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_centerVertical="true"
+           fresco:roundAsCircle="true"
+           android:layout_marginLeft="18dp"
+           android:layout_marginStart="18dp"
+           fresco:placeholderImage="@mipmap/ic_launcher"/>-->
       <ImageView
           android:id="@+id/iv"
           android:layout_width="@dimen/x80"
@@ -29,15 +41,15 @@
           android:layout_marginStart="31dp"
           android:layout_toEndOf="@+id/iv"
           android:layout_toRightOf="@+id/iv"
-          android:text="textView"
-          android:id="@+id/textView2" />
+          android:text="tv_name"
+          android:id="@+id/tv_name" />
 
       <ImageView
           android:layout_width="@dimen/x80"
           android:layout_height="@dimen/y80"
           android:layout_alignParentEnd="true"
           android:layout_alignParentRight="true"
-          android:layout_alignTop="@+id/textView2"
+          android:layout_alignTop="@+id/tv_name"
           android:layout_marginEnd="21dp"
           android:layout_marginRight="21dp"
           android:src="@mipmap/sex" />
@@ -60,7 +72,7 @@
       android:layout_height="wrap_content"
       >
       <ImageView
-          android:id="@+id/iv_1"
+          android:id="@+id/iv_icon"
           android:layout_width="@dimen/x50"
           android:layout_height="@dimen/y50"
           android:src="@mipmap/xin"
@@ -68,7 +80,7 @@
      <TextView
          android:layout_marginLeft="@dimen/x20"
          android:textColor="@color/blackziti"
-         android:layout_toRightOf="@+id/iv_1"
+         android:layout_toRightOf="@+id/iv_icon"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="我的关注"
