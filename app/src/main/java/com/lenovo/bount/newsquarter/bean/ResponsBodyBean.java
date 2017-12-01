@@ -8,4 +8,5 @@ public class ResponsBodyBean<Data> {
     public String msg;
     public String code;
     public Data data;
+
 }

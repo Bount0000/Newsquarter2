@@ -5,6 +5,8 @@ import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.model.PublishJokeModel;
 import com.lenovo.bount.newsquarter.view.PublishJokeView;
 
+import java.util.List;
+
 /**
  * Created by lenovo on 2017/11/28.
  */
@@ -19,9 +21,9 @@ public class PublishJokePresenter extends BasePresenter<PublishJokeView> impleme
         publishJokeModel.setPublishJokeinterface(this);
     }
 
-    public void getpublish(String uid,String content)
+     public void getpublish(String uid,String content,List<String> jokeFiles)
     {
-        publishJokeModel.publishJoke(uid,content);
+        publishJokeModel.publishJoke(uid,content,jokeFiles);
     }
 
     @Override
@@ -31,12 +33,14 @@ public class PublishJokePresenter extends BasePresenter<PublishJokeView> impleme
     }
 
     @Override
-    public void Error() {
-        publishJokeView.Error();
+    public void Error(String msg) {
+        publishJokeView.Error(msg);
     }
 
     @Override
-    public void onFair(Throwable e) {
-        publishJokeView.onFair(e);
+    public void onFair(String msg) {
+        publishJokeView.onFair(msg);
     }
+
+
 }

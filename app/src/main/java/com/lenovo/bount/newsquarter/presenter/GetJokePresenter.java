@@ -19,7 +19,8 @@ public class GetJokePresenter extends BasePresenter<GetJokeView> implements GetJ
         getJokesModel=new GetJokesModel();
         getJokesModel.setGetJokeInterface(this);
     }
-  public void getjoke(String page)
+
+  public void getjoke(int page)
   {
       getJokesModel.getJokes(page);
   }
@@ -27,10 +28,9 @@ public class GetJokePresenter extends BasePresenter<GetJokeView> implements GetJ
     public void Success(GetJokeBean value) {
         getJokeView.Success(value);
     }
-
     @Override
-    public void Error() {
-        getJokeView.Error();
+    public void Error(String msg) {
+        getJokeView.Error(msg);
     }
 
     @Override

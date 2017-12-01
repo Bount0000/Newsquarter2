@@ -7,7 +7,8 @@ import com.lenovo.bount.newsquarter.bean.GetJokeBean;
  */
 
 public interface GetJokeView {
+
     void Success(GetJokeBean value);
-    void Error();
+    void Error(String msg);
     void onFair(Throwable e);
 }

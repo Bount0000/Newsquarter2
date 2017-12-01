@@ -8,6 +8,6 @@ import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 
 public interface PublishJokeView {
     void Success(ResponsBodyBean bodyBean);
-    void Error();
-    void onFair(Throwable e);
+    void Error(String msg);
+    void onFair(String msg);
 }

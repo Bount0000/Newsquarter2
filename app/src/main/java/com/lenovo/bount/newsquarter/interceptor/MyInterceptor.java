@@ -7,9 +7,11 @@ import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.utils.SpUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -55,6 +57,19 @@ public class MyInterceptor implements Interceptor {
                         .addEncoded("appVersion", String.valueOf(versioncode))
                         .build();
                 request=request.newBuilder().post(body).build();
+            }
+            else
+            {
+                MultipartBody body= (MultipartBody) request.body();
+                MultipartBody.Builder builder=new MultipartBody.Builder().setType(MultipartBody.FORM);
+                builder.addFormDataPart("token",token);
+                builder.addFormDataPart("source","android");
+                builder.addFormDataPart("appVersion",String.valueOf(versioncode));
+                List<MultipartBody.Part> parts=body.parts();
+                for (MultipartBody.Part part : parts) {
+                    builder.addPart(part);
+                }
+                request=request.newBuilder().post(builder.build()).build();
             }
             }
        return chain.proceed(request);

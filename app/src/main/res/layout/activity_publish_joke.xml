@@ -61,6 +61,7 @@
         android:id="@+id/ed_fabiao" />
 
     <ImageView
+        android:id="@+id/iv_tupain"
         android:layout_width="@dimen/x150"
         android:layout_height="@dimen/x150"
         android:layout_alignParentLeft="true"
@@ -68,4 +69,10 @@
         android:layout_below="@+id/ed_fabiao"
         android:src="@mipmap/add"
         android:layout_marginLeft="50px"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_below="@+id/iv_tupain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 </RelativeLayout>

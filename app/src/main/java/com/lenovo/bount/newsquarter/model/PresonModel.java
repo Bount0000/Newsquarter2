@@ -1,7 +1,6 @@
 package com.lenovo.bount.newsquarter.model;
 
-import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
-import com.lenovo.bount.newsquarter.bean.Userbean;
+import com.lenovo.bount.newsquarter.bean.Userbean2;
 import com.lenovo.bount.newsquarter.utils.RetrofitUtils;
 
 import io.reactivex.Observer;
@@ -15,43 +14,42 @@ import io.reactivex.schedulers.Schedulers;
 
 public class PresonModel {
 
-    public void getUser(String uid,String token)
+    public void getUser(String uid)
     {new RetrofitUtils.Builder()
                 .addConverterFactory()
                 .addCallAdapterFactory()
-                .builder().getService().getuser(uid,token)
+                .builder().getService().getuser(uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponsBodyBean<Userbean>>() {
+                .subscribe(new Observer<Userbean2>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
-
                     @Override
-                    public void onNext(ResponsBodyBean<Userbean> value) {
-                        if(value.code.equals("0"))
-                        {
-                            personInterface.Success(value);
-                            System.out.println("==model=="+value.msg);
-                        }
-                        else
-                        {
-                            personInterface.Error();
-                            System.out.println("==model=="+value.msg);
-                        }
-
+                    public void onNext(Userbean2 value) {
+                          if("0".equals(value.code))
+                          {
+                              personInterface.Success(value);
+                          }else if("1".equals(value.code))
+                          {
+                              personInterface.Error(value.msg);
+                          }
+                          else if("2".equals(value.code))
+                          {
+                              personInterface.Error(value.msg);
+                          }
+                        System.out.println("====信息====="+value.msg);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        System.out.println("==model=="+e);
                         personInterface.onFair(e);
                     }
 
                     @Override
                     public void onComplete() {
-                        System.out.println("==onComplete==");
+
                     }
                 });
     }
@@ -63,8 +61,8 @@ public class PresonModel {
 
     public interface  PersonInterface
     {
-        void Success(ResponsBodyBean<Userbean> userbean);
-        void Error();
+        void Success(Userbean2 userbean);
+        void Error(String msg);
         void onFair(Throwable e);
     }
 }

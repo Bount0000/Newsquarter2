@@ -4,82 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lenovo.bount.newsquarter.LoginActivity">
+    android:background="@drawable/beijing1"
+    tools:context="com.example.zsd.activity.LoginActivity">
 
-   <ImageView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:src="@drawable/beijing1"
-       android:scaleType="centerCrop"
-       />
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="5dp"
+        android:src="@mipmap/leftjiantou" />
+    <ImageView
+        android:layout_width="@dimen/x160"
+        android:layout_height="@dimen/y160"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:src="@mipmap/raw_1500977101"
+        android:id="@+id/imageView" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout2"
+        android:layout_width="@dimen/x444"
+        android:layout_height="@dimen/y110"
+        android:layout_above="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="145dp">
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/backgroup">
 
-        <LinearLayout
-            android:id="@+id/lt1"
-            android:layout_width="@dimen/x450"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/backgroup"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="@dimen/x100"
-                android:layout_height="@dimen/y80"
-                android:layout_marginLeft="@dimen/x85"
-                android:background="@drawable/backgroup"
-                android:gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/wx" />
 
-            <TextView
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="微信登录"
-                android:textColor="#ffffff" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lt2"
-            android:layout_width="@dimen/x450"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lt1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/y25"
-            android:background="@drawable/qqbackgroup"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/x65"
-                android:layout_height="@dimen/y60"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/x85"
-                android:background="@drawable/backgroup"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/qq" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="QQ登录"
-                android:textColor="#ffffff" />
-        </LinearLayout>
+        <ImageView
+            android:layout_marginTop="@dimen/y10"
+            android:layout_marginLeft="@dimen/x110"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"
+            android:src="@mipmap/wx"/>
 
         <TextView
-            android:id="@+id/other_way"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lt2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/y25"
-            android:text="其他登录方式" />
+            android:layout_height="@dimen/y90"
+            android:layout_marginLeft="@dimen/x190"
+            android:gravity="center"
+            android:text="微信登录"
+            android:textColor="#FFF" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="@dimen/x444"
+        android:layout_height="@dimen/y110"
+        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/relativeLayout2"
+        android:layout_marginBottom="@dimen/y185"
+        android:background="@drawable/qqbackgroup">
+
+        <ImageView
+            android:layout_marginTop="@dimen/y10"
+            android:layout_marginLeft="@dimen/x126"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"
+            android:src="@mipmap/qq"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y90"
+            android:layout_marginLeft="@dimen/x190"
+            android:text="QQ登录"
+            android:textColor="#FFF"
+            android:gravity="center"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/other_way"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y90"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_marginBottom="@dimen/y70"
+        android:gravity="center"
+        android:textColor="@color/colorziti"
+        android:text="其他登录方式" />
 </RelativeLayout>

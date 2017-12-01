@@ -13,7 +13,8 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class GetJokesModel {
-  public void getJokes(String page)
+
+  public void getJokes(int page)
   {
     new RetrofitUtils.Builder().addConverterFactory()
             .addCallAdapterFactory()
@@ -31,18 +32,22 @@ public class GetJokesModel {
                   if(value.code.equals("0"))
                   {
                       getJokeInterface.Success(value);
-                      System.out.println("========"+value.msg);
-                  }else
-                  {
-                      getJokeInterface.Error();
-                      System.out.println("========"+value.msg);
                   }
+                  else if(value.code.equals("1"))
+                {
+                      getJokeInterface.Error(value.msg);
+                 }
+                 else if("2".equals(value.code))
+                  {
+                      getJokeInterface.Error(value.msg);
+                  }
+
                 }
 
                 @Override
                 public void onError(Throwable e) {
                     getJokeInterface.onFair(e);
-                    System.out.println("========"+e);
+
                 }
 
                 @Override
@@ -60,7 +65,7 @@ public class GetJokesModel {
     public interface GetJokeInterface
   {
       void Success(GetJokeBean value);
-      void Error();
+      void Error(String msg);
       void onFair(Throwable e);
   }
 

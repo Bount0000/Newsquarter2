@@ -7,24 +7,13 @@
    <RelativeLayout
        android:id="@+id/rt1"
        android:layout_width="match_parent"
-       android:layout_height="@dimen/y300"
+       android:layout_height="@dimen/y350"
        android:layout_alignParentLeft="true"
        android:layout_alignParentStart="true"
        android:layout_alignParentTop="true"
        android:background="@mipmap/cehua">
-       <!--<com.facebook.drawee.view.SimpleDraweeView
-           android:id="@+id/iv"
-           android:layout_width="@dimen/x80"
-           android:layout_height="@dimen/y80"
-           android:layout_alignParentLeft="true"
-           android:layout_alignParentStart="true"
-           android:layout_centerVertical="true"
-           fresco:roundAsCircle="true"
-           android:layout_marginLeft="18dp"
-           android:layout_marginStart="18dp"
-           fresco:placeholderImage="@mipmap/ic_launcher"/>-->
       <ImageView
-          android:id="@+id/iv"
+          android:id="@+id/iv_tou"
           android:layout_width="@dimen/x80"
           android:layout_height="@dimen/y80"
           android:layout_alignParentLeft="true"
@@ -36,11 +25,11 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_alignTop="@+id/iv"
+          android:layout_alignTop="@+id/iv_tou"
           android:layout_marginLeft="31dp"
           android:layout_marginStart="31dp"
-          android:layout_toEndOf="@+id/iv"
-          android:layout_toRightOf="@+id/iv"
+          android:layout_toEndOf="@+id/iv_tou"
+          android:layout_toRightOf="@+id/iv_tou"
           android:text="tv_name"
           android:id="@+id/tv_name" />
 
@@ -54,15 +43,17 @@
           android:layout_marginRight="21dp"
           android:src="@mipmap/sex" />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignLeft="@+id/iv"
-          android:layout_alignParentBottom="true"
-          android:layout_alignStart="@+id/iv"
-          android:layout_marginBottom="28dp"
-          android:text="编辑个性签名"
-          android:textColor="#ffffff" />
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_alignParentLeft="true"
+           android:layout_alignParentStart="true"
+           android:layout_marginBottom="8dp"
+           android:layout_marginLeft="9dp"
+           android:layout_marginStart="9dp"
+           android:text="编辑个性签名"
+           android:textColor="#ffffff" />
    </RelativeLayout>
   <RelativeLayout
       android:padding="10dp"

@@ -32,14 +32,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Qidong2Activity">
+        <activity android:name=".activitybao.Qidong2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activitybao.MainActivity" />
         <!-- <activity android:name=".Qidong2Activity"></activity> -->
         <service
             android:name=".DemoPushService"
@@ -49,14 +49,18 @@
         <service android:name=".DemoIntentService" />
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".activitybao.LoginActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Login2Activity"
+            android:name=".activitybao.Login2Activity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".BianjiActivity" />
-        <activity android:name=".PublishJokeActivity"></activity>
+        <activity android:name=".activitybao.RegisterActivity" />
+        <activity android:name=".activitybao.BianjiActivity" />
+        <activity android:name=".activitybao.PublishJokeActivity" />
+        <activity android:name=".activitybao.ShezhiActivity" />
+        <activity android:name=".activitybao.Activity" />
+        <activity android:name=".Activity" />
+        <activity android:name=".activitybao.UserActivity"></activity>
     </application>
 
 </manifest>

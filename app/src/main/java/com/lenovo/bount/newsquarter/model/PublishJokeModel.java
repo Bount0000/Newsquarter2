@@ -3,22 +3,37 @@ package com.lenovo.bount.newsquarter.model;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.utils.RetrofitUtils;
 
+import java.io.File;
+import java.util.List;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by lenovo on 2017/11/28.
  */
 
 public class PublishJokeModel {
-    public void publishJoke(String uid,String content)
+    public void publishJoke(String uid, String content, List<String> jokeFiles)
     {
+        MultipartBody.Builder builder=new MultipartBody.Builder().setType(MultipartBody.FORM);
+        builder.addFormDataPart("uid",uid);
+        builder.addFormDataPart("content",content);
+        for (int i = 0; i <jokeFiles.size() ; i++) {
+            File file=new File(jokeFiles.get(i));
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
+            builder.addFormDataPart("jokeFiles",file.getName(),requestBody);
+        }
+          List<MultipartBody.Part> parts=builder.build().parts();
           new RetrofitUtils.Builder().addConverterFactory()
                   .addCallAdapterFactory()
                   .builder()
-                  .getService().getpublishJoke(uid,content)
+                  .getService().getpublishJoke(parts)
                   .subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
                   .subscribe(new Observer<ResponsBodyBean>() {
@@ -31,16 +46,19 @@ public class PublishJokeModel {
                        if(value.code.equals("0"))
                        {
                            publishJokeinterface.Success(value);
-                           System.out.println("===段子====="+value.msg);
-                       }else
+
+                       }
+                       else if(value.code.equals("1"))
                        {
-                           publishJokeinterface.Error();
-                           System.out.println("===段子====="+value.msg);
+                           publishJokeinterface.Error(value.msg);
+                       }
+                       else
+                       {
+                           publishJokeinterface.onFair(value.msg);
                        }
                       }
                       @Override
                       public void onError(Throwable e) {
-                          publishJokeinterface.onFair(e);
                       }
 
                       @Override
@@ -58,8 +76,8 @@ public class PublishJokeModel {
     public interface publishJokeinterface
     {
         void Success(ResponsBodyBean bodyBean);
-        void Error();
-        void onFair(Throwable e);
+        void Error(String msg);
+        void onFair(String msg);
     }
 
 

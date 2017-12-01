@@ -1,8 +1,7 @@
 package com.lenovo.bount.newsquarter.presenter;
 
 import com.lenovo.bount.newsquarter.base.BasePresenter;
-import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
-import com.lenovo.bount.newsquarter.bean.Userbean;
+import com.lenovo.bount.newsquarter.bean.Userbean2;
 import com.lenovo.bount.newsquarter.model.PresonModel;
 import com.lenovo.bount.newsquarter.view.PresonView;
 
@@ -19,20 +18,21 @@ public class PresonPresenter extends BasePresenter<PresonView> implements Preson
         presonModel=new PresonModel();
         presonModel.setPersonInterface(this);
     }
-    public void getuser(String uid,String token)
+    public void getuser(String uid)
     {
-        presonModel.getUser(uid,token);
+        presonModel.getUser(uid);
     }
 
     @Override
-    public void Success(ResponsBodyBean<Userbean> userbean) {
+    public void Success(Userbean2 userbean) {
         presenterView.Success(userbean);
     }
 
     @Override
-    public void Error() {
-        presenterView.Error();
+    public void Error(String msg) {
+        presenterView.Error(msg);
     }
+
 
     @Override
     public void onFair(Throwable e) {

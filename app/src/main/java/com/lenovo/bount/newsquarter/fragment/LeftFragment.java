@@ -1,5 +1,6 @@
 package com.lenovo.bount.newsquarter.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,8 +18,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.lenovo.bount.newsquarter.R;
-import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
-import com.lenovo.bount.newsquarter.bean.Userbean;
+import com.lenovo.bount.newsquarter.activitybao.ShezhiActivity;
+import com.lenovo.bount.newsquarter.activitybao.UserActivity;
+import com.lenovo.bount.newsquarter.bean.Userbean2;
 import com.lenovo.bount.newsquarter.presenter.PresonPresenter;
 import com.lenovo.bount.newsquarter.utils.SpUtils;
 import com.lenovo.bount.newsquarter.view.PresonView;
@@ -29,10 +31,12 @@ import static com.lenovo.bount.newsquarter.App.context;
  * Created by lenovo on 2017/11/23.
  */
 
-public class LeftFragment extends Fragment implements PresonView {
+public class LeftFragment extends Fragment implements PresonView,View.OnClickListener{
 
     private ImageView iv;
     private TextView tv_name;
+    private ImageView iv_7;
+    private ImageView iv_tou;
 
     @Nullable
     @Override
@@ -50,20 +54,28 @@ public class LeftFragment extends Fragment implements PresonView {
     private void initData() {
         SpUtils utils=new SpUtils(getContext(),"Login");
         String uid=utils.getString("uid", "");
-        String token = utils.getString("token", "");
-        System.out.println("==sptoken=="+token);
+        final String token = utils.getString("token", "");
+        System.out.println("==信息token=="+token);
         PresonPresenter presonPresenter=new PresonPresenter(this);
-        presonPresenter.getuser(uid,token);
+        presonPresenter.getuser(uid);
+        iv_7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               startActivity(new Intent(getContext(), ShezhiActivity.class));
+            }
+        });
     }
 
     private void initView() {
-        iv = getView().findViewById(R.id.iv);
+        iv = getView().findViewById(R.id.iv_tou);
         tv_name = getView().findViewById(R.id.tv_name);
+        iv_7 = getView().findViewById(R.id.iv_7);
+        iv_tou = getView().findViewById(R.id.iv_tou);
+        iv_tou.setOnClickListener(this);
     }
-
     @Override
-    public void Success(ResponsBodyBean<Userbean> userbean) {
-        Toast.makeText(getContext(), userbean.msg, Toast.LENGTH_SHORT).show();
+    public void Success(Userbean2 userbean) {
+        Toast.makeText(getContext(),userbean.msg, Toast.LENGTH_SHORT).show();
         String icon = userbean.data.icon;
         String username = userbean.data.username;
         System.out.println("==username=="+username);
@@ -80,12 +92,21 @@ public class LeftFragment extends Fragment implements PresonView {
     }
 
     @Override
-    public void Error() {
-        Toast.makeText(getContext(), "失败", Toast.LENGTH_SHORT).show();
+    public void Error(String msg) {
+        Toast.makeText(getContext(),msg, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onFair(Throwable e) {
+        Toast.makeText(getContext(),e.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onFair(Throwable e) {
-        Toast.makeText(getContext(),"失败", Toast.LENGTH_SHORT).show();
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.iv_tou:
+               startActivity(new Intent(getContext(),UserActivity.class));
+                break;
+        }
     }
 }
