@@ -24,7 +24,7 @@ public class PublishJokeModel {
         MultipartBody.Builder builder=new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("uid",uid);
         builder.addFormDataPart("content",content);
-        for (int i = 0; i <jokeFiles.size() ; i++) {
+        for (int i = 0; i <jokeFiles.size(); i++) {
             File file=new File(jokeFiles.get(i));
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"),file);
             builder.addFormDataPart("jokeFiles",file.getName(),requestBody);
@@ -79,7 +79,4 @@ public class PublishJokeModel {
         void Error(String msg);
         void onFair(String msg);
     }
-
-
-
-}
+   }

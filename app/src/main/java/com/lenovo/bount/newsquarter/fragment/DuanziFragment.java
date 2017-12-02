@@ -68,7 +68,10 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
 
     @Override
     public void Success(GetJokeBean value) {
-        Toast.makeText(getContext(),value.msg,Toast.LENGTH_SHORT).show();
+        if(getView()!=null)
+        {
+            Toast.makeText(getContext(),value.msg,Toast.LENGTH_SHORT).show();
+        }
         list.addAll(value.data);
         if(adapter==null)
         {
@@ -108,13 +111,11 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
     public void onFair(Throwable e) {
         Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
            case R.id.iv_bianji:
-
                 break;
         }
     }

@@ -48,9 +48,9 @@ public class ShipinFragment extends Fragment {
 
     private void initData() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new GuanzhuFragment());
+        fragmentList.add(new SpRemenFragment());
         fragmentList.add(new ReMenFragment());
-        MyAdapter adapter = new MyAdapter(getFragmentManager());
+        MyAdapter adapter = new MyAdapter(getChildFragmentManager());
         vp.setAdapter(adapter);
         tab.setupWithViewPager(vp);
         tab.post(new Runnable() {
@@ -96,7 +96,7 @@ public class ShipinFragment extends Fragment {
     }
     class MyAdapter extends FragmentPagerAdapter
     {
-        private String[] title={"热门","热门"};
+        private String[] title={"热门","附近"};
 
         public MyAdapter(FragmentManager fm) {
             super(fm);

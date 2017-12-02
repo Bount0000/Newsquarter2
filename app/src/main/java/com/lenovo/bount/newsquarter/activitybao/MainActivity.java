@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity{
             getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
             iv_1.setImageResource(R.mipmap.one1);
             tv_1.setTextColor(Color.BLACK);
-            SpUtils utils=new SpUtils(this,"Login");
+            SpUtils utils=new SpUtils(this,"Chuan");
             String icon = utils.getString("icon", "");
            System.out.println("----icon-------"+icon);
             Glide.with(context).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {

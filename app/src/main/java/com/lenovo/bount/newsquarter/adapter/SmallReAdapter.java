@@ -26,6 +26,7 @@ public class SmallReAdapter extends RecyclerView.Adapter<SmallReAdapter.MyHolder
     public SmallReAdapter(Context context, List<String> list2) {
         this.context = context;
         this.list2 = list2;
+
     }
 
     @Override
@@ -35,12 +36,22 @@ public class SmallReAdapter extends RecyclerView.Adapter<SmallReAdapter.MyHolder
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, int position) {
-
-       Glide.with(context).load(list2.get(position)).into(holder.small_iv);
-        System.out.println("===图片====="+list2.get(position));
-
-
+    public void onBindViewHolder(MyHolder holder, int position){
+       if(list2.size()==1)
+       {
+         holder.small_iv.setVisibility(View.VISIBLE);
+         Glide.with(context).load(list2.get(position)).into(holder.small_iv);
+       }
+       else if(list2.size()==2)
+       {
+           holder.small_iv2.setVisibility(View.VISIBLE);
+           Glide.with(context).load(list2.get(position)).into(holder.small_iv2);
+       }
+       else
+       {
+           holder.small_iv3.setVisibility(View.VISIBLE);
+           Glide.with(context).load(list2.get(position)).into(holder.small_iv3);
+       }
     }
     @Override
     public int getItemCount() {
@@ -50,9 +61,13 @@ public class SmallReAdapter extends RecyclerView.Adapter<SmallReAdapter.MyHolder
     class MyHolder extends RecyclerView.ViewHolder
     {
         private final ImageView small_iv;
+        private final ImageView small_iv2;
+        private final ImageView small_iv3;
         public MyHolder(View itemView) {
             super(itemView);
             small_iv = itemView.findViewById(R.id.small_iv);
+            small_iv2 = itemView.findViewById(R.id.small_iv2);
+            small_iv3 = itemView.findViewById(R.id.small_iv3);
         }
     }
 }

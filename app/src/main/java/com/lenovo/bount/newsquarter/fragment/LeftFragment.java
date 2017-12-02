@@ -37,6 +37,8 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
     private TextView tv_name;
     private ImageView iv_7;
     private ImageView iv_tou;
+    private String icon;
+    private String nickname;
 
     @Nullable
     @Override
@@ -50,7 +52,6 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         initView();
         initData();
     }
-
     private void initData() {
         SpUtils utils=new SpUtils(getContext(),"Login");
         String uid=utils.getString("uid", "");
@@ -76,9 +77,11 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
     @Override
     public void Success(Userbean2 userbean) {
         Toast.makeText(getContext(),userbean.msg, Toast.LENGTH_SHORT).show();
-        String icon = userbean.data.icon;
+        icon = userbean.data.icon;
         String username = userbean.data.username;
-        System.out.println("==username=="+username);
+        nickname = userbean.data.nickname;
+        SpUtils utils=new SpUtils(getContext(),"Chuan");
+        utils.putString("icon", icon);
         Glide.with(context).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -89,6 +92,8 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
             }
         });
         tv_name.setText(username);
+
+
     }
 
     @Override
@@ -105,7 +110,11 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         switch (view.getId())
         {
             case R.id.iv_tou:
-               startActivity(new Intent(getContext(),UserActivity.class));
+                Intent intent=new Intent(getContext(),UserActivity.class);
+                intent.putExtra("icon",icon);
+                System.out.println("----------"+icon);
+                intent.putExtra("nickname",nickname);
+                startActivity(intent);
                 break;
         }
     }

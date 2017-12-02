@@ -53,12 +53,20 @@ public interface InterfaceService {
     @GET("quarter/getAd")
     Observable<Guangao> getAd();
     //上传头像
-    //发布段子
     @POST("file/upload")
     @Multipart
-    Observable<ResponsBodyBean> getupload(@Part("uid") String uid,@Part("file") String file);
+    Observable<ResponsBodyBean> getchange(@Part List<MultipartBody.Part> file);
     //修改昵称
     @POST("user/updateNickName")
     @FormUrlEncoded
     Observable<ResponsBodyBean> getnick(@Field("uid") String uid,@Field("nickname") String nickname);
+    //关注
+    @POST("quarter/follow")
+    @FormUrlEncoded
+    Observable<ResponsBodyBean> getfollow(@FieldMap Map<String,String> map);
+
+    //获取关注用户列表
+    @POST("quarter/getFollowUsers")
+    @FormUrlEncoded
+    Observable<ResponsBodyBean> getfollowlist(@Field("uid") String uid);
 }
