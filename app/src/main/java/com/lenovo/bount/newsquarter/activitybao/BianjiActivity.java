@@ -31,17 +31,20 @@ public class BianjiActivity extends BaseActivity {
    switch (view.getId())
    {
        case R.id.iv_duanzi:
-           startActivity(PublishJokeActivity.class);
+       startActivity(PublishJokeActivity.class);
+       finish();
+       break;
+       case R.id.iv_shiping:
+           startActivity(ShipinActivity.class);
            finish();
            break;
     }
     }
-
     @Override
     public void initView() {
         setshowActionBar(false);
-        iv_shiping = (ImageView) findViewById(R.id.iv_shiping);
-        iv_duanzi = (ImageView) findViewById(R.id.iv_duanzi);
+        iv_shiping =findViewById(R.id.iv_shiping);
+        iv_duanzi =findViewById(R.id.iv_duanzi);
     }
 
     @Override

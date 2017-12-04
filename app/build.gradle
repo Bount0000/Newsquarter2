@@ -2,11 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 26
+
     defaultConfig {
         applicationId "com.lenovo.bount.newsquarter"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
@@ -14,10 +16,6 @@ android {
                 GETUI_APP_KEY   : "LN1cFjak6m7ZsjrYyfEF0A",
                 GETUI_APP_SECRET: "DspXbRuQ3H9bgcH1BVqgk7"
         ]
-        ndk {
-            // 设置支持的SO库架构
-            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
 
 
     }
@@ -28,7 +26,6 @@ android {
         }
     }
 }
-
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -64,4 +61,28 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.jakewharton:butterknife:8.7.0'
     implementation 'de.greenrobot:eventbus:3.0.0-beta1'
+
+    //3D地图so及jar
+    compile 'com.amap.api:3dmap:latest.integration'
+    //定位功能
+    compile 'com.amap.api:location:latest.integration'
+    //搜索功能
+    compile 'com.amap.api:search:latest.integration'
+    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
+
+    compile 'com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.6'
+//对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.6.0'
+    compile 'com.dou361.ijkplayer-armv7a:jjdxm-ijkplayer-armv7a:1.0.0'
+   //对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.6.0'
+    compile 'com.dou361.ijkplayer-armv5:jjdxm-ijkplayer-armv5:1.0.0'
+   //对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.6.0'
+    compile 'com.dou361.ijkplayer-arm64:jjdxm-ijkplayer-arm64:1.0.0'
+   //对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.6.0'
+    compile 'com.dou361.ijkplayer-x86:jjdxm-ijkplayer-x86:1.0.0'
+  //对应 ijkplayer 的  compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.6.0'
+    compile 'com.dou361.ijkplayer-x86_64:jjdxm-ijkplayer-x86_64:1.0.0'
+
+
+
+
 }

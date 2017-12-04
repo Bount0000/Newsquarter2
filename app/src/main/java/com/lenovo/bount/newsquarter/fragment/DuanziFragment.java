@@ -83,7 +83,7 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
           adapter.notifyDataSetChanged();
         }
 
-        rv.setLoadingListener(new XRecyclerView.LoadingListener() {
+        rv.setLoadingListener(new XRecyclerView.LoadingListener(){
             @Override
             public void onRefresh() {
                 list.clear();
@@ -119,6 +119,4 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
                 break;
         }
     }
-
- 
 }

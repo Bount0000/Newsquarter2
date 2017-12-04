@@ -30,9 +30,12 @@ public class RetrofitUtils {
         OkHttpClient okbuilder = new OkHttpClient.Builder()
                 .addInterceptor(new MyInterceptor()).build();
         Retrofit.Builder builder=new Retrofit.Builder().client(okbuilder).baseUrl(Api_Url);
+        private InterfaceService service;
+
         public Builder addCallAdapterFactory()
         {
             builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+
             return this;
         }
         public Builder addConverterFactory()
@@ -42,7 +45,7 @@ public class RetrofitUtils {
         }
         public SpUtils.RetrofitUtils builder()
         {
-            InterfaceService service=builder.build().create(InterfaceService.class);
+            service = builder.build().create(InterfaceService.class);
             retrofitUtils=new SpUtils.RetrofitUtils(service);
             return retrofitUtils;
         }

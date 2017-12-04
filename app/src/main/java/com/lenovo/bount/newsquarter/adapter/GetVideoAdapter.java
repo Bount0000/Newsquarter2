@@ -3,32 +3,34 @@ package com.lenovo.bount.newsquarter.adapter;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.dou361.ijkplayer.widget.PlayStateParams;
+import com.dou361.ijkplayer.widget.PlayerView;
 import com.lenovo.bount.newsquarter.R;
-import com.lenovo.bount.newsquarter.bean.GetJokeBean;
+import com.lenovo.bount.newsquarter.bean.GetVideoBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lenovo on 2017/11/29.
  */
 
-public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> {
+public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHolder> {
     private int a=0;
     private ObjectAnimator animator;
     private ObjectAnimator fanimator;
@@ -39,20 +41,17 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
     private ObjectAnimator animator3;
     private ObjectAnimator fanimator3;
     private Context context;
-    private List<GetJokeBean.DataBean> list;
-    private SmallReAdapter adapter;
-    private GridLayoutManager manager;
-    private String[] split;
+    List<GetVideoBean>  getVideolist;
+    private View view3;
 
-    public DuanziAdapter(Context context,List<GetJokeBean.DataBean> list) {
+    public GetVideoAdapter(Context context, List<GetVideoBean> getVideolist) {
         this.context = context;
-        this.list = list;
+        this.getVideolist = getVideolist;
     }
-
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view=View.inflate(context, R.layout.duanzi_item,null);
+        View view=View.inflate(context, R.layout.getvedio_item,null);
         return new MyHolder(view);
     }
     @Override
@@ -64,10 +63,10 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
                   Toast.makeText(context, "点击", Toast.LENGTH_SHORT).show();
               }
           });
-          holder.tv_time.setText(list.get(position).createTime);
-          holder.tv_name.setText(list.get(position).user.nickname);
-          holder.tv_cotent.setText(list.get(position).content);
-        Glide.with(context).load(list.get(position).user.icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
+          holder.tv_time.setText(getVideolist.get(position).getCreateTime());
+          holder.tv_name.setText(getVideolist.get(position).getNickname());
+
+        Glide.with(context).load(getVideolist.get(position).getIcon()).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -77,6 +76,18 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
             }
         });
 
+        view3 = View.inflate(context, R.layout.simple_player_view_player,holder.rt_video);
+        String videoUrl = getVideolist.get(position).getVideoUrl();
+        String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
+        PlayerView playerView=new PlayerView((Activity) context,view3);
+        playerView.setTitle("视屏");
+        playerView.setScaleType(PlayStateParams.fitparent);
+        playerView.hideMenu(true);
+        playerView.forbidTouch(false);
+        playerView.setPlaySource(replace);
+        playerView.startPlay();
+
+        Glide.with(context).load(getVideolist.get(position).getCover()).into((holder.iv_fengmian));
         //-----伸出时的动画
         animator = ObjectAnimator.ofFloat(holder.iv_1, "rotation", 0f, 180f);
         animator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", 0f,-80f);
@@ -164,57 +175,11 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
               }
           }
       });
-
-        String imgUrls = list.get(position).imgUrls;
-        if(imgUrls!=null)
-        {      //小RecycleView
-          List<String> list2=new ArrayList<>();
-            split =imgUrls.split("\\|");
-            for (int i = 0; i < split.length; i++) {
-                list2.add(split[i]);
-            }
-            if(list2.size()==2||list2.size()==4)
-            {
-                manager = new GridLayoutManager(context,2);
-                holder.rv_2.setLayoutManager(manager);
-            }
-            else if(list2.size()==1)
-            {
-                manager = new GridLayoutManager(context,1);
-                holder.rv_2.setLayoutManager(manager);
-            }
-            else
-            {
-                manager = new GridLayoutManager(context,3);
-                holder.rv_2.setLayoutManager(manager);
-            }
-            System.out.println("====图片1===="+list2.size());
-
-            adapter = new SmallReAdapter(context,list2);
-            holder.rv_2.setAdapter(adapter);
-          /*if(split[position].length()==1)
-            {
-                adapter = new SmallReAdapter(context,split);
-                manager = new GridLayoutManager(context,1);
-            }
-            else if(split[position].length()==2)
-            {
-                 adapter=new SmallReAdapter(context,split);
-                 manager=new GridLayoutManager(context,2);
-            }
-            else
-            {
-                 adapter=new SmallReAdapter(context,split);
-                 manager=new GridLayoutManager(context,3);
-            }*/
-
-
-        }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return getVideolist.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder
@@ -232,6 +197,8 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
         private final TextView tv2;
         private final TextView tv3;
         private final RecyclerView rv_2;
+        private final ImageView iv_fengmian;
+        private final RelativeLayout rt_video;
 
         public MyHolder(View itemView) {
             super(itemView);
@@ -239,6 +206,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_cotent = itemView.findViewById(R.id.tv_cotent);
+            iv_fengmian = itemView.findViewById(R.id.iv_fengmian);
             iv_1 = itemView.findViewById(R.id.iv_1);
             iv_animation1 = itemView.findViewById(R.id.iv_animation1);
             iv_animation2 = itemView.findViewById(R.id.iv_animation2);
@@ -247,6 +215,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
             tv2 = itemView.findViewById(R.id.tv2);
             tv3 = itemView.findViewById(R.id.tv3);
             rv_2 = itemView.findViewById(R.id.rv_2);
+            rt_video = itemView.findViewById(R.id.rt_video);
         }
     }
 }

@@ -49,8 +49,8 @@ public class TuijianFragment extends Fragment {
 
     private void initData() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new GuanzhuFragment());
         fragmentList.add(new ReMenFragment());
+        fragmentList.add(new Guanzhu2Fragment());
 
         adapter = new MyAdapter(getChildFragmentManager());
         vp.setAdapter(adapter);
@@ -98,7 +98,7 @@ public class TuijianFragment extends Fragment {
     }
     class MyAdapter extends FragmentPagerAdapter
     {
-        private String[] title={"关注","热门"};
+        private String[] title={"热门","关注"};
 
         public MyAdapter(FragmentManager fm) {
             super(fm);

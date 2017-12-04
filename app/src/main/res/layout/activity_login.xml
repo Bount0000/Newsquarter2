@@ -37,6 +37,7 @@
 
 
         <ImageView
+            android:id="@+id/iv_map"
             android:layout_marginTop="@dimen/y10"
             android:layout_marginLeft="@dimen/x110"
             android:layout_width="@dimen/x60"

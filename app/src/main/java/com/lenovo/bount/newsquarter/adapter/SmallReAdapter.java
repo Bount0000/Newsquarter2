@@ -39,8 +39,8 @@ public class SmallReAdapter extends RecyclerView.Adapter<SmallReAdapter.MyHolder
     public void onBindViewHolder(MyHolder holder, int position){
        if(list2.size()==1)
        {
-         holder.small_iv.setVisibility(View.VISIBLE);
-         Glide.with(context).load(list2.get(position)).into(holder.small_iv);
+         holder.small_iv3.setVisibility(View.VISIBLE);
+         Glide.with(context).load(list2.get(position)).into(holder.small_iv3);
        }
        else if(list2.size()==2)
        {
@@ -49,8 +49,8 @@ public class SmallReAdapter extends RecyclerView.Adapter<SmallReAdapter.MyHolder
        }
        else
        {
-           holder.small_iv3.setVisibility(View.VISIBLE);
-           Glide.with(context).load(list2.get(position)).into(holder.small_iv3);
+           holder.small_iv.setVisibility(View.VISIBLE);
+           Glide.with(context).load(list2.get(position)).into(holder.small_iv);
        }
     }
     @Override

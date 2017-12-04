@@ -49,7 +49,7 @@ public class ShipinFragment extends Fragment {
     private void initData() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new SpRemenFragment());
-        fragmentList.add(new ReMenFragment());
+        fragmentList.add(new Guanzhu2Fragment());
         MyAdapter adapter = new MyAdapter(getChildFragmentManager());
         vp.setAdapter(adapter);
         tab.setupWithViewPager(vp);

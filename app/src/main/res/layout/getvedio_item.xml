@@ -19,16 +19,6 @@
             android:src="@mipmap/ic_launcher"
             />
 
-
-        <!-- <com.facebook.drawee.view.SimpleDraweeView
-             android:id="@+id/iv"
-             fresco:roundAsCircle="true"
-             android:layout_width="@dimen/x41"
-             android:layout_height="@dimen/y41"
-             android:padding="@dimen/x5"
-             app:placeholderImage="@drawable/head"
-             android:layout_marginTop="@dimen/y20"
-             />-->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,26 +138,20 @@
             />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_cotent"
+    <ImageView
+        android:id="@+id/iv_fengmian"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/y300"
         android:layout_below="@+id/relativeLayout1"
         android:layout_marginLeft="@dimen/x15"
         android:lines="6"
         android:ellipsize="end"
+        android:scaleType="fitCenter"
         />
-    <View
+    <RelativeLayout
+        android:id="@+id/rt_video"
+        android:layout_below="@+id/iv_fengmian"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x1"
-        android:background="#EDEBED"
-        android:layout_below="@+id/tv"
-        />
-    <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/tv_cotent"
-        android:id="@+id/rv_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="180dp"/>
 
 </RelativeLayout>

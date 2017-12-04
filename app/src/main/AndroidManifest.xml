@@ -24,6 +24,14 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- //高德地图 -->
+    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -40,7 +48,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitybao.MainActivity" />
-        <!-- <activity android:name=".Qidong2Activity"></activity> -->
+
         <service
             android:name=".DemoPushService"
             android:exported="true"
@@ -59,8 +67,16 @@
         <activity android:name=".activitybao.PublishJokeActivity" />
         <activity android:name=".activitybao.ShezhiActivity" />
         <activity android:name=".activitybao.Activity" />
-        <activity android:name=".Activity" />
-        <activity android:name=".activitybao.UserActivity"></activity>
+        <activity android:name=".activitybao.UserActivity" />
+        <activity android:name=".GaodeMapActivity" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="eab5d80b8e0c0dc2eb5332a86bf4a6fa"></meta-data>
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name=".activitybao.ShipinActivity"></activity>
     </application>
 
 </manifest>

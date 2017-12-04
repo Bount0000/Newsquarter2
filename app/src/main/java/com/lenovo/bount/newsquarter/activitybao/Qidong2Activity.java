@@ -47,8 +47,6 @@ public class Qidong2Activity extends BaseActivity {
 
                 startActivity(new Intent(Qidong2Activity.this,LoginActivity.class));
                  finish();
-              /*  Intent intent=new Intent(Qidong2Activity.this,MainActivity.class);
-                startActivity(intent);*/
             }
         };
         timer.schedule(timerTask,3000);

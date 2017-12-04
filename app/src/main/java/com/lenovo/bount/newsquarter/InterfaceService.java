@@ -2,6 +2,7 @@ package com.lenovo.bount.newsquarter;
 
 import com.lenovo.bount.newsquarter.bean.BanbenUpdate;
 import com.lenovo.bount.newsquarter.bean.GetJokeBean;
+import com.lenovo.bount.newsquarter.bean.GetVideos;
 import com.lenovo.bount.newsquarter.bean.Guangao;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.bean.Userbean;
@@ -69,4 +70,12 @@ public interface InterfaceService {
     @POST("quarter/getFollowUsers")
     @FormUrlEncoded
     Observable<ResponsBodyBean> getfollowlist(@Field("uid") String uid);
+    //获取视频作品列表
+    @POST("quarter/getVideos")
+    @FormUrlEncoded
+    Observable<GetVideos> getVideos(@Field("uid") String uid,@Field("type") String type,@Field("page") int page );
+    //发布视频作品
+    @POST("quarter/publishVideo")
+    @Multipart
+    Observable<ResponsBodyBean> getpublishVideos(@Part  List<MultipartBody.Part> videoFile,@Part List<MultipartBody.Part> coverFile);
 }
