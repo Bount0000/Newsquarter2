@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.adapter.GetVideoAdapter;
 import com.lenovo.bount.newsquarter.bean.GetVideoBean;
@@ -69,7 +70,6 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
         xrecycleview.addHeaderView(view);
         //xrecycleview.setPullRefreshEnabled(true);
         //xrecycleview.setLoadingMoreEnabled(true);
-
     }
     @Override
     public void loadBanner(XBanner banner, View view, int position) {
@@ -86,7 +86,6 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
         super.onStop();
         banner_1.stopAutoPlay();
     }
-
     @Override
     public void Success(Guangao value) {
         imgesUrl = new ArrayList<>();
@@ -116,7 +115,7 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
         List<GetVideoBean>  getVideolist=new ArrayList();
         final List<GetVideoBean> list=new ArrayList<>();
         list.addAll(getVideolist);
-        Toast.makeText(getContext(), value.msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(App.context, value.msg, Toast.LENGTH_SHORT).show();
         List<GetVideos.DataBean> data = value.data;
         for (int i = 0; i <data.size() ; i++) {
             GetVideos.DataBean dataBean = data.get(i);
@@ -160,14 +159,15 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
                 xrecycleview.loadMoreComplete();
             }
         });*/
-    }
+          }
     @Override
-    public void GetVideoError(String msg) {
-        Toast.makeText(getContext(),msg, Toast.LENGTH_SHORT).show();
+    public void GetVideoError(String msg){
+        Toast.makeText(App.context,msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void GetVideoOnFair(Throwable e) {
-        Toast.makeText(getContext(),e.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(App.context,e.toString(), Toast.LENGTH_SHORT).show();
     }
 }
+

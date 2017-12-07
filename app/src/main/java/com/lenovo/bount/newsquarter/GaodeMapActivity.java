@@ -43,16 +43,12 @@ public class GaodeMapActivity extends  AppCompatActivity implements LocationSour
 
         String sha1 = getSHA1(this);
         System.out.println("================ " + sha1);
-
         tv = findViewById(R.id.tv);
-        mMapView = findViewById(R.id.map);
         //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
         mMapView.onCreate(savedInstanceState);
         if (aMap == null) {
             aMap = mMapView.getMap();
-
         }
-
         //设置地图的放缩级别
         aMap.moveCamera(CameraUpdateFactory.zoomTo(12));
         // 设置定位监听
@@ -88,6 +84,9 @@ public class GaodeMapActivity extends  AppCompatActivity implements LocationSour
 
                 tv.setText("纬度"+latitude+"经度"+longitude);
             }
+
+
+
         });
 
     }

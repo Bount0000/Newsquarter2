@@ -44,7 +44,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context)
                 .load(result.get(position))
-                .centerCrop()
                 .into(holder.image);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.lenovo.bount.newsquarter.activitybao;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -9,39 +10,30 @@ import com.lenovo.bount.newsquarter.base.BasePresenter;
 
 import java.util.List;
 
-public class BianjiActivity extends BaseActivity {
+public class GuanzhuActivity extends BaseActivity {
 
 
-    private ImageView iv_shiping;
-    private ImageView iv_duanzi;
+    private ImageView iv_gutx;
 
     @Override
     public int bindLayout() {
-        return R.layout.activity_bianji;
+        return R.layout.activity_guanzhu;
     }
 
     @Override
     public void setLister() {
-        iv_duanzi.setOnClickListener(this);
-        iv_shiping.setOnClickListener(this);
+
     }
+
     @Override
     public void Click(View view) {
-    switch (view.getId())
-    {
-       case R.id.iv_duanzi:
-       startActivity(PublishJokeActivity.class);
-       break;
-       case R.id.iv_shiping:
-           startActivity(ShipinActivity.class);
-           break;
+
     }
-    }
+
     @Override
     public void initView() {
-        setshowActionBar(false);
-        iv_shiping =findViewById(R.id.iv_shiping);
-        iv_duanzi =findViewById(R.id.iv_duanzi);
+        iv_gutx = findViewById(R.id.iv_gutx);
+        iv_gutx.setImageURI(Uri.parse("http://img2.imgtn.bdimg.com/it/u=3835035961,1164635843&fm=27&gp=0.jpg"));
     }
 
     @Override

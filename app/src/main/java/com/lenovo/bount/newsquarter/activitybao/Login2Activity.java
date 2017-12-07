@@ -97,7 +97,7 @@ public class Login2Activity extends BaseActivity implements LoginView{
         utils.putString("uid",uid);
         utils.putString("token",token);
         utils.putString("icon",icon);
-        System.out.println("====put======="+icon);
+        System.out.println("====login======="+uid);
     }
     @Override
     public void Error() {

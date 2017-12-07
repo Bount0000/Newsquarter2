@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.activitybao.ShezhiActivity;
 import com.lenovo.bount.newsquarter.activitybao.UserActivity;
@@ -24,8 +25,6 @@ import com.lenovo.bount.newsquarter.bean.Userbean2;
 import com.lenovo.bount.newsquarter.presenter.PresonPresenter;
 import com.lenovo.bount.newsquarter.utils.SpUtils;
 import com.lenovo.bount.newsquarter.view.PresonView;
-
-import static com.lenovo.bount.newsquarter.App.context;
 
 /**
  * Created by lenovo on 2017/11/23.
@@ -73,6 +72,7 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         iv_7 = getView().findViewById(R.id.iv_7);
         iv_tou = getView().findViewById(R.id.iv_tou);
         iv_tou.setOnClickListener(this);
+
     }
     @Override
     public void Success(Userbean2 userbean) {
@@ -82,18 +82,16 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         nickname = userbean.data.nickname;
         SpUtils utils=new SpUtils(getContext(),"Chuan");
         utils.putString("icon", icon);
-        Glide.with(context).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv) {
+        Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_tou) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawableFactory.create(App.context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
-                iv.setImageDrawable(circularBitmapDrawable);
+                iv_tou.setImageDrawable(circularBitmapDrawable);
             }
         });
         tv_name.setText(username);
-
-
     }
 
     @Override

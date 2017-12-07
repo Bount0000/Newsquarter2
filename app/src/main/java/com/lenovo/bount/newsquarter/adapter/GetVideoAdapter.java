@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -19,9 +20,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
 import com.dou361.ijkplayer.widget.PlayStateParams;
 import com.dou361.ijkplayer.widget.PlayerView;
+import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
+import com.lenovo.bount.newsquarter.activitybao.GuanzhuActivity;
 import com.lenovo.bount.newsquarter.bean.GetVideoBean;
 
 import java.util.List;
@@ -55,8 +59,15 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         return new MyHolder(view);
     }
     @Override
-    public void onBindViewHolder(final MyHolder holder, int position) {
+    public void onBindViewHolder(final MyHolder holder, final int position) {
          holder.setIsRecyclable(false);
+        holder.iv_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context,GuanzhuActivity.class);
+                context.startActivity(intent);
+            }
+        });
          holder.itemView.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
@@ -70,15 +81,15 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawableFactory.create(App.context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
                 holder.iv_icon.setImageDrawable(circularBitmapDrawable);
             }
         });
-
-        view3 = View.inflate(context, R.layout.simple_player_view_player,holder.rt_video);
+         view3 = View.inflate(context, R.layout.simple_player_view_player,holder.rt_video);
         String videoUrl = getVideolist.get(position).getVideoUrl();
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
+        System.out.println("===videoUrl====="+replace);
         PlayerView playerView=new PlayerView((Activity) context,view3);
         playerView.setTitle("视屏");
         playerView.setScaleType(PlayStateParams.fitparent);
@@ -87,7 +98,13 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         playerView.setPlaySource(replace);
         playerView.startPlay();
 
-        Glide.with(context).load(getVideolist.get(position).getCover()).into((holder.iv_fengmian));
+        //为视屏添加封面
+        playerView.showThumbnail(new OnShowThumbnailListener() {
+            @Override
+            public void onShowThumbnail(ImageView ivThumbnail) {
+              Glide.with(context).load(getVideolist.get(position).getCover()).into(ivThumbnail);
+            }
+        });
         //-----伸出时的动画
         animator = ObjectAnimator.ofFloat(holder.iv_1, "rotation", 0f, 180f);
         animator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", 0f,-80f);
@@ -151,7 +168,7 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
 
             }
         });
-      holder.iv_1.setOnClickListener(new View.OnClickListener() {
+         holder.iv_1.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
 
@@ -197,7 +214,6 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         private final TextView tv2;
         private final TextView tv3;
         private final RecyclerView rv_2;
-        private final ImageView iv_fengmian;
         private final RelativeLayout rt_video;
 
         public MyHolder(View itemView) {
@@ -206,7 +222,6 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_cotent = itemView.findViewById(R.id.tv_cotent);
-            iv_fengmian = itemView.findViewById(R.id.iv_fengmian);
             iv_1 = itemView.findViewById(R.id.iv_1);
             iv_animation1 = itemView.findViewById(R.id.iv_animation1);
             iv_animation2 = itemView.findViewById(R.id.iv_animation2);

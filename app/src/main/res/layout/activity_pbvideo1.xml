@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#A2DEFA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lenovo.bount.newsquarter.activitybao.ShipinActivity">
-    <ImageView
+    tools:context="com.lenovo.bount.newsquarter.activitybao.Pbvideo1Activity">
+    <RelativeLayout
         android:id="@+id/iv_play"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y450"
-        android:src="@drawable/dongtu"
         android:scaleType="centerCrop"
         />
     <RelativeLayout
@@ -41,29 +41,29 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:textColor="@color/whiteziti"
-            android:text="拍照" />
+            android:text="预览" />
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_4"
-            android:layout_width="@dimen/x50"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/y50"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/zhao" />
+            android:text="存到本地"
+             />
     </RelativeLayout>
 
     <RelativeLayout
-        android:background="#A2DEFA"
-        android:layout_below="@+id/iv_play"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <ImageView
-            android:id="@+id/iv_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/whityuan"
-            />
-
-    </RelativeLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/iv_play"></RelativeLayout>
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        android:background="#29B6F6"
+        android:layout_alignParentBottom="true"
+        android:textColor="#fff"/>
 </RelativeLayout>

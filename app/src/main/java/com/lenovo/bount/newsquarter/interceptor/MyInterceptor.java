@@ -2,6 +2,7 @@ package com.lenovo.bount.newsquarter.interceptor;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.utils.SpUtils;
@@ -26,7 +27,7 @@ public class MyInterceptor implements Interceptor {
 
     public Response intercept(Interceptor.Chain chain) throws IOException
     {
-        SpUtils utils=new SpUtils(App.context,"Login");
+         SpUtils utils=new SpUtils(App.context,"Login");
          token = utils.getString("token", "");
           uid = utils.getString("uid", "");
         PackageManager manager = App.context.getPackageManager();
@@ -70,7 +71,12 @@ public class MyInterceptor implements Interceptor {
                     builder.addPart(part);
                 }
                 request=request.newBuilder().post(builder.build()).build();
+                Log.e("request==============:",request.body().toString());
+
             }
+            Response response = chain.proceed(request);
+
+            Log.e("result==============:",response.body().string());
             }
        return chain.proceed(request);
     }

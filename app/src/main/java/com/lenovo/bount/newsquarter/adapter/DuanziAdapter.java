@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.bean.GetJokeBean;
 
@@ -67,11 +68,12 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
           holder.tv_time.setText(list.get(position).createTime);
           holder.tv_name.setText(list.get(position).user.nickname);
           holder.tv_cotent.setText(list.get(position).content);
+          //holder.iv_icon.setImageResource(list.get(position).user.icon);
         Glide.with(context).load(list.get(position).user.icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawableFactory.create(App.context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
                 holder.iv_icon.setImageDrawable(circularBitmapDrawable);
             }

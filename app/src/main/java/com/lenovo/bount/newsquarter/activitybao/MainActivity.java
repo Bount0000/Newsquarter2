@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.base.BaseActivity;
 import com.lenovo.bount.newsquarter.base.BasePresenter;
@@ -25,8 +26,6 @@ import com.lenovo.bount.newsquarter.fragment.TuijianFragment;
 import com.lenovo.bount.newsquarter.utils.SpUtils;
 
 import java.util.List;
-
-import static com.lenovo.bount.newsquarter.App.context;
 
 public class MainActivity extends BaseActivity{
 
@@ -131,19 +130,18 @@ public class MainActivity extends BaseActivity{
             tv_1.setTextColor(Color.BLACK);
             SpUtils utils=new SpUtils(this,"Chuan");
             String icon = utils.getString("icon", "");
-           System.out.println("----icon-------"+icon);
-            Glide.with(context).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {
+            System.out.println("----icon-------"+icon);
+        Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawableFactory.create(App.context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
                 iv_touxiang.setImageDrawable(circularBitmapDrawable);
             }
         });
-
-        drawer.setScrimColor(Color.TRANSPARENT);
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+          drawer.setScrimColor(Color.TRANSPARENT);
+          drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 

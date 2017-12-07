@@ -1,14 +1,19 @@
 package com.lenovo.bount.newsquarter.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
+import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
+import com.dou361.ijkplayer.widget.PlayStateParams;
+import com.dou361.ijkplayer.widget.PlayerView;
 import com.lenovo.bount.newsquarter.R;
-import com.squareup.picasso.Picasso;
+import com.lenovo.bount.newsquarter.bean.RmSpBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,51 +25,60 @@ import java.util.Random;
 
 public class SpRemenAdapter extends RecyclerView.Adapter<SpRemenAdapter.MyHolder> {
     private Context context;
-    private List<Integer> pictuerlist;
-    private View view;
-    private List<Integer> heightList;//装产出的随机数
-    public SpRemenAdapter(Context context, List<Integer> pictuerlist) {
+    private List<RmSpBean.DataBean> dataBeanList;
+    private  List<Integer> heightList;
+
+    public SpRemenAdapter(Context context, List<RmSpBean.DataBean> dataBeanList){
         this.context = context;
-        this.pictuerlist = pictuerlist;
-        heightList=new ArrayList<>();
-        for (int i = 0; i < pictuerlist.size(); i++) {
-            int height = new Random().nextInt(200) + 100;//[100,300)的随机数
+        this.dataBeanList = dataBeanList;
+        heightList = new ArrayList<>();
+        for (int i = 0; i < dataBeanList.size(); i++) {
+            int height = new Random().nextInt(400) + 100;//[100,300)的随机数
             heightList.add(height);
         }
     }
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(context);
-        View rootView  = inflater.inflate(R.layout.spitem_layout,parent,false);
-        return new MyHolder(rootView);
-    }
+        View view=View.inflate(context,R.layout.spitem_layout,null);
+        return new MyHolder(view);
 
+    }
     @Override
-    public void onBindViewHolder(MyHolder holder, int position) {
-        System.out.println(pictuerlist.size()+"++++++++++++++++++++++++++++++");
-        //Integer integer = pictuerlist.get(position);
-        //System.out.println("==integer===="+integer);
-        ViewGroup.LayoutParams params = holder.small_iv.getLayoutParams();
+    public void onBindViewHolder(MyHolder holder, final int position) {
+        System.out.println(dataBeanList.size()+"++++++++++++++++++++++++++++++");
+        View view=View.inflate(context,R.layout.simple_player_view_player,holder.rl_play);
+        String videoUrl = dataBeanList.get(position).videoUrl;
+        String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
+        System.out.println("=====获取热门视屏Adapter======"+videoUrl);
+        ViewGroup.LayoutParams params = holder.rl_play.getLayoutParams();
         params.height=heightList.get(position);
-        holder.small_iv.setLayoutParams(params);
-        Picasso.with(context).load(pictuerlist.get(position)).into(holder.small_iv);
-
+        holder.rl_play.setLayoutParams(params);
+        PlayerView playerView=new PlayerView((Activity) context,view);
+        playerView.setTitle("视屏");
+        playerView.setScaleType(PlayStateParams.fitparent);
+        playerView.hideMenu(true);
+        playerView.forbidTouch(false);
+        playerView.setPlaySource(replace);
+        playerView.startPlay();
+        playerView.showThumbnail(new OnShowThumbnailListener() {
+            @Override
+            public void onShowThumbnail(ImageView ivThumbnail) {
+                Glide.with(context).load(dataBeanList.get(position).cover).into(ivThumbnail);
+            }
+        });
     }
-
     @Override
     public int getItemCount() {
-        return pictuerlist.size();
+        return dataBeanList.size();
     }
 
     class  MyHolder extends RecyclerView.ViewHolder
     {
-
-        private final ImageView small_iv;
-
+        private final RelativeLayout rl_play;
         public MyHolder(View itemView) {
             super(itemView);
-            small_iv = itemView.findViewById(R.id.sp_iv);
+            rl_play = itemView.findViewById(R.id.rl_play);
         }
     }
 }

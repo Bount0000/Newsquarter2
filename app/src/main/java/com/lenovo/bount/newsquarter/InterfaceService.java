@@ -5,6 +5,7 @@ import com.lenovo.bount.newsquarter.bean.GetJokeBean;
 import com.lenovo.bount.newsquarter.bean.GetVideos;
 import com.lenovo.bount.newsquarter.bean.Guangao;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
+import com.lenovo.bount.newsquarter.bean.RmSpBean;
 import com.lenovo.bount.newsquarter.bean.Userbean;
 import com.lenovo.bount.newsquarter.bean.Userbean2;
 
@@ -77,5 +78,18 @@ public interface InterfaceService {
     //发布视频作品
     @POST("quarter/publishVideo")
     @Multipart
-    Observable<ResponsBodyBean> getpublishVideos(@Part  List<MultipartBody.Part> videoFile,@Part List<MultipartBody.Part> coverFile);
+    Observable<ResponsBodyBean> getpublishVideos(@Part() List<MultipartBody.Part> videoFile);
+    //获取热门视频列表
+     @POST("quarter/getHotVideos")
+     @FormUrlEncoded
+     Observable<RmSpBean> getspRm(@Field("page") int page);
+    //获取热门视频列表
+    @POST("quarter/getNearVideos")
+    @FormUrlEncoded
+    Observable<RmSpBean> getFjRm(@Field("page") int page,@Field("latitude") String latitude,@Field("longitude") String longitude);
+
+   // 获取某个用户的视频作品集
+   @POST("quarter/getUserVideos")
+   @FormUrlEncoded
+   Observable<RmSpBean> getUserVideos(@Field("uid") String uid,@Field("page") int page);
 }

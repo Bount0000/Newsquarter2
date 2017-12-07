@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.interceptor.MyInterceptor;
@@ -28,13 +29,13 @@ import com.lenovo.bount.newsquarter.presenter.NickNamePresenter;
 import com.lenovo.bount.newsquarter.utils.Utils;
 import com.lenovo.bount.newsquarter.view.ChangePictureView;
 import com.lenovo.bount.newsquarter.view.NickNameView;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.lenovo.bount.newsquarter.App.context;
 
 public class UserActivity extends AppCompatActivity implements NickNameView,View.OnClickListener,ChangePictureView {
     private String name;
@@ -79,16 +80,15 @@ public class UserActivity extends AppCompatActivity implements NickNameView,View
         Intent intent = getIntent();
         String icon = intent.getStringExtra("icon");
         String nickname = intent.getStringExtra("nickname");
-        Glide.with(context).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivTouxiang) {
+        Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivTouxiang) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                        RoundedBitmapDrawableFactory.create(App.context.getResources(), resource);
                 circularBitmapDrawable.setCircular(true);
                 ivTouxiang.setImageDrawable(circularBitmapDrawable);
             }
         });
-        System.out.println("+++nickname++++"+nickname);
         tvNick.setText(nickname);
     }
 

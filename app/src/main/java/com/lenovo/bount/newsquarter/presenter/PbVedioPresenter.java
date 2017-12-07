@@ -5,13 +5,14 @@ import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.model.PublishVideoModel;
 import com.lenovo.bount.newsquarter.view.PublishVedioView;
 
-import java.util.List;
+import java.io.File;
 
 /**
  * Created by lenovo on 2017/12/4.
  */
 
-public class PbVedioPresenter extends BasePresenter<PublishVedioView> implements PublishVideoModel.PublishVideoInterface {
+public class PbVedioPresenter extends BasePresenter<PublishVedioView> implements PublishVideoModel.GetPublishInterface {
+
     private PublishVideoModel videoModel;
     private PublishVedioView vedioView;
 
@@ -19,24 +20,25 @@ public class PbVedioPresenter extends BasePresenter<PublishVedioView> implements
         super(mView);
         vedioView=mView;
         videoModel=new PublishVideoModel();
-        videoModel.setPublishVideoInterface(this);
+        videoModel.setGetPublishInterface(this);
     }
-    public void getpbvedio(String uid, String laungitude, String longitude, List<String> videoFile, List<String> coverFile)
+    public void getpbvedio(String uid,File videoFile,File coverFile,String videoDesc,String latitude,String longitude)
     {
-        videoModel.getpbvideo(uid,laungitude,longitude,videoFile,coverFile);
+        videoModel.getpbvideo(uid,videoFile,coverFile,videoDesc,latitude,longitude);
     }
+
     @Override
-    public void Success(ResponsBodyBean bodyBean) {
+    public void PbVideoSuccess(ResponsBodyBean bodyBean) {
         vedioView.Success(bodyBean);
     }
 
     @Override
-    public void Error(String msg) {
+    public void PbVideoError(String msg) {
         vedioView.Error(msg);
     }
 
     @Override
-    public void onFair(String msg) {
+    public void PbVideoOnFair(String msg) {
         vedioView.onFair(msg);
     }
 }

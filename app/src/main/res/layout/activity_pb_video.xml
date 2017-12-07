@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#A2defa"
+    tools:context="com.lenovo.bount.newsquarter.activitybao.PbVideoActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x400"
+        android:scaleType="centerCrop"
+        android:src="@drawable/yanhua"
+        android:id="@+id/imageView9" />
+
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/x200"
+        android:layout_above="@+id/rt_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/yun" />
+
+    <Button
+        android:id="@+id/bt_cover"
+        android:layout_width="@dimen/x200"
+        android:layout_height="@dimen/y40"
+        android:layout_alignBottom="@+id/iv_head"
+        android:layout_alignLeft="@+id/iv_head"
+        android:layout_alignStart="@+id/iv_head"
+        android:background="#53C2F5"
+        android:text="设置封面"
+        android:textColor="#fff"
+        android:textSize="10sp"/>
+
+    <RelativeLayout
+        android:id="@+id/rt_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y130"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView9"
+        android:background="#8DA1F0">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="同步分享至------" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x250"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/x70"
+                android:layout_gravity="center"
+                android:src="@drawable/successkongjian" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQ空间"
+                android:textColor="#fff"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/x370"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/x70"
+                android:layout_height="@dimen/x70"
+                android:layout_gravity="center"
+                android:src="@drawable/successpengyou"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout4"
+            android:layout_centerHorizontal="true"
+            android:text="朋友圈"
+            android:textColor="#fff"
+            android:textSize="10sp" />
+
+    </RelativeLayout>
+    <EditText
+     android:id="@+id/et_desc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:hint="点击输入视频简介"
+    android:textSize="15sp"
+    android:background="@null"
+    android:layout_marginTop="@dimen/y550"
+    android:textColor="#fff"/>
+
+        <Button
+            android:id="@+id/bt_publish"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            android:background="#29B6F6"
+            android:layout_alignParentBottom="true"
+            android:textColor="#fff"/>
+
+</RelativeLayout>

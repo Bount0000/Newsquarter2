@@ -138,19 +138,9 @@
             />
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/iv_fengmian"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y300"
-        android:layout_below="@+id/relativeLayout1"
-        android:layout_marginLeft="@dimen/x15"
-        android:lines="6"
-        android:ellipsize="end"
-        android:scaleType="fitCenter"
-        />
     <RelativeLayout
         android:id="@+id/rt_video"
-        android:layout_below="@+id/iv_fengmian"
+        android:layout_below="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="180dp"/>
 

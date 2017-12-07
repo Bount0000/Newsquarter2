@@ -15,70 +15,74 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
- * Created by lenovo on 2017/12/4.
+ * Created by lenovo on 2017/12/6.
  */
 
 public class PublishVideoModel {
 
-    private RequestBody body;
-    private MultipartBody.Builder builder;
-
-    public void getpbvideo(String uid, String laungitude, String longitude, List<String> videoFile, List<String> coverFile)
+    public void getpbvideo(String uid,File videoFile,File coverFile,String videoDesc,String latitude,String longitude)
     {
-        builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+        MultipartBody.Builder builder=new MultipartBody.Builder().setType(MultipartBody.FORM);
         builder.addFormDataPart("uid",uid);
-        builder.addFormDataPart("laungitude",laungitude);
+        builder.addFormDataPart("videoDesc",videoDesc);
+        builder.addFormDataPart("latitude",latitude);
         builder.addFormDataPart("longitude",longitude);
-        for (int i = 0; i <videoFile.size(); i++) {
-            File file1 =new File(videoFile.get(i));
-            body = RequestBody.create(MediaType.parse("multipart/form-data"),file1);
-            builder.addFormDataPart("videoFile",file1.getName(), body);
-        }
-        for (int i = 0; i <coverFile.size(); i++) {
-            File file2 =new File(coverFile.get(i));
-            body=RequestBody.create(MediaType.parse("multipart/form-data"),file2);
-            builder.addFormDataPart("coverFile",file2.getName(),body);
-        }
+        RequestBody revideoFile=RequestBody.create(MediaType.parse("multipart/form-data"),videoFile);
+        builder.addFormDataPart("videoFile",videoFile.getName(),revideoFile);
+
+        RequestBody recoverFile=RequestBody.create(MediaType.parse("multipart/form-data"),coverFile);
+        builder.addFormDataPart("coverFile",coverFile.getName(),recoverFile);
         List<MultipartBody.Part> parts = builder.build().parts();
-        List<MultipartBody.Part> parts2 = builder.build().parts();
-
         new RetrofitUtils.Builder().addConverterFactory()
-              .addCallAdapterFactory()
-              .builder().getService().getpublishVideos(parts,parts2)
-              .observeOn(Schedulers.io())
-              .subscribeOn(AndroidSchedulers.mainThread())
-              .subscribe(new Observer<ResponsBodyBean>() {
-                  @Override
-                  public void onSubscribe(Disposable d) {
+                .addCallAdapterFactory()
+                .builder()
+                .getService()
+                .getpublishVideos(parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponsBodyBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                  }
+                    }
 
-                  @Override
-                  public void onNext(ResponsBodyBean value) {
+                    @Override
+                    public void onNext(ResponsBodyBean bodyBean) {
+                         if("0".equals(bodyBean.code))
+                         {
+                             getPublishInterface.PbVideoSuccess(bodyBean);
+                         }
+                         else if("0".equals(bodyBean.code))
+                         {
+                             getPublishInterface.PbVideoError(bodyBean.msg);
+                         }else
+                         {
+                             getPublishInterface.PbVideoOnFair(bodyBean.msg);
+                         }
+                        System.out.println("======发布视屏======="+bodyBean.msg);
+                    }
 
-                  }
+                    @Override
+                    public void onError(Throwable e) {
+                        System.out.println("======发布视屏onError======="+e);
+                    }
 
-                  @Override
-                  public void onError(Throwable e) {
+                    @Override
+                    public void onComplete() {
 
-                  }
+                    }
+                });
+                }
+                private GetPublishInterface getPublishInterface;
 
-                  @Override
-                  public void onComplete() {
-
-                  }
-              });
-             }
-     private PublishVideoInterface publishVideoInterface;
-
-    public void setPublishVideoInterface(PublishVideoInterface publishVideoInterface) {
-        this.publishVideoInterface = publishVideoInterface;
+    public void setGetPublishInterface(GetPublishInterface getPublishInterface) {
+        this.getPublishInterface = getPublishInterface;
     }
 
-    public  interface PublishVideoInterface
-             {
-                 void Success(ResponsBodyBean bodyBean);
-                 void Error(String msg);
-                 void onFair(String msg);
-             }
+    public  interface  GetPublishInterface
+                {
+                    void PbVideoSuccess(ResponsBodyBean bodyBean);
+                    void PbVideoError(String msg);
+                    void PbVideoOnFair(String msg);
+                }
 }

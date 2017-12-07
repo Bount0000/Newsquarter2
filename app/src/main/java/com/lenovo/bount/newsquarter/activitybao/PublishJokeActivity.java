@@ -109,12 +109,12 @@ public class PublishJokeActivity extends BaseActivity implements PublishJokeView
     @Override
     public void initView() {
          setshowActionBar(false);
-        tv_fabiao = (TextView) findViewById(R.id.tv_fabiao);
-        ed_fabiao = (EditText) findViewById(R.id.ed_fabiao);
-        tv_duanzi_quxiao= (TextView) findViewById(R.id.tv_duanzi_quxiao);
+        tv_fabiao = findViewById(R.id.tv_fabiao);
+        ed_fabiao =  findViewById(R.id.ed_fabiao);
+        tv_duanzi_quxiao=  findViewById(R.id.tv_duanzi_quxiao);
         view2 = View.inflate(this, R.layout.popw_layout,null);
         pop_finish = view2.findViewById(R.id.pop_finish);
-        rl1 = (RelativeLayout) findViewById(R.id.rl1);
+        rl1 =  findViewById(R.id.rl1);
         iv_tupain = findViewById(R.id.iv_tupain);
         rv = findViewById(R.id.rv);
     }

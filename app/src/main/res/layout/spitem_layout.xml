@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-   <ImageView
+
+   <RelativeLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/sp_iv"
-       android:src="@mipmap/ic_launcher"
-       android:scaleType="centerCrop"
+       android:layout_height="@dimen/x350"
+       android:id="@+id/rl_play"
+       android:background="#ff00"
        android:layout_margin="@dimen/x5"
        />
-</LinearLayout>
+  <!--   <com.dou361.ijkplayer.widget.IjkVideoView
+       android:id="@+id/rl_play"
+       android:layout_width="0sp"
+       android:layout_weight="1"
+       android:layout_height="wrap_content" />-->
+</RelativeLayout>
