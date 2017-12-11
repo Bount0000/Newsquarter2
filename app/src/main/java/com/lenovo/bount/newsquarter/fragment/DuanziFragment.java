@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -24,7 +25,7 @@ import java.util.List;
  * Created by lenovo on 2017/11/13.
  */
 
-public class DuanziFragment extends Fragment implements GetJokeView,View.OnClickListener{
+public class DuanziFragment extends Fragment implements GetJokeView,View.OnClickListener {
 
     private View view;
     private XRecyclerView rv;
@@ -33,6 +34,7 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
     public int page=1;
     private List<GetJokeBean.DataBean> list;
     private GetJokePresenter presenter;
+    private TextView textview;
 
     @Nullable
     @Override
@@ -53,9 +55,7 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
         presenter = new GetJokePresenter(this);
         presenter.getjoke(page);
     }
-
     private void initView() {
-
         rv = getView().findViewById(R.id.rv);
         View view=View.inflate(getContext(),R.layout.title_layout,null);
         iv_bianji = view.findViewById(R.id.iv_bianji);
@@ -120,3 +120,4 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
         }
     }
 }
+

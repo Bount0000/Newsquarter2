@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lenovo.bount.newsquarter.activitybao.SousuoActivity">
+    <RelativeLayout
+        android:id="@+id/rt_1"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y80"
+     android:background="@color/changeziti"
+    >
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"
+        android:src="@mipmap/leftjiantou"
+
+        />
+        <TextView
+            android:textSize="@dimen/y25"
+            android:layout_toRightOf="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y50"
+            android:text="返回"
+            android:textColor="@color/whiteziti"
+            />
+
+        <TextView
+            android:textSize="@dimen/y25"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/y50"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/whiteziti"
+            android:text="搜索钟友" />
+</RelativeLayout>
+    <RelativeLayout
+      android:background="@drawable/biankuangbackgroup3"
+        android:id="@+id/rt_2"
+        android:layout_below="@+id/rt_1"
+        android:layout_width="@dimen/y600"
+        android:layout_height="@dimen/y60"
+        >
+        <ImageView
+            android:id="@+id/soussuo"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/y50"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:src="@mipmap/sousuo" />
+        <EditText
+            android:layout_toRightOf="@+id/soussuo"
+            android:layout_marginLeft="@dimen/y20"
+            android:id="@+id/et_content"
+            android:layout_width="@dimen/y600"
+            android:layout_height="@dimen/y50"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:hint="输入id或者钟友名"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y50"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rt_1"
+        android:text="取消" />
+  <com.jcodecraeer.xrecyclerview.XRecyclerView
+      android:layout_below="@+id/rt_2"
+      android:id="@+id/sousuo_xrv"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+</RelativeLayout>

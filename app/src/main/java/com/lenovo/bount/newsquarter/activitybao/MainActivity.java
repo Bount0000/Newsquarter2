@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.widget.DrawerLayout;
@@ -44,13 +46,16 @@ public class MainActivity extends BaseActivity{
     private DrawerLayout drawer1;
     private ImageView iv_bianji;
     private TextView tv_title;
+    private TuijianFragment tuijianFragmet;
+    private DuanziFragment duanziFragment;
+    private ShipinFragment shipinFragment;
+    private android.support.v4.app.Fragment cuttrentFragment;
+    private LeftFragment leftFragment;
 
     @Override
     public int bindLayout() {
-
         return R.layout.activity_main;
     }
-
     @Override
     public void setLister() {
         lt1.setOnClickListener(this);
@@ -64,7 +69,8 @@ public class MainActivity extends BaseActivity{
     public void Click(View view) {
      switch (view.getId())
      {   case R.id.lt1:
-         getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
+         switchFragment(tuijianFragmet);
+         //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
          tv_title.setText("推荐");
          iv_1.setImageResource(R.mipmap.one1);
          iv_2.setImageResource(R.mipmap.two);
@@ -74,7 +80,8 @@ public class MainActivity extends BaseActivity{
          tv_3.setTextColor(Color.BLACK);
          break;
          case R.id.lt2:
-             getSupportFragmentManager().beginTransaction().replace(R.id.fl,new DuanziFragment()).commit();
+             switchFragment(duanziFragment);
+            // getSupportFragmentManager().beginTransaction().replace(R.id.fl,new DuanziFragment()).commit();
              tv_title.setText("段子");
              iv_1.setImageResource(R.mipmap.one);
              iv_2.setImageResource(R.mipmap.two2);
@@ -84,7 +91,8 @@ public class MainActivity extends BaseActivity{
              tv_3.setTextColor(Color.BLACK);
              break;
          case R.id.lt3:
-             getSupportFragmentManager().beginTransaction().replace(R.id.fl,new ShipinFragment()).commit();
+             switchFragment(shipinFragment);
+             //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new ShipinFragment()).commit();
              tv_title.setText("视频");
              iv_1.setImageResource(R.mipmap.one);
              iv_2.setImageResource(R.mipmap.two);
@@ -106,26 +114,31 @@ public class MainActivity extends BaseActivity{
     }
     @Override
     public void initView() {
-        lt1 = (LinearLayout) findViewById(R.id.lt1);
-        lt2 = (LinearLayout) findViewById(R.id.lt2);
-        lt3 = (LinearLayout) findViewById(R.id.lt3);
-        iv_1 = (ImageView) findViewById(R.id.iv_icon);
-        iv_2 = (ImageView) findViewById(R.id.iv_2);
-        iv_3 = (ImageView) findViewById(R.id.iv_3);
+        lt1 =  findViewById(R.id.lt1);
+        lt2 =  findViewById(R.id.lt2);
+        lt3 =  findViewById(R.id.lt3);
+        iv_1 =  findViewById(R.id.iv_icon);
+        iv_2 =  findViewById(R.id.iv_2);
+        iv_3 =  findViewById(R.id.iv_3);
 
-        tv_1 = (TextView) findViewById(R.id.tv_1);
-        tv_2 = (TextView) findViewById(R.id.tv_2);
-        tv_3 = (TextView) findViewById(R.id.tv_3);
-        drawer = (DrawerLayout) findViewById(R.id.drawer);
-        iv_touxiang = (ImageView) findViewById(R.id.iv_touxiang);
-        iv_bianji = (ImageView) findViewById(R.id.iv_bianji);
-        tv_title = (TextView) findViewById(R.id.tv_title);
+        tv_1 =  findViewById(R.id.tv_1);
+        tv_2 =  findViewById(R.id.tv_2);
+        tv_3 = findViewById(R.id.tv_3);
+        drawer =  findViewById(R.id.drawer);
+        iv_touxiang = findViewById(R.id.iv_touxiang);
+        iv_bianji = findViewById(R.id.iv_bianji);
+        tv_title =  findViewById(R.id.tv_title);
     }
     @Override
     public void initDate() {
-            setStatus(false);
-            setshowActionBar(false);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
+         setStatus(false);
+         setshowActionBar(false);
+        tuijianFragmet = new TuijianFragment();
+        duanziFragment = new DuanziFragment();
+        shipinFragment = new ShipinFragment();
+        leftFragment = new LeftFragment();
+        cuttrentFragment = tuijianFragmet;
+        getSupportFragmentManager().beginTransaction().add(R.id.fl,tuijianFragmet).commit();
             iv_1.setImageResource(R.mipmap.one1);
             tv_1.setTextColor(Color.BLACK);
             SpUtils utils=new SpUtils(this,"Chuan");
@@ -146,11 +159,10 @@ public class MainActivity extends BaseActivity{
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
             }
-
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
             drawer.setScrimColor(Color.TRANSPARENT);
-             getSupportFragmentManager().beginTransaction().replace(R.id.left_fl,new LeftFragment());
+            switchFragment(leftFragment);
             }
             @Override
             public void onDrawerClosed(@NonNull View drawerView) {
@@ -166,5 +178,23 @@ public class MainActivity extends BaseActivity{
     @Override
     public List<BasePresenter> initPresenter() {
         return null;
+    }
+    //Fragmen替换隐藏方法
+    private void switchFragment(Fragment targetFragmnet)
+    {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(!targetFragmnet.isAdded())
+        {
+            transaction.hide(cuttrentFragment)
+                    .add(R.id.fl,targetFragmnet)
+                    .commit();
+        }
+        else
+        {  transaction.hide(cuttrentFragment)
+                .show(targetFragmnet)
+                .commit();
+        }
+        cuttrentFragment=targetFragmnet;
+
     }
 }

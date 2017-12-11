@@ -26,7 +26,8 @@ import com.dou361.ijkplayer.widget.PlayerView;
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.activitybao.GuanzhuActivity;
-import com.lenovo.bount.newsquarter.bean.GetVideos;
+import com.lenovo.bount.newsquarter.bean.Getuser;
+import com.lenovo.bount.newsquarter.bean.Userbean2;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ import java.util.List;
  * Created by lenovo on 2017/11/29.
  */
 
-public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHolder> {
+public class GetUserVideoAd extends RecyclerView.Adapter<GetUserVideoAd.MyHolder> {
     private int a=0;
     private ObjectAnimator animator;
     private ObjectAnimator fanimator;
@@ -45,15 +46,15 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
     private ObjectAnimator animator3;
     private ObjectAnimator fanimator3;
     private Context context;
-    //List<GetVideoBean>  getVideolist;
-    List<GetVideos.DataBean> dataBeanList;
+    private Userbean2.DataBean userdata;
+    private List<Getuser.DataBean> datalist ;
     private View view3;
 
-    public GetVideoAdapter(Context context, List<GetVideos.DataBean> dataBeanList) {
+    public GetUserVideoAd(Context context,  List<Getuser.DataBean> datalist,Userbean2.DataBean userdata) {
         this.context = context;
-        this.dataBeanList = dataBeanList;
+        this.datalist = datalist;
+        this.userdata=userdata;
     }
-
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=View.inflate(context, R.layout.getvedio_item,null);
@@ -66,7 +67,7 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context,GuanzhuActivity.class);
-                int uid = dataBeanList.get(position).uid;
+                int uid = datalist.get(position).uid;
                 intent.putExtra("uid",uid);
                  context.startActivity(intent);
             }
@@ -77,10 +78,11 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
                   Toast.makeText(context, "点击", Toast.LENGTH_SHORT).show();
               }
           });
-          holder.tv_time.setText(dataBeanList.get(position).createTime);
-          holder.tv_name.setText(dataBeanList.get(position).user.nickname+"");
+           holder.tv_time.setText(datalist.get(position).createTime);
 
-        Glide.with(context).load(dataBeanList.get(position).user.icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
+          holder.tv_name.setText(userdata.nickname);
+
+        Glide.with(context).load(userdata.icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -90,7 +92,7 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
             }
         });
          view3 = View.inflate(context, R.layout.simple_player_view_player,holder.rt_video);
-        String videoUrl = dataBeanList.get(position).videoUrl;
+        String videoUrl = datalist.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
         System.out.println("===videoUrl====="+replace);
         PlayerView playerView=new PlayerView((Activity) context,view3);
@@ -105,7 +107,7 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         playerView.showThumbnail(new OnShowThumbnailListener() {
             @Override
             public void onShowThumbnail(ImageView ivThumbnail) {
-              Glide.with(context).load(dataBeanList.get(position).cover).into(ivThumbnail);
+              Glide.with(context).load(datalist.get(position).cover).into(ivThumbnail);
             }
         });
         //-----伸出时的动画
@@ -199,7 +201,7 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
 
     @Override
     public int getItemCount() {
-        return dataBeanList.size();
+        return datalist.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder

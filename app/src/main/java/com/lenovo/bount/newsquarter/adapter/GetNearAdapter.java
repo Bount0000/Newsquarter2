@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.activitybao.ShipinXqActivity;
-import com.lenovo.bount.newsquarter.bean.RmSpBean;
+import com.lenovo.bount.newsquarter.bean.GetNearVideoBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,11 @@ import java.util.Random;
  * Created by lenovo on 2017/12/1.
  */
 
-public class SpRemenAdapter extends RecyclerView.Adapter<SpRemenAdapter.MyHolder> {
+public class GetNearAdapter extends RecyclerView.Adapter<GetNearAdapter.MyHolder> {
     private Context context;
-    private List<RmSpBean.DataBean> dataBeanList;
+    private List<GetNearVideoBean.DataBean> dataBeanList;
     private  List<Integer> heightList;
-    public SpRemenAdapter(Context context, List<RmSpBean.DataBean> dataBeanList){
+    public GetNearAdapter(Context context, List<GetNearVideoBean.DataBean> dataBeanList){
         this.context = context;
         this.dataBeanList = dataBeanList;
         heightList = new ArrayList<>();
@@ -33,6 +33,28 @@ public class SpRemenAdapter extends RecyclerView.Adapter<SpRemenAdapter.MyHolder
             heightList.add(height);
         }
         }
+        //刷新
+  public void  refreshData(List<GetNearVideoBean.DataBean> list)
+  {
+      if(dataBeanList!=null)
+      {
+          dataBeanList.clear();
+          dataBeanList.addAll(list);
+          notifyDataSetChanged();
+      }
+  }
+        //更多
+        public void loadData(List<GetNearVideoBean.DataBean> list)
+    {
+    if(dataBeanList!=null)
+     {
+         dataBeanList.addAll(list);
+         notifyDataSetChanged();
+         }
+    }
+
+
+
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=View.inflate(context,R.layout.spitem_layout,null);

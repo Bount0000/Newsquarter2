@@ -37,19 +37,19 @@ public class FollowModel {
                     public void onNext(ResponsBodyBean value) {
                           if("0".equals(value.code))
                           {
-                              followInterface.Success(value);
+                              followInterface.FollowSuccess(value);
                           }else if("1".equals(value.code))
                           {
-                              followInterface.Error(value.msg);
+                              followInterface.FollowError(value.msg);
                           }else
                           {
-                              followInterface.Error(value.msg);
+                              followInterface.FollowError(value.msg);
                           }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        followInterface.OnFair(e);
+                        followInterface.FollowOnFair(e);
                     }
 
                     @Override
@@ -66,9 +66,9 @@ public class FollowModel {
 
     public  interface FollowInterface
   {
-      void Success(ResponsBodyBean value);
-      void Error(String msg);
-      void OnFair(Throwable e);
+      void FollowSuccess(ResponsBodyBean value);
+      void FollowError(String msg);
+      void FollowOnFair(Throwable e);
 
   }
 }

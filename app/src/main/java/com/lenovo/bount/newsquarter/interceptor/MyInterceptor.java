@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
@@ -27,8 +28,8 @@ public class MyInterceptor implements Interceptor {
 
     public Response intercept(Interceptor.Chain chain) throws IOException
     {
-         SpUtils utils=new SpUtils(App.context,"Login");
-         token = utils.getString("token", "");
+          SpUtils utils=new SpUtils(App.context,"User");
+          token = utils.getString("token", "");
           uid = utils.getString("uid", "");
         PackageManager manager = App.context.getPackageManager();
         PackageInfo info = null;
@@ -72,12 +73,20 @@ public class MyInterceptor implements Interceptor {
                 }
                 request=request.newBuilder().post(builder.build()).build();
                 Log.e("request==============:",request.body().toString());
-
             }
-            Response response = chain.proceed(request);
-
-            Log.e("result==============:",response.body().string());
+            //Response response = chain.proceed(request);q
+            //Log.e("result==============:",response.body().string());
             }
-       return chain.proceed(request);
+            if(request.method().equals("GET"))
+            { //添加公共参数
+                HttpUrl httpUrl = request.url()
+                        .newBuilder()
+                        .addQueryParameter("token",token)
+                        .addQueryParameter("source", "android")
+                        .addQueryParameter("appVersion", String.valueOf(versioncode))
+                        .build();
+                request = request.newBuilder().url(httpUrl).build();
+            }
+         return chain.proceed(request);
     }
 }

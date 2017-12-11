@@ -7,7 +7,7 @@ import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
  */
 
 public interface FollowView {
-    void Success(ResponsBodyBean value);
-    void Error(String msg);
-    void OnFair(Throwable e);
+    void FollowSuccess(ResponsBodyBean value);
+    void FollowError(String msg);
+    void FollowOnFair(Throwable e);
 }

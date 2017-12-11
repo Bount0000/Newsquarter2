@@ -1,13 +1,16 @@
-package com.lenovo.bount.newsquarter;
+package com.lenovo.bount.newsquarter.fragment;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -17,34 +20,95 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.lenovo.bount.newsquarter.R;
+import com.lenovo.bount.newsquarter.adapter.GetNearAdapter;
+import com.lenovo.bount.newsquarter.bean.GetNearVideoBean;
+import com.lenovo.bount.newsquarter.presenter.GetNearVideosPresenter;
+import com.lenovo.bount.newsquarter.view.GetNearVideosView;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
+import java.util.List;
 
-public class GaodeMapActivity extends  AppCompatActivity implements LocationSource,AMapLocationListener {
+/**
+ * Created by lenovo on 2017/12/1.
+ */
 
-    private TextView tv;
+public class FujingFragment extends Fragment implements GetNearVideosView,LocationSource,AMapLocationListener {
     private MapView mMapView;  //初始化地图控制器对象
     AMap aMap;
-
     //定位需要的数据
     LocationSource.OnLocationChangedListener mListener;
     AMapLocationClient mlocationClient;
     AMapLocationClientOption mLocationOption;
     //定位蓝点
     MyLocationStyle myLocationStyle;
+    private int jingdu;
+    private int weidu;
+    private XRecyclerView near_rv;
+    private int page=1;
+    private GetNearVideosPresenter  nearpresenter;
+    private GetNearAdapter adapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=View.inflate(getContext(), R.layout.near_layout,null);
+        return view;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gaode_map);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView();
+        initData();
+    }
 
-        String sha1 = getSHA1(this);
-        System.out.println("================ " + sha1);
-        tv = findViewById(R.id.tv);
-        //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图
-        mMapView.onCreate(savedInstanceState);
+    private void initData() {
+        initMap();
+        nearpresenter=new GetNearVideosPresenter(this);
+        nearpresenter.GetNearVideos(1,weidu+"",jingdu+"");
+    }
+    private void initView() {
+        near_rv= getView().findViewById(R.id.near_rv);
+        near_rv.setLoadingMoreEnabled(true);
+        near_rv.setPullRefreshEnabled(true);
+        StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        near_rv.setLayoutManager(manager);
+    }
+
+    @Override
+    public void GetNearSuccess(GetNearVideoBean value) {
+        List<GetNearVideoBean.DataBean> data = value.data;
+        Toast.makeText(getActivity(), value.msg, Toast.LENGTH_SHORT).show();
+        if(adapter==null)
+        {
+            adapter = new GetNearAdapter(getActivity(),data);
+            near_rv.setAdapter(adapter);
+        }
+        if(page==1)
+        {
+            adapter.refreshData(data);
+            near_rv.refreshComplete();
+        } else
+        {
+            adapter.loadData(data);
+            near_rv.loadMoreComplete();
+        }
+
+    }
+
+    @Override
+    public void GetNearError(String msg) {
+        Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void GetNearOnFair(String msg) {
+        Toast.makeText(getActivity(),msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void initMap() {
+        mMapView = new MapView(getActivity());
         if (aMap == null) {
             aMap = mMapView.getMap();
         }
@@ -64,64 +128,20 @@ public class GaodeMapActivity extends  AppCompatActivity implements LocationSour
         aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
         aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE);//连续定位、且将视角移动到地图中心点，定位点依照设备方向旋转，并且会跟随设备移动。（1秒1次定位）默认执行此种模式。
-
-
         myLocationStyle.showMyLocation(true);
-
         aMap.setOnMyLocationChangeListener(new AMap.OnMyLocationChangeListener() {
             @Override
             public void onMyLocationChange(Location location) {
                 //从location对象中获取经纬度信息，地址描述信息，建议拿到位置之后调用逆地理编码接口获取
                 double latitude = location.getLatitude();
-                int weidu = (int) latitude;
-
+                weidu = (int) latitude;
                 double longitude = location.getLongitude();
-
-                int jingdu = (int) longitude;
-
-               System.out.println("经度======= " + jingdu+"纬度============"+weidu);
-
-                tv.setText("纬度"+latitude+"经度"+longitude);
+                jingdu = (int) longitude;
+                System.out.println("经度======= " + jingdu +"纬度============"+ weidu);
             }
-
-
-
         });
-
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mMapView.onDestroy();
-
-    }
-
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
-        mMapView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
-        mMapView.onPause();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状
-        mMapView.onSaveInstanceState(outState);
-    }
-
     //--定位监听---------
-
     //定位回调  在回调方法中调用“mListener.onLocationChanged(amapLocation);”可以在地图上显示系统小蓝点
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
@@ -141,11 +161,11 @@ public class GaodeMapActivity extends  AppCompatActivity implements LocationSour
      * 激活定位
      */
     @Override
-    public void activate(OnLocationChangedListener onLocationChangedListener) {
+    public void activate(LocationSource.OnLocationChangedListener onLocationChangedListener) {
         mListener = onLocationChangedListener;
         if (mlocationClient == null) {
             //初始化定位
-            mlocationClient = new AMapLocationClient(this);
+            mlocationClient = new AMapLocationClient(getActivity());
             //初始化定位参数
             mLocationOption = new AMapLocationClientOption();
             //设置定位回调监听
@@ -178,30 +198,4 @@ public class GaodeMapActivity extends  AppCompatActivity implements LocationSour
 
     }
 
-    public static String getSHA1(Context context) {
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), PackageManager.GET_SIGNATURES);
-
-            byte[] cert = info.signatures[0].toByteArray();
-
-            MessageDigest md = MessageDigest.getInstance("SHA1");
-            byte[] publicKey = md.digest(cert);
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < publicKey.length; i++) {
-                String appendString = Integer.toHexString(0XFF & publicKey[i])
-                        .toUpperCase(Locale.US);
-                if (appendString.length() == 1)
-                    hexString.append("0");
-                hexString.append(appendString);
-                hexString.append(":");
-            }
-            return hexString.toString();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

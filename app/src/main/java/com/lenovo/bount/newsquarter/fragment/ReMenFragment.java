@@ -17,7 +17,6 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.adapter.GetVideoAdapter;
-import com.lenovo.bount.newsquarter.bean.GetVideoBean;
 import com.lenovo.bount.newsquarter.bean.GetVideos;
 import com.lenovo.bount.newsquarter.bean.Guangao;
 import com.lenovo.bount.newsquarter.interceptor.MyInterceptor;
@@ -44,6 +43,8 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
     private GetVideosPresenter getVideosPresenter;
     private GetVideoAdapter adapter;
     private int page=1;
+    private List<GetVideos.DataBean> list;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=View.inflate(getContext(),R.layout.guanzhu_layout,null);
@@ -57,6 +58,7 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
     }
 
     private void initData() {
+        list = new ArrayList<>();
         GetadpPresenter presenter=new GetadpPresenter(this);
         presenter.getAd();
         getVideosPresenter = new GetVideosPresenter(this);
@@ -68,8 +70,9 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
         banner_1 = view.findViewById(R.id.banner_1);
         xrecycleview = getView().findViewById(R.id.xrecycleview);
         xrecycleview.addHeaderView(view);
-        //xrecycleview.setPullRefreshEnabled(true);
-        //xrecycleview.setLoadingMoreEnabled(true);
+        xrecycleview.setPullRefreshEnabled(true);
+        xrecycleview.setLoadingMoreEnabled(true);
+
     }
     @Override
     public void loadBanner(XBanner banner, View view, int position) {
@@ -112,53 +115,36 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
 
     @Override
     public void GetVideoSuccess(GetVideos value) {
-        List<GetVideoBean>  getVideolist=new ArrayList();
-        final List<GetVideoBean> list=new ArrayList<>();
-        list.addAll(getVideolist);
         Toast.makeText(App.context, value.msg, Toast.LENGTH_SHORT).show();
         List<GetVideos.DataBean> data = value.data;
-        for (int i = 0; i <data.size() ; i++) {
-            GetVideos.DataBean dataBean = data.get(i);
-            String createTime = dataBean.createTime;
-            String icon = dataBean.user.icon;
-            String nickname = (String) dataBean.user.nickname;
-            String cover = dataBean.cover;
-            String videoUrl = dataBean.videoUrl;
-            getVideolist.add(new GetVideoBean(createTime,icon,nickname,cover,videoUrl));
-        }
-
-        System.out.println("======获取======"+getVideolist.size());
-
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
-        xrecycleview.setLayoutManager(layoutManager);
-        adapter = new GetVideoAdapter(getContext(),getVideolist);
-        xrecycleview.setAdapter(adapter);
-/*
+        list.addAll(data);
          if(adapter==null)
          {
+            LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+             xrecycleview.setLayoutManager(layoutManager);
              adapter = new GetVideoAdapter(getContext(),list);
              xrecycleview.setAdapter(adapter);
          }
          else
          {
              adapter.notifyDataSetChanged();
-         }*/
-       /* xrecycleview.setLoadingListener(new XRecyclerView.LoadingListener() {
+         }
+       xrecycleview.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getContext(), "上拉加载", Toast.LENGTH_SHORT).show();
+             Toast.makeText(getContext(), "下拉刷新", Toast.LENGTH_SHORT).show();
               list.clear();
               getVideosPresenter.getvideo(MyInterceptor.uid,"1",page);
               xrecycleview.refreshComplete();
             }
             @Override
             public void onLoadMore() {
-                Toast.makeText(getContext(), "下拉刷新", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "上拉加载", Toast.LENGTH_SHORT).show();
                 page++;
                 getVideosPresenter.getvideo(MyInterceptor.uid,"1",page);
                 xrecycleview.loadMoreComplete();
             }
-        });*/
+            });
           }
     @Override
     public void GetVideoError(String msg){

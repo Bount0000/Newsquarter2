@@ -26,7 +26,7 @@ import java.util.List;
 public class SpRemenFragment extends Fragment implements GetRmVideoView {
 
     private XRecyclerView recyclerView;
-   private int page=1;
+    private int page=1;
     private List<RmSpBean.DataBean> data;
     private List<RmSpBean.DataBean> list;
     private SpRemenAdapter adapter;
@@ -47,6 +47,7 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
     }
 
     private void initData() {
+        list = new ArrayList<>();
         getRmVideoPresenter = new GetRmVideoPresenter(this);
         getRmVideoPresenter.getRmsp(1);
 
@@ -59,19 +60,21 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
         recyclerView = getView().findViewById(R.id.recyclerView);
         recyclerView.setLoadingMoreEnabled(true);
         recyclerView.setPullRefreshEnabled(true);
+        StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
     }
 
     @Override
     public void RmSpSuccess(RmSpBean rmSpBean) {
-        Toast.makeText(getActivity(), rmSpBean.msg, Toast.LENGTH_SHORT).show();
+        if(getActivity()!=null)
+        {
+            Toast.makeText(getActivity(), rmSpBean.msg, Toast.LENGTH_SHORT).show();
+        }
         data = rmSpBean.data;
-        list = new ArrayList<>();
         list.addAll(data);
         if(adapter==null)
         {
-            StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-            recyclerView.setLayoutManager(manager);
-            adapter = new SpRemenAdapter(getContext(),data);
+            adapter = new SpRemenAdapter(getContext(),list);
             recyclerView.setAdapter(adapter);
         }
         else
@@ -86,7 +89,6 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
                 getRmVideoPresenter.getRmsp(1);
                 recyclerView.refreshComplete();
             }
-
             @Override
             public void onLoadMore() {
                 Toast.makeText(getContext(), "上拉加载", Toast.LENGTH_SHORT).show();
@@ -94,7 +96,7 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
                 getRmVideoPresenter.getRmsp(page);
                 recyclerView.loadMoreComplete();
             }
-        });
+         });
          }
 
     @Override

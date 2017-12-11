@@ -24,17 +24,17 @@ public class FollowPresenter extends BasePresenter<FollowView> implements Follow
         followModel.getfollow(uid,followId);
     }
     @Override
-    public void Success(ResponsBodyBean value) {
-        followView.Success(value);
+    public void FollowSuccess(ResponsBodyBean value) {
+        followView.FollowSuccess(value);
     }
 
     @Override
-    public void Error(String msg) {
-        followView.Error(msg);
+    public void FollowError(String msg) {
+        followView.FollowError(msg);
     }
 
     @Override
-    public void OnFair(Throwable e) {
-        followView.OnFair(e);
+    public void FollowOnFair(Throwable e) {
+        followView.FollowOnFair(e);
     }
 }

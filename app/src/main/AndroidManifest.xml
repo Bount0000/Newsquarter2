@@ -78,10 +78,13 @@
             android:value="eab5d80b8e0c0dc2eb5332a86bf4a6fa" />
 
         <service android:name="com.amap.api.location.APSService" />
+
         <activity android:name=".activitybao.ShipinActivity" />
         <activity android:name=".activitybao.PbVideoActivity" />
         <activity android:name=".activitybao.Pbvideo1Activity" />
-        <activity android:name=".activitybao.GuanzhuActivity"></activity>
+        <activity android:name=".activitybao.GuanzhuActivity" />
+        <activity android:name=".activitybao.ShipinXqActivity" />
+        <activity android:name=".activitybao.SousuoActivity"></activity>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.activitybao.ShezhiActivity;
+import com.lenovo.bount.newsquarter.activitybao.SousuoActivity;
 import com.lenovo.bount.newsquarter.activitybao.UserActivity;
 import com.lenovo.bount.newsquarter.bean.Userbean2;
 import com.lenovo.bount.newsquarter.presenter.PresonPresenter;
@@ -38,6 +40,7 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
     private ImageView iv_tou;
     private String icon;
     private String nickname;
+    private RelativeLayout rt_sousuo;
 
     @Nullable
     @Override
@@ -70,13 +73,14 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         iv = getView().findViewById(R.id.iv_tou);
         tv_name = getView().findViewById(R.id.tv_name);
         iv_7 = getView().findViewById(R.id.iv_7);
+        rt_sousuo = getView().findViewById(R.id.rt_sousuo);
         iv_tou = getView().findViewById(R.id.iv_tou);
         iv_tou.setOnClickListener(this);
-
+        rt_sousuo.setOnClickListener(this);
     }
     @Override
     public void Success(Userbean2 userbean) {
-        Toast.makeText(getContext(),userbean.msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),userbean.msg, Toast.LENGTH_SHORT).show();
         icon = userbean.data.icon;
         String username = userbean.data.username;
         nickname = userbean.data.nickname;
@@ -100,19 +104,22 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
     }
     @Override
     public void onFair(Throwable e) {
-        Toast.makeText(getContext(),e.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(),e.toString(), Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId())
         {
             case R.id.iv_tou:
-                Intent intent=new Intent(getContext(),UserActivity.class);
+                Intent intent=new Intent(getActivity(),UserActivity.class);
                 intent.putExtra("icon",icon);
                 System.out.println("----------"+icon);
                 intent.putExtra("nickname",nickname);
                 startActivity(intent);
+                break;
+            case R.id.rt_sousuo:
+                Intent intent2=new Intent(getActivity(),SousuoActivity.class);
+                startActivity(intent2);
                 break;
         }
     }
