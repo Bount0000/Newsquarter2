@@ -1,19 +1,23 @@
 package com.lenovo.bount.newsquarter.adapter;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +31,12 @@ import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.activitybao.GuanzhuActivity;
 import com.lenovo.bount.newsquarter.bean.GetVideos;
+import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
+import com.lenovo.bount.newsquarter.interceptor.MyInterceptor;
+import com.lenovo.bount.newsquarter.presenter.CommentPresenter;
+import com.lenovo.bount.newsquarter.presenter.DianzanPresenter;
+import com.lenovo.bount.newsquarter.view.CommentView;
+import com.lenovo.bount.newsquarter.view.DianzanView;
 
 import java.util.List;
 
@@ -34,7 +44,8 @@ import java.util.List;
  * Created by lenovo on 2017/11/29.
  */
 
-public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHolder> {
+public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHolder> implements View.OnClickListener,DianzanView,CommentView
+{
     private int a=0;
     private ObjectAnimator animator;
     private ObjectAnimator fanimator;
@@ -45,9 +56,14 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
     private ObjectAnimator animator3;
     private ObjectAnimator fanimator3;
     private Context context;
-    //List<GetVideoBean>  getVideolist;
     List<GetVideos.DataBean> dataBeanList;
     private View view3;
+    private CommentPresenter commentPresenter;
+    private int wid;
+    private View view1;
+    private PopupWindow popupwindow;
+    private TextView pop_pass;
+    private DianzanPresenter dianzanPresenter;
 
     public GetVideoAdapter(Context context, List<GetVideos.DataBean> dataBeanList) {
         this.context = context;
@@ -58,10 +74,40 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view=View.inflate(context, R.layout.getvedio_item,null);
         return new MyHolder(view);
+
     }
     @Override
     public void onBindViewHolder(final MyHolder holder, final int position) {
-         holder.setIsRecyclable(false);
+        dianzanPresenter = new DianzanPresenter(this);
+        commentPresenter=new CommentPresenter(this);
+        wid = dataBeanList.get(position).wid;
+        holder.iv_pinglun.setOnClickListener(this);
+        holder.iv_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view1 = View.inflate(context, R.layout.zhuanfa_layout,null);
+                popupwindow = new PopupWindow(view1);
+                popupwindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+                popupwindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+                popupwindow.showAsDropDown(view1,120,800);
+                popupwindow.showAtLocation(holder.rt_item,Gravity.BOTTOM,30,20);
+            }
+        });
+       pop_pass.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               popupwindow.dismiss();
+           }
+       });
+       holder.setIsRecyclable(false);
+
+        holder.iv_aixin.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 dianzanPresenter.getDaianzan(MyInterceptor.uid,wid+"");
+                 holder.iv_aixin.setImageResource(R.mipmap.x2);
+             }
+         });
         holder.iv_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +135,7 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
                 holder.iv_icon.setImageDrawable(circularBitmapDrawable);
             }
         });
-         view3 = View.inflate(context, R.layout.simple_player_view_player,holder.rt_video);
+        view3 = View.inflate(context, R.layout.simple_player_view_player,holder.rt_video);
         String videoUrl = dataBeanList.get(position).videoUrl;
         String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
         System.out.println("===videoUrl====="+replace);
@@ -108,98 +154,110 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
               Glide.with(context).load(dataBeanList.get(position).cover).into(ivThumbnail);
             }
         });
-        //-----伸出时的动画
-        animator = ObjectAnimator.ofFloat(holder.iv_1, "rotation", 0f, 180f);
-        animator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", 0f,-80f);
-        animator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", 0f,-160f);
-        animator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", 0f,-240f);
-        //----缩回时的动画
-        fanimator = ObjectAnimator.ofFloat(holder.iv_1, "rotation", 0f, -180f);
-        fanimator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", -80f,0f);
-        fanimator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", -160f,0f);
-        fanimator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", -240f,0f);
-       //给伸出动画设置监听
 
-        animator.addListener(new Animator.AnimatorListener() {
+        holder.iv_animation.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onAnimationStart(Animator animator) {
+            public void onClick(View view) {
+                //-----伸出时的动画
+                animator = ObjectAnimator.ofFloat(holder.iv_animation, "rotation", 0f, 180f);
+                animator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", 0f,-80f);
+                animator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", 0f,-160f);
+                animator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", 0f,-240f);
+                holder.iv_shutdown.setVisibility(View.VISIBLE);
+                holder.iv_animation.setVisibility(View.GONE);
+                AnimatorSet set=new AnimatorSet();
+                set.play(animator).with(animator1).with(animator2).with(animator3);
+                set.setDuration(500);
+                set.start();
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                holder.iv_1.setImageResource(R.mipmap.icon_open);//动画结束改变图片
-                holder.tv1.setVisibility(View.GONE);
-                holder.tv2.setVisibility(View.GONE);
-                holder.tv3.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
+                holder.tv1.setVisibility(View.VISIBLE);
+                holder.tv2.setVisibility(View.VISIBLE);
+                holder.tv3.setVisibility(View.VISIBLE);
             }
         });
+       holder.iv_shutdown.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               holder.iv_shutdown.setVisibility(View.GONE);
+               holder.iv_animation.setVisibility(View.VISIBLE);
+               //----缩回时的动画
+               fanimator = ObjectAnimator.ofFloat(holder.iv_animation, "rotation", 0f, -180f);
+               fanimator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", -80f,0f);
+               fanimator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", -160f,0f);
+               fanimator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", -240f,0f);
 
-       //给缩回动画设置监听
+               AnimatorSet set2 = new AnimatorSet();
+               set2.play(fanimator).with(fanimator1).with(fanimator2).with(fanimator3);
+               set2.setDuration(500);
+               set2.start();
 
-        fanimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                holder.iv_1.setImageResource(R.mipmap.icon_open);//改变图片
-                holder.tv1.setVisibility(View.GONE);
-                holder.tv2.setVisibility(View.GONE);
-                holder.tv3.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-         holder.iv_1.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-
-              holder.tv1.setVisibility(View.VISIBLE);
-              holder.tv2.setVisibility(View.VISIBLE);
-              holder.tv3.setVisibility(View.VISIBLE);
-              a++;
-              if(a%2==1)
-              {
-                  AnimatorSet animSet = new AnimatorSet();//动画集合
-                  animSet.play(animator).with(animator1).with(animator2).with(animator3);
-                  animSet.setDuration(1000);
-                  animSet.start();
-              }
-              else
-              {
-                  AnimatorSet animSet1 = new AnimatorSet();//动画集合
-                  animSet1.play(fanimator).with(fanimator1).with(fanimator2).with(fanimator3);
-                  animSet1.setDuration(1000);
-                  animSet1.start();
-              }
-          }
-      });
-    }
+               holder.tv1.setVisibility(View.GONE);
+               holder.tv2.setVisibility(View.GONE);
+               holder.tv3.setVisibility(View.GONE);
+           }
+       });
+        }
 
     @Override
     public int getItemCount() {
         return dataBeanList.size();
+    }
+
+    @Override
+    public void Success(ResponsBodyBean bodyBean) {
+
+        Toast.makeText(context, bodyBean.msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void Error(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void OnFair(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+    /*
+     *点击事件
+     */
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.iv_pinglun:
+                final EditText editText=new EditText(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("说点什么吧......").setIcon(android.R.drawable.ic_dialog_info).setView(editText)
+                        .setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String content = editText.getText().toString();
+                        commentPresenter.getcomment(MyInterceptor.uid,wid+"",content);
+                    }
+                });
+                builder.show();
+                break;
+            case R.id.pop_pass:
+                break;
+
+        }
+    }
+
+    @Override
+    public void CommentSuccess(ResponsBodyBean bodyBean) {
+
+        Toast.makeText(context, bodyBean.msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void CommentError(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void CommentOnFair(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     class MyHolder extends RecyclerView.ViewHolder
@@ -208,32 +266,48 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         private final ImageView iv_icon;
         private final TextView tv_time;
         private final TextView tv_name;
-        private final TextView tv_cotent;
-        private final ImageView iv_1;
+        private final ImageView iv_animation;
+
         private final LinearLayout iv_animation1;
         private final LinearLayout iv_animation2;
         private final LinearLayout iv_animation3;
         private final TextView tv1;
         private final TextView tv2;
         private final TextView tv3;
-        private final RecyclerView rv_2;
         private final RelativeLayout rt_video;
+        private final ImageView iv_shutdown;
+        private final ImageView iv_aixin;
+        private final ImageView iv_xing;
+        private final TextView tv_aixin;
+        private final TextView tv_xing;
+        private final ImageView iv_pinglun;
+        private final ImageView iv_share;
+        private final RelativeLayout rt_item;
+
 
         public MyHolder(View itemView) {
             super(itemView);
             iv_icon= itemView.findViewById(R.id.iv_icon);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_cotent = itemView.findViewById(R.id.tv_cotent);
-            iv_1 = itemView.findViewById(R.id.iv_1);
+            iv_animation = itemView.findViewById(R.id.iv_animation);
             iv_animation1 = itemView.findViewById(R.id.iv_animation1);
             iv_animation2 = itemView.findViewById(R.id.iv_animation2);
             iv_animation3 = itemView.findViewById(R.id.iv_animation3);
+            iv_shutdown = itemView.findViewById(R.id.iv_shutdown);
             tv1 = itemView.findViewById(R.id.tv1);
             tv2 = itemView.findViewById(R.id.tv2);
             tv3 = itemView.findViewById(R.id.tv3);
-            rv_2 = itemView.findViewById(R.id.rv_2);
             rt_video = itemView.findViewById(R.id.rt_video);
+            iv_aixin = itemView.findViewById(R.id.iv_aixin);
+            iv_xing = itemView.findViewById(R.id.iv_xing);
+            tv_aixin = itemView.findViewById(R.id.tv_aixin);
+            tv_xing = itemView.findViewById(R.id.tv_xing);
+            iv_pinglun = itemView.findViewById(R.id.iv_pinglun);
+            iv_share = itemView.findViewById(R.id.iv_share);
+            rt_item = itemView.findViewById(R.id.rt_item);
+            pop_pass = view1.findViewById(R.id.pop_pass);
+
         }
     }
 }

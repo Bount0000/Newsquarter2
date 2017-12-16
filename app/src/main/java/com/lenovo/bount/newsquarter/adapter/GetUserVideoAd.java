@@ -80,7 +80,7 @@ public class GetUserVideoAd extends RecyclerView.Adapter<GetUserVideoAd.MyHolder
           });
            holder.tv_time.setText(datalist.get(position).createTime);
 
-          holder.tv_name.setText(userdata.nickname);
+           holder.tv_name.setText(userdata.nickname);
 
         Glide.with(context).load(userdata.icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
             @Override
@@ -227,7 +227,7 @@ public class GetUserVideoAd extends RecyclerView.Adapter<GetUserVideoAd.MyHolder
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_cotent = itemView.findViewById(R.id.tv_cotent);
-            iv_1 = itemView.findViewById(R.id.iv_1);
+            iv_1 = itemView.findViewById(R.id.iv_animation);
             iv_animation1 = itemView.findViewById(R.id.iv_animation1);
             iv_animation2 = itemView.findViewById(R.id.iv_animation2);
             iv_animation3 = itemView.findViewById(R.id.iv_animation3);

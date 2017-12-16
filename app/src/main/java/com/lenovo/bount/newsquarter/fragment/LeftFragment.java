@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
+import com.lenovo.bount.newsquarter.activitybao.MyguanzhuActivity;
+import com.lenovo.bount.newsquarter.activitybao.ProductionActivity;
 import com.lenovo.bount.newsquarter.activitybao.ShezhiActivity;
 import com.lenovo.bount.newsquarter.activitybao.SousuoActivity;
 import com.lenovo.bount.newsquarter.activitybao.UserActivity;
@@ -41,11 +43,15 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
     private String icon;
     private String nickname;
     private RelativeLayout rt_sousuo;
+    private View view;
+    private RelativeLayout rt_myzp;
+    private RelativeLayout rt_guanzhu;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=View.inflate(getContext(), R.layout.cehua_layout,null);
+
+          view = View.inflate(getContext(), R.layout.cehua_layout,null);
         return view;
     }
     @Override
@@ -74,13 +80,17 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         tv_name = getView().findViewById(R.id.tv_name);
         iv_7 = getView().findViewById(R.id.iv_7);
         rt_sousuo = getView().findViewById(R.id.rt_sousuo);
+        rt_myzp = getView().findViewById(R.id.rt_myzp);
         iv_tou = getView().findViewById(R.id.iv_tou);
+        rt_guanzhu = getView().findViewById(R.id.rt_guanzhu);
         iv_tou.setOnClickListener(this);
         rt_sousuo.setOnClickListener(this);
+        rt_myzp.setOnClickListener(this);
+        rt_guanzhu.setOnClickListener(this);
     }
     @Override
     public void Success(Userbean2 userbean) {
-        Toast.makeText(getActivity(),userbean.msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(App.context,userbean.msg, Toast.LENGTH_SHORT).show();
         icon = userbean.data.icon;
         String username = userbean.data.username;
         nickname = userbean.data.nickname;
@@ -121,6 +131,14 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
                 Intent intent2=new Intent(getActivity(),SousuoActivity.class);
                 startActivity(intent2);
                 break;
+            case R.id.rt_myzp:
+                Intent intent3=new Intent(getActivity(),ProductionActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.rt_guanzhu:
+                Intent intent4=new Intent(getActivity(),MyguanzhuActivity.class);
+                startActivity(intent4);
+             break;
         }
     }
 }

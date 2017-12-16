@@ -1,6 +1,5 @@
 package com.lenovo.bount.newsquarter.adapter;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -68,7 +67,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
           holder.tv_time.setText(list.get(position).createTime);
           holder.tv_name.setText(list.get(position).user.nickname);
           holder.tv_cotent.setText(list.get(position).content);
-          //holder.iv_icon.setImageResource(list.get(position).user.icon);
+
         Glide.with(context).load(list.get(position).user.icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.iv_icon) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -79,17 +78,53 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
             }
         });
 
-        //-----伸出时的动画
-        animator = ObjectAnimator.ofFloat(holder.iv_1, "rotation", 0f, 180f);
-        animator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", 0f,-80f);
-        animator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", 0f,-160f);
-        animator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", 0f,-240f);
-        //----缩回时的动画
-        fanimator = ObjectAnimator.ofFloat(holder.iv_1, "rotation", 0f, -180f);
-        fanimator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", -80f,0f);
-        fanimator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", -160f,0f);
-        fanimator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", -240f,0f);
-       //给伸出动画设置监听
+     holder.iv_animation.setOnClickListener(new View.OnClickListener() {
+         private ObjectAnimator animator0;
+         @Override
+         public void onClick(View view) {
+             //-----伸出时的动画
+             animator0 = ObjectAnimator.ofFloat(holder.iv_shutdown, "rotation", 0, -180);
+             animator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", 0f,-80f);
+             animator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", 0f,-160f);
+             animator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", 0f,-240f);
+
+             holder.iv_shutdown.setVisibility(View.VISIBLE);
+             holder.iv_animation.setVisibility(View.GONE);
+
+              AnimatorSet set=new AnimatorSet();
+              set.play(animator0).with(animator1).with(animator2).with(animator3);
+              set.setDuration(500);
+              set.start();
+
+           holder.tv1.setVisibility(View.VISIBLE);
+           holder.tv2.setVisibility(View.VISIBLE);
+           holder.tv3.setVisibility(View.VISIBLE);
+         }
+     });
+      holder.iv_shutdown.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              holder.iv_shutdown.setVisibility(View.GONE);
+              holder.iv_animation.setVisibility(View.VISIBLE);
+              //----缩回时的动画
+              fanimator = ObjectAnimator.ofFloat(holder.iv_animation, "rotation", 0f, -180f);
+              fanimator1 = ObjectAnimator.ofFloat(holder.iv_animation1, "translationX", -80f,0f);
+              fanimator2 = ObjectAnimator.ofFloat(holder.iv_animation2, "translationX", -160f,0f);
+              fanimator3 = ObjectAnimator.ofFloat(holder.iv_animation3, "translationX", -240f,0f);
+
+              AnimatorSet set2 = new AnimatorSet();
+              set2.play(fanimator).with(fanimator1).with(fanimator2).with(fanimator3);
+              set2.setDuration(500);
+              set2.start();
+
+              holder.tv1.setVisibility(View.GONE);
+              holder.tv2.setVisibility(View.GONE);
+              holder.tv3.setVisibility(View.GONE);
+
+          }
+      });
+
+ /*      //给伸出动画设置监听
 
         animator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -99,7 +134,14 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                holder.iv_1.setImageResource(R.mipmap.icon_open);//动画结束改变图片
+                holder.iv_animation.setImageResource(R.mipmap.icon_open);//动画结束改变图片
+
+
+                AnimatorSet animSet1 = new AnimatorSet();//动画集合
+                animSet1.play(fanimator).with(fanimator1).with(fanimator2).with(fanimator3);
+                animSet1.setDuration(1000);
+                animSet1.start();
+
                 holder.tv1.setVisibility(View.GONE);
                 holder.tv2.setVisibility(View.GONE);
                 holder.tv3.setVisibility(View.GONE);
@@ -114,35 +156,8 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
             public void onAnimationRepeat(Animator animator) {
 
             }
-        });
-
-       //给缩回动画设置监听
-
-        fanimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                holder.iv_1.setImageResource(R.mipmap.icon_open);//改变图片
-                holder.tv1.setVisibility(View.GONE);
-                holder.tv2.setVisibility(View.GONE);
-                holder.tv3.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-      holder.iv_1.setOnClickListener(new View.OnClickListener() {
+        });*/
+    /*  holder.iv_animation.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
 
@@ -159,13 +174,10 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
               }
               else
               {
-                  AnimatorSet animSet1 = new AnimatorSet();//动画集合
-                  animSet1.play(fanimator).with(fanimator1).with(fanimator2).with(fanimator3);
-                  animSet1.setDuration(1000);
-                  animSet1.start();
+
               }
           }
-      });
+      });*/
 
         String imgUrls = list.get(position).imgUrls;
         if(imgUrls!=null)
@@ -194,26 +206,9 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
 
             adapter = new SmallReAdapter(context,list2);
             holder.rv_2.setAdapter(adapter);
-          /*if(split[position].length()==1)
-            {
-                adapter = new SmallReAdapter(context,split);
-                manager = new GridLayoutManager(context,1);
-            }
-            else if(split[position].length()==2)
-            {
-                 adapter=new SmallReAdapter(context,split);
-                 manager=new GridLayoutManager(context,2);
-            }
-            else
-            {
-                 adapter=new SmallReAdapter(context,split);
-                 manager=new GridLayoutManager(context,3);
-            }*/
-
 
         }
     }
-
     @Override
     public int getItemCount() {
         return list.size();
@@ -226,7 +221,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
         private final TextView tv_time;
         private final TextView tv_name;
         private final TextView tv_cotent;
-        private final ImageView iv_1;
+        private final ImageView iv_animation;
         private final LinearLayout iv_animation1;
         private final LinearLayout iv_animation2;
         private final LinearLayout iv_animation3;
@@ -234,6 +229,7 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
         private final TextView tv2;
         private final TextView tv3;
         private final RecyclerView rv_2;
+        private final ImageView iv_shutdown;
 
         public MyHolder(View itemView) {
             super(itemView);
@@ -241,10 +237,11 @@ public class DuanziAdapter extends RecyclerView.Adapter<DuanziAdapter.MyHolder> 
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_cotent = itemView.findViewById(R.id.tv_cotent);
-            iv_1 = itemView.findViewById(R.id.iv_1);
+            iv_animation = itemView.findViewById(R.id.iv_animation);
             iv_animation1 = itemView.findViewById(R.id.iv_animation1);
             iv_animation2 = itemView.findViewById(R.id.iv_animation2);
             iv_animation3 = itemView.findViewById(R.id.iv_animation3);
+            iv_shutdown = itemView.findViewById(R.id.iv_shutdown);
             tv1 = itemView.findViewById(R.id.tv1);
             tv2 = itemView.findViewById(R.id.tv2);
             tv3 = itemView.findViewById(R.id.tv3);

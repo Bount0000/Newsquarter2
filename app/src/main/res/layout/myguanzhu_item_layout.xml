@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+  <RelativeLayout
+      android:id="@+id/rt_1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_icon"
+        android:layout_alignParentLeft="true"
+        android:layout_width="@dimen/x100"
+        android:layout_height="@dimen/x100"
+        fresco:roundAsCircle="true"
+        />
+
+    <TextView
+        android:layout_toRightOf="@+id/tv_name"
+        android:layout_marginLeft="@dimen/y120"
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="text" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginLeft="@dimen/y40"
+        android:layout_toRightOf="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="text"
+        />
+
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"
+        android:src="@mipmap/ringht"
+        />
+  </RelativeLayout>
+
+  <View
+      android:layout_below="@+id/rt_1"
+      android:background="#ffffff"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/y2"
+      />
+</RelativeLayout>

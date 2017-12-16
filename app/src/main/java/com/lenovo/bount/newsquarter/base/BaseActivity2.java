@@ -14,7 +14,7 @@ public abstract class BaseActivity2<P extends BasePresenter> extends AppCompatAc
    public abstract P  initPresenter();
    public abstract int getLayout();
    public BaseActivity2(P presenter)
-   {
+    {
        this.presenter = presenter;
     }
     @Override

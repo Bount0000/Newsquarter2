@@ -27,6 +27,7 @@ import com.lenovo.bount.newsquarter.bean.GetNearVideoBean;
 import com.lenovo.bount.newsquarter.presenter.GetNearVideosPresenter;
 import com.lenovo.bount.newsquarter.view.GetNearVideosView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +49,8 @@ public class FujingFragment extends Fragment implements GetNearVideosView,Locati
     private int page=1;
     private GetNearVideosPresenter  nearpresenter;
     private GetNearAdapter adapter;
+    private List<GetNearVideoBean.DataBean> list;
+    private StaggeredGridLayoutManager manager;
 
     @Nullable
     @Override
@@ -69,11 +72,25 @@ public class FujingFragment extends Fragment implements GetNearVideosView,Locati
         nearpresenter.GetNearVideos(1,weidu+"",jingdu+"");
     }
     private void initView() {
+        list = new ArrayList<>();
         near_rv= getView().findViewById(R.id.near_rv);
-        near_rv.setLoadingMoreEnabled(true);
-        near_rv.setPullRefreshEnabled(true);
-        StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         near_rv.setLayoutManager(manager);
+        near_rv.setRefreshProgressStyle(15);
+        near_rv.setLoadingMoreProgressStyle(10);
+        near_rv.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity(), "下拉刷新", Toast.LENGTH_SHORT).show();
+                nearpresenter.GetNearVideos(1,weidu+"",jingdu+"");
+            }
+            @Override
+            public void onLoadMore() {
+                Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
+                page++;
+                nearpresenter.GetNearVideos(page,weidu+"",jingdu+"");
+            }
+        });
     }
 
     @Override
@@ -82,7 +99,7 @@ public class FujingFragment extends Fragment implements GetNearVideosView,Locati
         Toast.makeText(getActivity(), value.msg, Toast.LENGTH_SHORT).show();
         if(adapter==null)
         {
-            adapter = new GetNearAdapter(getActivity(),data);
+            adapter = new GetNearAdapter(getActivity(),list);
             near_rv.setAdapter(adapter);
         }
         if(page==1)

@@ -22,38 +22,36 @@ import java.util.Random;
 
 public class GetNearAdapter extends RecyclerView.Adapter<GetNearAdapter.MyHolder> {
     private Context context;
-    private List<GetNearVideoBean.DataBean> dataBeanList;
+    private List<GetNearVideoBean.DataBean> list;
     private  List<Integer> heightList;
-    public GetNearAdapter(Context context, List<GetNearVideoBean.DataBean> dataBeanList){
+    public GetNearAdapter(Context context, List<GetNearVideoBean.DataBean> list){
         this.context = context;
-        this.dataBeanList = dataBeanList;
+        this.list = list;
         heightList = new ArrayList<>();
-        for (int i = 0; i < dataBeanList.size(); i++) {
-            int height = new Random().nextInt(500) + 300;//[100,300)的随机数
+        for (int i = 0; i < list.size(); i++) {
+            int height = new Random().nextInt(600) + 400;//[100,300)的随机数
             heightList.add(height);
         }
         }
         //刷新
-  public void  refreshData(List<GetNearVideoBean.DataBean> list)
+  public void  refreshData(List<GetNearVideoBean.DataBean> data)
   {
-      if(dataBeanList!=null)
+      if(list!=null)
       {
-          dataBeanList.clear();
-          dataBeanList.addAll(list);
+          list.clear();
+          list.addAll(data);
           notifyDataSetChanged();
       }
   }
         //更多
-        public void loadData(List<GetNearVideoBean.DataBean> list)
+        public void loadData(List<GetNearVideoBean.DataBean> data)
     {
-    if(dataBeanList!=null)
-     {
-         dataBeanList.addAll(list);
+       if(list!=null)
+       {
+         list.addAll(data);
          notifyDataSetChanged();
          }
     }
-
-
 
     @Override
     public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,8 +60,8 @@ public class GetNearAdapter extends RecyclerView.Adapter<GetNearAdapter.MyHolder
     }
     @Override
     public void onBindViewHolder(MyHolder holder, final int position) {
-        System.out.println(dataBeanList.size()+"++++++++++++++++++++++++++++++");
-        final String videoUrl = dataBeanList.get(position).videoUrl;
+        System.out.println(list.size()+"++++++++++++++++++++++++++++++");
+        final String videoUrl = list.get(position).videoUrl;
         final String replace = videoUrl.replace("https://www.zhaoapi.cn", "http://120.27.23.105");
         ViewGroup.LayoutParams params = holder.rl_play.getLayoutParams();
         try {
@@ -72,26 +70,27 @@ public class GetNearAdapter extends RecyclerView.Adapter<GetNearAdapter.MyHolder
             e.printStackTrace();
         }
         holder.rl_play.setLayoutParams(params);
-        Glide.with(context).load(dataBeanList.get(position).cover).into(holder.rl_play);
+        Glide.with(context).load(list.get(position).cover).into(holder.rl_play);
         holder.rl_play.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, ShipinXqActivity.class);
                 intent.putExtra("videoUrl",replace);
-                intent.putExtra("icon",dataBeanList.get(position).user.icon);
+                intent.putExtra("icon",list.get(position).user.icon);
                 context.startActivity(intent);
             }
         });
     }
     @Override
     public int getItemCount() {
-        return dataBeanList.size();
+        return list.size();
     }
 
     class  MyHolder extends RecyclerView.ViewHolder
     {
         private final ImageView rl_play;
-        public MyHolder(View itemView) {
+        public MyHolder(View itemView)
+        {
             super(itemView);
             rl_play = itemView.findViewById(R.id.rl_play);
         }

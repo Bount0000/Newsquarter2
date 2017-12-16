@@ -29,7 +29,7 @@ import com.lenovo.bount.newsquarter.utils.SpUtils;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseActivity {
 
 
     private LinearLayout lt1;
@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity{
     public int bindLayout() {
         return R.layout.activity_main;
     }
+
     @Override
     public void setLister() {
         lt1.setOnClickListener(this);
@@ -67,83 +68,87 @@ public class MainActivity extends BaseActivity{
 
     @Override
     public void Click(View view) {
-     switch (view.getId())
-     {   case R.id.lt1:
-         switchFragment(tuijianFragmet);
-         //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
-         tv_title.setText("推荐");
-         iv_1.setImageResource(R.mipmap.one1);
-         iv_2.setImageResource(R.mipmap.two);
-         iv_3.setImageResource(R.mipmap.thress);
-         tv_1.setTextColor(Color.BLUE);
-         tv_2.setTextColor(Color.BLACK);
-         tv_3.setTextColor(Color.BLACK);
-         break;
-         case R.id.lt2:
-             switchFragment(duanziFragment);
-            // getSupportFragmentManager().beginTransaction().replace(R.id.fl,new DuanziFragment()).commit();
-             tv_title.setText("段子");
-             iv_1.setImageResource(R.mipmap.one);
-             iv_2.setImageResource(R.mipmap.two2);
-             iv_3.setImageResource(R.mipmap.thress);
-             tv_2.setTextColor(Color.BLUE);
-             tv_1.setTextColor(Color.BLACK);
-             tv_3.setTextColor(Color.BLACK);
-             break;
-         case R.id.lt3:
-             switchFragment(shipinFragment);
-             //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new ShipinFragment()).commit();
-             tv_title.setText("视频");
-             iv_1.setImageResource(R.mipmap.one);
-             iv_2.setImageResource(R.mipmap.two);
-             iv_3.setImageResource(R.mipmap.thress2);
-             tv_3.setTextColor(Color.BLUE);
-             tv_1.setTextColor(Color.BLACK);
-             tv_2.setTextColor(Color.BLACK);
-             break;
-         case R.id.iv_touxiang:
-             drawer.openDrawer(Gravity.LEFT);
-             getSupportFragmentManager().beginTransaction().replace(R.id.left_fl,new LeftFragment()).commit();
-             break;
-         case R.id.iv_bianji:
-             startActivity(new Intent(this,BianjiActivity.class));
-             finish();
-             break;
+        switch (view.getId()) {
+            case R.id.lt1:
+                switchFragment(tuijianFragmet);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
+                tv_title.setText("推荐");
+                iv_1.setImageResource(R.mipmap.one1);
+                iv_2.setImageResource(R.mipmap.two);
+                iv_3.setImageResource(R.mipmap.thress);
+                tv_1.setTextColor(Color.BLUE);
+                tv_2.setTextColor(Color.BLACK);
+                tv_3.setTextColor(Color.BLACK);
+                break;
+            case R.id.lt2:
+                switchFragment(duanziFragment);
+                // getSupportFragmentManager().beginTransaction().replace(R.id.fl,new DuanziFragment()).commit();
+                tv_title.setText("段子");
+                iv_1.setImageResource(R.mipmap.one);
+                iv_2.setImageResource(R.mipmap.two2);
+                iv_3.setImageResource(R.mipmap.thress);
+                tv_2.setTextColor(Color.BLUE);
+                tv_1.setTextColor(Color.BLACK);
+                tv_3.setTextColor(Color.BLACK);
+                break;
+            case R.id.lt3:
+                switchFragment(shipinFragment);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new ShipinFragment()).commit();
+                tv_title.setText("视频");
+                iv_1.setImageResource(R.mipmap.one);
+                iv_2.setImageResource(R.mipmap.two);
+                iv_3.setImageResource(R.mipmap.thress2);
+                tv_3.setTextColor(Color.BLUE);
+                tv_1.setTextColor(Color.BLACK);
+                tv_2.setTextColor(Color.BLACK);
+                break;
+            case R.id.iv_touxiang:
+                drawer.openDrawer(Gravity.LEFT);
 
-     }
+                break;
+            case R.id.iv_bianji:
+                startActivity(new Intent(this, BianjiActivity.class));
+                finish();
+                break;
+        }
     }
+
     @Override
     public void initView() {
-        lt1 =  findViewById(R.id.lt1);
-        lt2 =  findViewById(R.id.lt2);
-        lt3 =  findViewById(R.id.lt3);
-        iv_1 =  findViewById(R.id.iv_icon);
-        iv_2 =  findViewById(R.id.iv_2);
-        iv_3 =  findViewById(R.id.iv_3);
 
-        tv_1 =  findViewById(R.id.tv_1);
-        tv_2 =  findViewById(R.id.tv_2);
+        lt1 = findViewById(R.id.lt1);
+        lt2 = findViewById(R.id.lt2);
+        lt3 = findViewById(R.id.lt3);
+        iv_1 = findViewById(R.id.iv_icon);
+        iv_2 = findViewById(R.id.iv_2);
+        iv_3 = findViewById(R.id.iv_3);
+
+        tv_1 = findViewById(R.id.tv_1);
+        tv_2 = findViewById(R.id.tv_2);
         tv_3 = findViewById(R.id.tv_3);
-        drawer =  findViewById(R.id.drawer);
+        drawer = findViewById(R.id.drawer);
         iv_touxiang = findViewById(R.id.iv_touxiang);
         iv_bianji = findViewById(R.id.iv_bianji);
-        tv_title =  findViewById(R.id.tv_title);
+        tv_title = findViewById(R.id.tv_title);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.left_fl,new LeftFragment()).commit();
     }
+
     @Override
     public void initDate() {
-         setStatus(false);
-         setshowActionBar(false);
+        setStatus(false);
+        setshowActionBar(false);
         tuijianFragmet = new TuijianFragment();
         duanziFragment = new DuanziFragment();
         shipinFragment = new ShipinFragment();
         leftFragment = new LeftFragment();
         cuttrentFragment = tuijianFragmet;
-        getSupportFragmentManager().beginTransaction().add(R.id.fl,tuijianFragmet).commit();
-            iv_1.setImageResource(R.mipmap.one1);
-            tv_1.setTextColor(Color.BLACK);
-            SpUtils utils=new SpUtils(this,"Chuan");
-            String icon = utils.getString("icon", "");
-            System.out.println("----icon-------"+icon);
+        getSupportFragmentManager().beginTransaction().add(R.id.fl, tuijianFragmet).commit();
+        iv_1.setImageResource(R.mipmap.one1);
+        tv_1.setTextColor(Color.BLACK);
+        SpUtils utils = new SpUtils(this, "Chuan");
+        String icon = utils.getString("icon", "");
+        System.out.println("----icon-------" + icon);
         Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -153,21 +158,23 @@ public class MainActivity extends BaseActivity{
                 iv_touxiang.setImageDrawable(circularBitmapDrawable);
             }
         });
-          drawer.setScrimColor(Color.TRANSPARENT);
-          drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+        drawer.setScrimColor(Color.TRANSPARENT);
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
             }
+
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
-            drawer.setScrimColor(Color.TRANSPARENT);
-            switchFragment(leftFragment);
+                drawer.setScrimColor(Color.TRANSPARENT);
             }
+
             @Override
             public void onDrawerClosed(@NonNull View drawerView) {
 
             }
+
             @Override
             public void onDrawerStateChanged(int newState) {
 
@@ -179,22 +186,20 @@ public class MainActivity extends BaseActivity{
     public List<BasePresenter> initPresenter() {
         return null;
     }
+
     //Fragmen替换隐藏方法
-    private void switchFragment(Fragment targetFragmnet)
-    {
+    private void switchFragment(Fragment targetFragmnet) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if(!targetFragmnet.isAdded())
-        {
+        if (!targetFragmnet.isAdded()) {
             transaction.hide(cuttrentFragment)
-                    .add(R.id.fl,targetFragmnet)
+                    .add(R.id.fl, targetFragmnet)
+                    .commit();
+        } else {
+            transaction.hide(cuttrentFragment)
+                    .show(targetFragmnet)
                     .commit();
         }
-        else
-        {  transaction.hide(cuttrentFragment)
-                .show(targetFragmnet)
-                .commit();
-        }
-        cuttrentFragment=targetFragmnet;
+        cuttrentFragment = targetFragmnet;
 
     }
 }

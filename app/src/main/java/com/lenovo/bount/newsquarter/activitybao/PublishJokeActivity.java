@@ -72,6 +72,7 @@ public class PublishJokeActivity extends BaseActivity implements PublishJokeView
             popupwindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
             popupwindow.showAsDropDown(view2,120,800);
             popupwindow.showAtLocation(rl1, Gravity.BOTTOM,30,20);
+
             break;
         case R.id.pop_finish:
             popupwindow.dismiss();

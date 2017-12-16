@@ -16,12 +16,12 @@ public class GetAdModel {
 
     public void getAd()
     {
-        new RetrofitUtils.Builder().addConverterFactory()
+        Observer<Guangao> observer = new RetrofitUtils.Builder().addConverterFactory()
                 .addCallAdapterFactory()
                 .builder().getService().getAd()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Guangao>() {
+                .subscribeWith(new Observer<Guangao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
@@ -29,19 +29,16 @@ public class GetAdModel {
 
                     @Override
                     public void onNext(Guangao value) {
-                    if(value.code.equals("0"))
-                    {
-                        getAdInterface.Success(value);
-                        System.out.println("==guang==="+value.msg);
-                    }else if(value.code.equals("1"))
-                    {
-                        getAdInterface.Error(value.msg);
-                        System.out.println("==guang==="+value.msg);
-                    }else
-                    {
-                        getAdInterface.OnFair(value.msg);
-                        System.out.println("==guang==="+value.msg);
-                    }
+                        if (value.code.equals("0")) {
+                            getAdInterface.Success(value);
+                            System.out.println("==guang===" + value.msg);
+                        } else if (value.code.equals("1")) {
+                            getAdInterface.Error(value.msg);
+                            System.out.println("==guang===" + value.msg);
+                        } else {
+                            getAdInterface.OnFair(value.msg);
+                            System.out.println("==guang===" + value.msg);
+                        }
 
                     }
 

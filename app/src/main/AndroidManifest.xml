@@ -1,90 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lenovo.bount.newsquarter"> <!-- //友盟统计 -->
-    <uses-sdk android:minSdkVersion="8" />
+  package="com.lenovo.bount.newsquarter"> <!-- //友盟统计 -->
+<uses-sdk android:minSdkVersion="8" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-    <!-- iBeancon功能所需权限 -->
-    ;
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <!-- 个推3.0电子围栏功能所需权限 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<meta-data
+    android:name="UMENG_APPKEY"
+    android:value="59a944215312dd99420009a7"></meta-data>
+
+<uses-permission android:name="android.permission.READ_LOGS" />
+
+<!-- iBeancon功能所需权限 -->
+;
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<!-- 个推3.0电子围栏功能所需权限 -->
+
+<meta-data
+    android:name="UMENG_APPKEY"
+    android:value="5a0a9488a40fa371720000c4" />
+
+<!-- //高德地图 -->
+<!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+<!-- 用于申请调用A-GPS模块 -->
+<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+<!-- 用于申请获取蓝牙信息进行室内定位 -->
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.CAMERA" />
+
+<application
+    android:name=".App"
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity android:name=".activitybao.Qidong2Activity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+    <activity android:name=".activitybao.MainActivity" />
+
+    <service
+        android:name=".DemoPushService"
+        android:exported="true"
+        android:label="PushService"
+        android:process=":pushservice" />
+    <service android:name=".DemoIntentService" />
+
+    <activity
+        android:name=".activitybao.LoginActivity"
+        android:theme="@style/AppTheme" />
+    <activity
+        android:name=".activitybao.Login2Activity"
+        android:theme="@style/AppTheme" />
+    <activity android:name=".activitybao.RegisterActivity" />
+    <activity android:name=".activitybao.BianjiActivity" />
+    <activity android:name=".activitybao.PublishJokeActivity" />
+    <activity android:name=".activitybao.ShezhiActivity" />
+    <activity android:name=".activitybao.Activity" />
+    <activity android:name=".activitybao.UserActivity" />
+    <activity android:name=".GaodeMapActivity" />
 
     <meta-data
-        android:name="UMENG_APPKEY"
-        android:value="5a0a9488a40fa371720000c4" />
+        android:name="com.amap.api.v2.apikey"
+        android:value="eab5d80b8e0c0dc2eb5332a86bf4a6fa" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <service android:name="com.amap.api.location.APSService" />
 
-    <!-- //高德地图 -->
-    <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!-- 用于申请获取蓝牙信息进行室内定位 -->
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <activity android:name=".activitybao.ShipinActivity" />
+    <activity android:name=".activitybao.PbVideoActivity" />
+    <activity android:name=".activitybao.Pbvideo1Activity" />
+    <activity android:name=".activitybao.GuanzhuActivity" />
+    <activity android:name=".activitybao.ShipinXqActivity" />
+    <activity android:name=".activitybao.SousuoActivity" />
+    <activity android:name=".activitybao.ProductionActivity" />
+    <activity android:name=".activitybao.MyguanzhuActivity"></activity>
+    <activity
+        android:name="com.umeng.qq.tencent.AuthActivity"
+        android:launchMode="singleTask"
+        android:noHistory="true">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
 
-    <application
-        android:name=".App"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activitybao.Qidong2Activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activitybao.MainActivity" />
-
-        <service
-            android:name=".DemoPushService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":pushservice" />
-        <service android:name=".DemoIntentService" />
-
-        <activity
-            android:name=".activitybao.LoginActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activitybao.Login2Activity"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".activitybao.RegisterActivity" />
-        <activity android:name=".activitybao.BianjiActivity" />
-        <activity android:name=".activitybao.PublishJokeActivity" />
-        <activity android:name=".activitybao.ShezhiActivity" />
-        <activity android:name=".activitybao.Activity" />
-        <activity android:name=".activitybao.UserActivity" />
-        <activity android:name=".GaodeMapActivity" />
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="eab5d80b8e0c0dc2eb5332a86bf4a6fa" />
-
-        <service android:name="com.amap.api.location.APSService" />
-
-        <activity android:name=".activitybao.ShipinActivity" />
-        <activity android:name=".activitybao.PbVideoActivity" />
-        <activity android:name=".activitybao.Pbvideo1Activity" />
-        <activity android:name=".activitybao.GuanzhuActivity" />
-        <activity android:name=".activitybao.ShipinXqActivity" />
-        <activity android:name=".activitybao.SousuoActivity"></activity>
-    </application>
+            <data android:scheme="tencent100424468" />
+        </intent-filter>
+    </activity>
+    <activity
+        android:name="com.umeng.qq.tencent.AssistActivity"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:configChanges="orientation|keyboardHidden|screenSize" />
+    <activity android:name=".activitybao.QQsanActivity"></activity>
+</application>
 
 </manifest>

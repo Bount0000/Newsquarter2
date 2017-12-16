@@ -75,7 +75,6 @@ public class ShipinActivity extends BaseActivity {
                     actualimagecursor.moveToFirst();
                     String img_path = actualimagecursor.getString(actual_image_column_index);
 
-
                     Intent intent=new Intent(this,Pbvideo1Activity.class);
                     intent.putExtra("videourl",img_path);
 

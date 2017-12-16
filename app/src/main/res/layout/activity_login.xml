@@ -26,7 +26,7 @@
         android:id="@+id/imageView" />
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+        android:id="@+id/rt_myzp"
         android:layout_width="@dimen/x444"
         android:layout_height="@dimen/y110"
         android:layout_above="@+id/relativeLayout"
@@ -58,9 +58,9 @@
         android:id="@+id/relativeLayout"
         android:layout_width="@dimen/x444"
         android:layout_height="@dimen/y110"
-        android:layout_alignLeft="@+id/relativeLayout2"
+        android:layout_alignLeft="@+id/rt_myzp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/relativeLayout2"
+        android:layout_alignStart="@+id/rt_myzp"
         android:layout_marginBottom="@dimen/y185"
         android:background="@drawable/qqbackgroup">
 

@@ -10,8 +10,6 @@ import com.lenovo.bount.newsquarter.base.BasePresenter;
 import java.util.List;
 
 public class BianjiActivity extends BaseActivity {
-
-
     private ImageView iv_shiping;
     private ImageView iv_duanzi;
 

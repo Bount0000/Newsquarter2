@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rt_pop"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y350">
+    <LinearLayout
+        android:background="#D9D9D9"
+        android:gravity="center"
+        android:layout_below="@+id/tv_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3">
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="@dimen/x140"
+                android:layout_height="60dp"
+                android:src="@mipmap/qq2" />
+
+            <TextView
+                android:layout_width="@dimen/x140"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x20"
+                android:text="QQ好友" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/x140"
+                android:src="@mipmap/raw_1500022686" />
+
+            <TextView
+                android:layout_width="@dimen/x140"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x20"
+                android:text="QQ空间" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/x140"
+                android:src="@mipmap/raw_1500022317" />
+
+            <TextView
+                android:layout_width="@dimen/x140"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x20"
+                android:text="朋友圈" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:layout_width="@dimen/x140"
+                android:layout_height="@dimen/x140"
+                android:src="@mipmap/weixin" />
+            <TextView
+                android:layout_width="@dimen/x140"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/x20"
+                android:text="微信" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pop_pass"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:layout_below="@+id/linearLayout3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/x30"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/black" />
+</RelativeLayout>

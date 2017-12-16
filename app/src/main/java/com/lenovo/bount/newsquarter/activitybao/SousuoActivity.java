@@ -59,6 +59,7 @@ public class SousuoActivity extends BaseActivity implements SearchFriendsView{
     }
     @Override
     public void initView() {
+        setshowActionBar(false);
         ButterKnife.bind(this);
     }
 

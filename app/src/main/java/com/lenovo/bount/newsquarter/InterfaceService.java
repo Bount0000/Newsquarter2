@@ -1,9 +1,11 @@
 package com.lenovo.bount.newsquarter;
 
 import com.lenovo.bount.newsquarter.bean.BanbenUpdate;
+import com.lenovo.bount.newsquarter.bean.GetFollowUsersBean;
 import com.lenovo.bount.newsquarter.bean.GetJokeBean;
 import com.lenovo.bount.newsquarter.bean.GetNearVideoBean;
 import com.lenovo.bount.newsquarter.bean.GetVideos;
+import com.lenovo.bount.newsquarter.bean.GetWorkInfoBean;
 import com.lenovo.bount.newsquarter.bean.Getuser;
 import com.lenovo.bount.newsquarter.bean.Guangao;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
@@ -15,6 +17,7 @@ import com.lenovo.bount.newsquarter.bean.Userbean2;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
@@ -111,6 +114,21 @@ public interface InterfaceService {
     @FormUrlEncoded
     Observable<SearchBean> getsearchFriends(@Field("keywords") String keywords,@Field("page") int page );
 
+   @GET("quarter/praise")
+    Flowable<ResponsBodyBean> getpraise(@Query("uid") String uid,@Query("wid") String wid);
 
+    //作品评论
+    @GET("quarter/comment")
+    Flowable<ResponsBodyBean> getcomment(@Query("uid") String uid,@Query("wid") String wid,@Query("content") String content);
+
+    //获取关注用户列表
+    @POST("quarter/getFollowUsers")
+    @FormUrlEncoded
+    Flowable<GetFollowUsersBean> getFollowUsers(@Field("uid") String uid);
+
+    //获取作品个人中心
+    @POST("quarter/getWorkInfo")
+    @FormUrlEncoded
+    Flowable<GetWorkInfoBean> getWorkInfo(@Field("uid") String uid);
 
 }

@@ -3,6 +3,7 @@ package com.lenovo.bount.newsquarter.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
     private List<RmSpBean.DataBean> list;
     private SpRemenAdapter adapter;
     private GetRmVideoPresenter getRmVideoPresenter;
+    private StaggeredGridLayoutManager manager;
 
     @Nullable
     @Override
@@ -60,8 +62,8 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
         recyclerView = getView().findViewById(R.id.recyclerView);
         recyclerView.setLoadingMoreEnabled(true);
         recyclerView.setPullRefreshEnabled(true);
-        StaggeredGridLayoutManager manager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
+
+
     }
 
     @Override
@@ -75,7 +77,24 @@ public class SpRemenFragment extends Fragment implements GetRmVideoView {
         if(adapter==null)
         {
             adapter = new SpRemenAdapter(getContext(),list);
-            recyclerView.setAdapter(adapter);
+            manager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+            //顶部错位解决
+            manager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
+            //防止第一行有白处
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    manager.invalidateSpanAssignments();
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                }
+            });
+             recyclerView.setLayoutManager(manager);
+             recyclerView.setAdapter(adapter);
         }
         else
         {

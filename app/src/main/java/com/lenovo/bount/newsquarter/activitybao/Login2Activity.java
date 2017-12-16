@@ -86,7 +86,6 @@ public class Login2Activity extends BaseActivity implements LoginView{
         return presenterList;
     }
 
-
     @Override
     public void Success(ResponsBodyBean<Userbean> userbean) {
         showToast(userbean.msg);
@@ -106,6 +105,12 @@ public class Login2Activity extends BaseActivity implements LoginView{
 
     @Override
     public void onFair() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 }

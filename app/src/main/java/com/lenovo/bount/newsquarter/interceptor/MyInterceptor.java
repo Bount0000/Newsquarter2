@@ -24,11 +24,11 @@ import okhttp3.Response;
 public class MyInterceptor implements Interceptor {
     public static String uid;
     public static String token;
-    private int versioncode;
+    public static  int versioncode;
 
     public Response intercept(Interceptor.Chain chain) throws IOException
     {
-          SpUtils utils=new SpUtils(App.context,"User");
+          SpUtils utils=new SpUtils(App.context,"Login");
           token = utils.getString("token", "");
           uid = utils.getString("uid", "");
         PackageManager manager = App.context.getPackageManager();
@@ -36,6 +36,7 @@ public class MyInterceptor implements Interceptor {
         try {
             info = manager.getPackageInfo(App.context.getPackageName(),0);
             versioncode = info.versionCode;
+            System.out.println("==versioncode===="+versioncode);
         } catch (Exception e) {
             e.printStackTrace();
         }

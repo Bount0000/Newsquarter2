@@ -8,7 +8,7 @@
     <RelativeLayout
      android:id="@+id/rl_1"
      android:layout_width="match_parent"
-     android:layout_height="@dimen/y80"
+     android:layout_height="@dimen/y100"
       android:orientation="horizontal"
         >
         <LinearLayout
@@ -19,25 +19,26 @@
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y40"
+                android:layout_height="@dimen/y60"
                 android:src="@mipmap/leftjiantou"
                 />
+
+            <ImageView
+                android:layout_width="34dp"
+                android:layout_height="@dimen/y60"
+                android:layout_weight="1"
+                android:src="@mipmap/xin" />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y40"
-                android:src="@mipmap/xin"
-                />
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/y40"
+                android:layout_height="@dimen/y60"
                 android:src="@mipmap/raw_1499933217"
                 />
             <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y40"
+                android:layout_height="@dimen/y60"
+                android:layout_marginLeft="@dimen/y40"
                 android:src="@mipmap/raw_1499995160"
                 />
         </LinearLayout>
@@ -53,7 +54,7 @@
     <RelativeLayout
         android:layout_below="@+id/rl_1"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y350"
+        android:layout_height="@dimen/y450"
         android:id="@+id/rl_player"
         />
     <TextView
@@ -76,11 +77,11 @@
          android:id="@+id/rl_2"
          android:layout_below="@+id/tv_2"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"
+         android:layout_height="@dimen/y650"
           android:background="#DEDEDE"
          >
         <ImageView
-         android:layout_width="wrap_content"
+         android:layout_width="@dimen/x300"
          android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@mipmap/tutu"

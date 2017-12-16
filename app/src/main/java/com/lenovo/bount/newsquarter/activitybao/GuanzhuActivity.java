@@ -19,7 +19,6 @@ import com.lenovo.bount.newsquarter.interceptor.MyInterceptor;
 import com.lenovo.bount.newsquarter.presenter.FollowPresenter;
 import com.lenovo.bount.newsquarter.presenter.GetUservideo;
 import com.lenovo.bount.newsquarter.presenter.PresonPresenter;
-import com.lenovo.bount.newsquarter.utils.SpUtils;
 import com.lenovo.bount.newsquarter.view.FollowView;
 import com.lenovo.bount.newsquarter.view.GetUservideoView;
 import com.lenovo.bount.newsquarter.view.PresonView;
@@ -39,6 +38,8 @@ public class GuanzhuActivity extends BaseActivity implements PresonView,FollowVi
     private FollowPresenter follesenterpresenter;
     private int useruid;
     private int i;
+    private int guanzhuuid;
+
     @Override
     public int bindLayout()
     {
@@ -65,7 +66,7 @@ public class GuanzhuActivity extends BaseActivity implements PresonView,FollowVi
             }
             else
             {
-                guanzhu.setImageResource(R.mipmap.yguanzhu);
+             guanzhu.setImageResource(R.mipmap.yguanzhu);
                 i++;
             }
             break;
@@ -84,12 +85,15 @@ public class GuanzhuActivity extends BaseActivity implements PresonView,FollowVi
     }
     @Override
     public void initDate() {
-        Intent intent = getIntent();
-        useruid = intent.getIntExtra("uid", 0);
-        uerperson = new PresonPresenter(this);
-        uerperson.getuser(useruid +"");
-        follesenterpresenter = new FollowPresenter(this);
-        uservideopresenter = new GetUservideo(this);
+         Intent intent = getIntent();
+         useruid = intent.getIntExtra("uid", 0);
+         uerperson = new PresonPresenter(this);
+         uerperson.getuser(useruid +"");
+         follesenterpresenter = new FollowPresenter(this);
+         uservideopresenter = new GetUservideo(this);
+        Intent intent2 = getIntent();
+        guanzhuuid = intent2.getIntExtra("guanzhuuid", 0);
+        uerperson.getuser(guanzhuuid +"");
     }
 
     @Override
@@ -103,7 +107,7 @@ public class GuanzhuActivity extends BaseActivity implements PresonView,FollowVi
     public void Success(Userbean2 userbean) {
         showToast(userbean.msg);
         userdata = userbean.data;
-       String icon = userbean.data.icon;
+         String icon = userbean.data.icon;
          int fans = userbean.data.fans;
          int follow = userbean.data.follow;
          String token = userbean.data.token;
@@ -111,9 +115,8 @@ public class GuanzhuActivity extends BaseActivity implements PresonView,FollowVi
          fans_num.setText(fans+"");
          follow_num.setText(follow+"");
          int uid = userbean.data.uid;
-         SpUtils utils=new SpUtils(this,"User");
-         utils.putString("token",token);
          uservideopresenter.getUservideo(uid+"",1);
+        uservideopresenter.getUservideo(guanzhuuid+"",1);
     }
 
     @Override
@@ -148,17 +151,15 @@ public class GuanzhuActivity extends BaseActivity implements PresonView,FollowVi
         GetUserVideoAd adapter=new GetUserVideoAd(this,data,userdata);
         xrv.setAdapter(adapter);
         xrv.setLayoutManager(manager);
-        SpUtils utils=new SpUtils(this,"User");
-        utils.putString("token","1D34763F54E391E345A71D6C3050A323");
     }
 
     @Override
     public void getUserError(String msg) {
-
+        showToast(msg);
     }
 
     @Override
     public void getUsermsOnFair(String msg) {
-
+        showToast(msg);
     }
-}
+     }
