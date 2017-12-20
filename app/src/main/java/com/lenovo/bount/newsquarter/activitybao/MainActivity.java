@@ -22,6 +22,7 @@ import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.base.BaseActivity;
 import com.lenovo.bount.newsquarter.base.BasePresenter;
 import com.lenovo.bount.newsquarter.fragment.DuanziFragment;
+import com.lenovo.bount.newsquarter.fragment.FindFragment;
 import com.lenovo.bount.newsquarter.fragment.LeftFragment;
 import com.lenovo.bount.newsquarter.fragment.ShipinFragment;
 import com.lenovo.bount.newsquarter.fragment.TuijianFragment;
@@ -51,6 +52,10 @@ public class MainActivity extends BaseActivity {
     private ShipinFragment shipinFragment;
     private android.support.v4.app.Fragment cuttrentFragment;
     private LeftFragment leftFragment;
+    private FindFragment findFragment;
+    private LinearLayout lt4;
+    private ImageView iv_4;
+    private TextView tv_4;
 
     @Override
     public int bindLayout() {
@@ -62,6 +67,7 @@ public class MainActivity extends BaseActivity {
         lt1.setOnClickListener(this);
         lt2.setOnClickListener(this);
         lt3.setOnClickListener(this);
+        lt4.setOnClickListener(this);
         iv_touxiang.setOnClickListener(this);
         iv_bianji.setOnClickListener(this);
     }
@@ -72,13 +78,14 @@ public class MainActivity extends BaseActivity {
             case R.id.lt1:
                 switchFragment(tuijianFragmet);
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new TuijianFragment()).commit();
-                tv_title.setText("推荐");
                 iv_1.setImageResource(R.mipmap.one1);
                 iv_2.setImageResource(R.mipmap.two);
                 iv_3.setImageResource(R.mipmap.thress);
+                iv_4.setImageResource(R.mipmap.find);
                 tv_1.setTextColor(Color.BLUE);
                 tv_2.setTextColor(Color.BLACK);
                 tv_3.setTextColor(Color.BLACK);
+                tv_4.setTextColor(Color.BLACK);
                 break;
             case R.id.lt2:
                 switchFragment(duanziFragment);
@@ -87,9 +94,11 @@ public class MainActivity extends BaseActivity {
                 iv_1.setImageResource(R.mipmap.one);
                 iv_2.setImageResource(R.mipmap.two2);
                 iv_3.setImageResource(R.mipmap.thress);
+                iv_4.setImageResource(R.mipmap.find);
                 tv_2.setTextColor(Color.BLUE);
                 tv_1.setTextColor(Color.BLACK);
                 tv_3.setTextColor(Color.BLACK);
+                tv_4.setTextColor(Color.BLACK);
                 break;
             case R.id.lt3:
                 switchFragment(shipinFragment);
@@ -98,10 +107,27 @@ public class MainActivity extends BaseActivity {
                 iv_1.setImageResource(R.mipmap.one);
                 iv_2.setImageResource(R.mipmap.two);
                 iv_3.setImageResource(R.mipmap.thress2);
+                iv_4.setImageResource(R.mipmap.find);
                 tv_3.setTextColor(Color.BLUE);
                 tv_1.setTextColor(Color.BLACK);
                 tv_2.setTextColor(Color.BLACK);
+                tv_4.setTextColor(Color.BLACK);
                 break;
+            case R.id.lt4:
+                switchFragment(findFragment);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.fl,new ShipinFragment()).commit();
+                tv_title.setText("发现");
+                iv_1.setImageResource(R.mipmap.one);
+                iv_2.setImageResource(R.mipmap.two);
+                iv_3.setImageResource(R.mipmap.thress);
+                iv_4.setImageResource(R.mipmap.find2);
+
+                tv_1.setTextColor(Color.BLACK);
+                tv_2.setTextColor(Color.BLACK);
+                tv_3.setTextColor(Color.BLACK);
+                tv_4.setTextColor(Color.BLUE);
+
+            break;
             case R.id.iv_touxiang:
                 drawer.openDrawer(Gravity.LEFT);
 
@@ -119,18 +145,21 @@ public class MainActivity extends BaseActivity {
         lt1 = findViewById(R.id.lt1);
         lt2 = findViewById(R.id.lt2);
         lt3 = findViewById(R.id.lt3);
+        lt4 = findViewById(R.id.lt4);
         iv_1 = findViewById(R.id.iv_icon);
         iv_2 = findViewById(R.id.iv_2);
         iv_3 = findViewById(R.id.iv_3);
+        iv_4 = findViewById(R.id.iv_4);
 
         tv_1 = findViewById(R.id.tv_1);
         tv_2 = findViewById(R.id.tv_2);
         tv_3 = findViewById(R.id.tv_3);
+        tv_4 = findViewById(R.id.tv_4);
         drawer = findViewById(R.id.drawer);
         iv_touxiang = findViewById(R.id.iv_touxiang);
         iv_bianji = findViewById(R.id.iv_bianji);
         tv_title = findViewById(R.id.tv_title);
-
+        tv_title.setText("推荐");
         getSupportFragmentManager().beginTransaction().replace(R.id.left_fl,new LeftFragment()).commit();
     }
 
@@ -142,11 +171,12 @@ public class MainActivity extends BaseActivity {
         duanziFragment = new DuanziFragment();
         shipinFragment = new ShipinFragment();
         leftFragment = new LeftFragment();
+        findFragment = new FindFragment();
         cuttrentFragment = tuijianFragmet;
         getSupportFragmentManager().beginTransaction().add(R.id.fl, tuijianFragmet).commit();
         iv_1.setImageResource(R.mipmap.one1);
         tv_1.setTextColor(Color.BLACK);
-        SpUtils utils = new SpUtils(this, "Chuan");
+        SpUtils utils = new SpUtils(this,"Chuan");
         String icon = utils.getString("icon", "");
         System.out.println("----icon-------" + icon);
         Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_touxiang) {

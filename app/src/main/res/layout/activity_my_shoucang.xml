@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lenovo.bount.newsquarter.activitybao.MyShoucangActivity">
+  <RelativeLayout
+      android:id="@+id/rt_1"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/y80"
+      android:background="@color/changeziti"
+      >
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="@dimen/x50"
+        android:layout_height="@dimen/y50"
+        android:src="@mipmap/leftjiantou"
+
+        />
+    <TextView
+        android:textSize="@dimen/y35"
+        android:layout_toRightOf="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y50"
+        android:text="返回"
+        android:textColor="@color/whiteziti"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y50"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="我的收藏"
+        android:textColor="@color/whiteziti"
+        android:textSize="@dimen/y35" />
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_alignParentRight="true"
+        android:textSize="@dimen/y35"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/y50"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/whiteziti"
+        android:text="删除" />
+  </RelativeLayout>
+  <com.jcodecraeer.xrecyclerview.XRecyclerView
+      android:layout_below="@+id/rt_1"
+      android:id="@+id/xrv_sc"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+  <Button
+      android:visibility="gone"
+    android:id="@+id/btn_delete"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="删除"
+    />
+
+</RelativeLayout>

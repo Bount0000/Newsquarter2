@@ -81,7 +81,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/pop_pass"
+        android:id="@+id/pop_quxiao"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y80"
         android:layout_below="@+id/linearLayout3"

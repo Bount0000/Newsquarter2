@@ -1,6 +1,7 @@
 package com.lenovo.bount.newsquarter;
 
 import com.lenovo.bount.newsquarter.bean.BanbenUpdate;
+import com.lenovo.bount.newsquarter.bean.GetFavoritesBean;
 import com.lenovo.bount.newsquarter.bean.GetFollowUsersBean;
 import com.lenovo.bount.newsquarter.bean.GetJokeBean;
 import com.lenovo.bount.newsquarter.bean.GetNearVideoBean;
@@ -8,6 +9,7 @@ import com.lenovo.bount.newsquarter.bean.GetVideos;
 import com.lenovo.bount.newsquarter.bean.GetWorkInfoBean;
 import com.lenovo.bount.newsquarter.bean.Getuser;
 import com.lenovo.bount.newsquarter.bean.Guangao;
+import com.lenovo.bount.newsquarter.bean.RandomFriendsBean;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.bean.RmSpBean;
 import com.lenovo.bount.newsquarter.bean.SearchBean;
@@ -130,5 +132,20 @@ public interface InterfaceService {
     @POST("quarter/getWorkInfo")
     @FormUrlEncoded
     Flowable<GetWorkInfoBean> getWorkInfo(@Field("uid") String uid);
+   //收藏作品
+    @POST("quarter/addFavorite")
+    @FormUrlEncoded
+    Flowable<ResponsBodyBean> getaddFavorite(@Field("uid") String uid,@Field("wid") String wid);
+    //收藏列表
+    @POST("quarter/getFavorites")
+    @FormUrlEncoded
+    Flowable<GetFavoritesBean> getFavorites(@Field("uid") String uid);
+    //删除收藏
+    @POST("quarter/removeFavorite")
+    @FormUrlEncoded
+    Flowable<ResponsBodyBean> removeFavorite(@Field("uid") String uid,@Field("fid") String fid);
 
+    //随机钟友
+    @GET("quarter/randomFriends")
+    Flowable<RandomFriendsBean> randomFriends();
 }

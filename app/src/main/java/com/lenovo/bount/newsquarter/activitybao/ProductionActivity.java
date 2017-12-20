@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductionActivity extends BaseActivity {
-
+    private List<Fragment> fragmentList;
     @BindView(R.id.shezhi_back)
     ImageView shezhiBack;
     @BindView(R.id.she_r1)
@@ -31,8 +31,6 @@ public class ProductionActivity extends BaseActivity {
     TabLayout tabLayout;
     @BindView(R.id.vp)
     ViewPager vp;
-    private List<Fragment> fragmentList;
-
     @Override
     public int bindLayout() {
         return R.layout.activity_production2;
@@ -45,7 +43,10 @@ public class ProductionActivity extends BaseActivity {
 
     @Override
     public void Click(View view) {
+        switch (view.getId()) {
 
+
+        }
     }
 
     @Override
@@ -56,19 +57,12 @@ public class ProductionActivity extends BaseActivity {
 
     @Override
     public void initDate() {
-
         fragmentList = new ArrayList<>();
         fragmentList.add(new BendiFragment());
         fragmentList.add(new BendiFragment());
         MyAdapter myAdapter = new MyAdapter(getSupportFragmentManager());
         vp.setAdapter(myAdapter);
         tabLayout.setupWithViewPager(vp);
-       /* tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                setIndicator(tab, 60, 60);
-            }
-        });*/
 
     }
 
@@ -76,9 +70,6 @@ public class ProductionActivity extends BaseActivity {
     public List<BasePresenter> initPresenter() {
         return null;
     }
-
-
-
 
     class MyAdapter extends FragmentPagerAdapter {
         private String[] title = {"本地作品", "已上传作品"};

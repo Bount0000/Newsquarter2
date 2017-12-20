@@ -56,9 +56,10 @@ public class SpUtils {
     /**
      * 清空SP里所以数据
      */
-    public void clear() {
+    public boolean clear() {
         editor.clear();
         editor.commit();
+        return false;
     }
 
     /**

@@ -117,7 +117,7 @@ public class PublishJokeActivity extends BaseActivity implements PublishJokeView
         pop_finish = view2.findViewById(R.id.pop_finish);
         rl1 =  findViewById(R.id.rl1);
         iv_tupain = findViewById(R.id.iv_tupain);
-        rv = findViewById(R.id.rv);
+        rv = findViewById(R.id.rt_4);
     }
 
     @Override

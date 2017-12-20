@@ -29,7 +29,7 @@
         android:id="@+id/rt_myzp"
         android:layout_width="@dimen/x444"
         android:layout_height="@dimen/y110"
-        android:layout_above="@+id/relativeLayout"
+        android:layout_above="@+id/rt_qq"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="13dp"
         android:background="@drawable/backgroup">
@@ -55,7 +55,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/rt_qq"
         android:layout_width="@dimen/x444"
         android:layout_height="@dimen/y110"
         android:layout_alignLeft="@+id/rt_myzp"

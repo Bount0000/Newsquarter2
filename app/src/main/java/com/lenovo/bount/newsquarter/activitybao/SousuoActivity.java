@@ -8,11 +8,14 @@ import android.widget.RelativeLayout;
 
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lenovo.bount.newsquarter.R;
-import com.lenovo.bount.newsquarter.adapter.SousuoAdapter;
+import com.lenovo.bount.newsquarter.adapter.RandomSousuoAdapter;
 import com.lenovo.bount.newsquarter.base.BaseActivity;
 import com.lenovo.bount.newsquarter.base.BasePresenter;
+import com.lenovo.bount.newsquarter.bean.RandomFriendsBean;
 import com.lenovo.bount.newsquarter.bean.SearchBean;
+import com.lenovo.bount.newsquarter.presenter.RandomFavoritePresenter;
 import com.lenovo.bount.newsquarter.presenter.SearchFriendsPresenter;
+import com.lenovo.bount.newsquarter.view.RandomFavoriteView;
 import com.lenovo.bount.newsquarter.view.SearchFriendsView;
 
 import java.util.ArrayList;
@@ -20,8 +23,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import scut.carson_ho.searchview.ICallBack;
+import scut.carson_ho.searchview.SearchView;
+import scut.carson_ho.searchview.bCallBack;
 
-public class SousuoActivity extends BaseActivity implements SearchFriendsView{
+public class SousuoActivity extends BaseActivity implements SearchFriendsView, RandomFavoriteView {
 
     @BindView(R.id.back)
     ImageView back;
@@ -35,8 +41,13 @@ public class SousuoActivity extends BaseActivity implements SearchFriendsView{
     RelativeLayout rt2;
     @BindView(R.id.sousuo_xrv)
     XRecyclerView sousuoXrv;
-    private int page=1;
+    @BindView(R.id.search_view)
+    SearchView searchView;
+    @BindView(R.id.randomsousuo_xrv)
+    XRecyclerView randomsousuoXrv;
+    private int page = 1;
     private SearchFriendsPresenter presenter;
+    private RandomFavoritePresenter randomFavoritePresenter;
 
     @Override
     public int bindLayout() {
@@ -50,13 +61,12 @@ public class SousuoActivity extends BaseActivity implements SearchFriendsView{
 
     @Override
     public void Click(View view) {
-        switch (view.getId())
-        {
-            case R.id.soussuo:
-            presenter.getSearch(etContent.getText().toString(),page);
+        switch (view.getId()) {
+            case R.id.search_view:
                 break;
         }
     }
+
     @Override
     public void initView() {
         setshowActionBar(false);
@@ -66,12 +76,27 @@ public class SousuoActivity extends BaseActivity implements SearchFriendsView{
     @Override
     public void initDate() {
         presenter = new SearchFriendsPresenter(this);
-       ;
-      }
+        randomFavoritePresenter = new RandomFavoritePresenter(this);
+        randomFavoritePresenter.getRandomFavorite();
+        searchView.setOnClickSearch(new ICallBack() {
+            @Override
+            public void SearchAciton(String string) {
+                presenter.getSearch(string, page);
+            }
+        });
+        searchView.setOnClickBack(new bCallBack() {
+            @Override
+            public void BackAciton() {
+                finish();
+            }
+        });
+    }
+
     @Override
     public List<BasePresenter> initPresenter() {
-        List<BasePresenter> list=new ArrayList<>();
+        List<BasePresenter> list = new ArrayList<>();
         list.add(presenter);
+        list.add(randomFavoritePresenter);
         return list;
     }
 
@@ -79,11 +104,12 @@ public class SousuoActivity extends BaseActivity implements SearchFriendsView{
     public void SearchSuccess(SearchBean value) {
         List<SearchBean.DataBean> data = value.data;
         showToast(value.msg);
-        SousuoAdapter adapter=new SousuoAdapter(this,data);
-        LinearLayoutManager manager=new LinearLayoutManager(this);
+       /* SousuoAdapter adapter = new SousuoAdapter(this, data);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
         sousuoXrv.setLayoutManager(manager);
-        sousuoXrv.setAdapter(adapter);
+        sousuoXrv.setAdapter(adapter);*/
     }
+
     @Override
     public void SearchError(String msg) {
         showToast(msg);
@@ -94,4 +120,25 @@ public class SousuoActivity extends BaseActivity implements SearchFriendsView{
         showToast(msg);
 
     }
+
+    @Override
+    public void RandomFavoriteSucces(RandomFriendsBean bean) {
+        showToast(bean.msg);
+        List<RandomFriendsBean.DataBean> data = bean.data;
+        LinearLayoutManager manager2 = new LinearLayoutManager(this);
+        RandomSousuoAdapter adapter2 = new RandomSousuoAdapter(this, data);
+        randomsousuoXrv.setLayoutManager(manager2);
+        randomsousuoXrv.setAdapter(adapter2);
+    }
+
+    @Override
+    public void RandomFavoriteError(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void RandomFavoriteOnFair(String msg) {
+        showToast(msg);
+    }
+
 }

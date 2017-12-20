@@ -9,15 +9,28 @@
       android:layout_width="@dimen/x100"
       android:layout_height="@dimen/x100"
       fresco:roundAsCircle="true"
+      fresco:placeholderImage="@mipmap/ic_launcher"
       />
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_toRightOf="@+id/iv_icon"
-        android:layout_width="@dimen/x100"
-        android:layout_height="@dimen/x100"
-        android:text="text"
-        />
+
+  <TextView
+      android:id="@+id/tv_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_marginStart="40dp"
+      android:layout_toEndOf="@+id/iv_icon"
+      android:text="text" />
 
 
-
+  <TextView
+      android:id="@+id/guanzhu"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/iv_icon"
+      android:layout_alignParentEnd="true"
+      android:layout_marginBottom="9dp"
+      android:layout_marginEnd="7dp"
+      android:background="@drawable/biankuang"
+      android:gravity="center"
+      android:text="关注" />
 </RelativeLayout>

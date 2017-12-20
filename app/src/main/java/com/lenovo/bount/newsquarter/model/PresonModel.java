@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 public class PresonModel {
 
     public void getUser(String uid)
-    {new RetrofitUtils.Builder()
+    {        new RetrofitUtils.Builder()
                 .addConverterFactory()
                 .addCallAdapterFactory()
                 .builder().getService().getuser(uid)

@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "com.lenovo.bount.newsquarter"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         multiDexEnabled true
@@ -23,6 +23,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            // 设置Jni so文件路径 如果有jniLibs目录就不需要设置，好像手动创建的 jniLibs目录无效
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -86,5 +92,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
     compile 'com.google.dagger:dagger:2.4'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    compile 'com.carson_ho:SearchLayout:1.0.1'
 
 }

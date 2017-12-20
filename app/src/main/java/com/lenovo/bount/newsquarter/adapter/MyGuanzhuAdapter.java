@@ -41,11 +41,13 @@ public class MyGuanzhuAdapter extends RecyclerView.Adapter<MyGuanzhuAdapter.MyHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, GuanzhuActivity.class);
-                intent.putExtra("guanzhuuid",uid);
-                context.startActivity(intent);
+
+                 Intent intent=new Intent(context, GuanzhuActivity.class);
+                 intent.putExtra("guanzhuuid",uid);
+                 context.startActivity(intent);
             }
         });
+
         holder.iv_icon.setImageURI(Uri.parse(data.get(position).icon));
         holder.tv_name.setText(data.get(position).nickname);
         holder.tv_time.setText(data.get(position).createtime);

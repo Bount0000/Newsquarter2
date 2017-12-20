@@ -1,13 +1,11 @@
 package com.lenovo.bount.newsquarter.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
+import com.lenovo.bount.newsquarter.activitybao.MyShoucangActivity;
 import com.lenovo.bount.newsquarter.activitybao.MyguanzhuActivity;
 import com.lenovo.bount.newsquarter.activitybao.ProductionActivity;
 import com.lenovo.bount.newsquarter.activitybao.ShezhiActivity;
@@ -46,6 +43,7 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
     private View view;
     private RelativeLayout rt_myzp;
     private RelativeLayout rt_guanzhu;
+    private RelativeLayout rt_shoucang;
 
     @Nullable
     @Override
@@ -83,10 +81,13 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         rt_myzp = getView().findViewById(R.id.rt_myzp);
         iv_tou = getView().findViewById(R.id.iv_tou);
         rt_guanzhu = getView().findViewById(R.id.rt_guanzhu);
+        rt_shoucang = getView().findViewById(R.id.rt_shoucang);
         iv_tou.setOnClickListener(this);
         rt_sousuo.setOnClickListener(this);
         rt_myzp.setOnClickListener(this);
         rt_guanzhu.setOnClickListener(this);
+        rt_shoucang.setOnClickListener(this);
+
     }
     @Override
     public void Success(Userbean2 userbean) {
@@ -94,9 +95,10 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
         icon = userbean.data.icon;
         String username = userbean.data.username;
         nickname = userbean.data.nickname;
-        SpUtils utils=new SpUtils(getContext(),"Chuan");
-        utils.putString("icon", icon);
-        Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_tou) {
+        SpUtils utils=new SpUtils(App.context,"Chuan");
+        utils.putString("icon",icon);
+        iv_tou.setImageURI(Uri.parse(icon));
+    /*    Glide.with(this).load(icon).asBitmap().centerCrop().into(new BitmapImageViewTarget(iv_tou) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -104,7 +106,7 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
                 circularBitmapDrawable.setCircular(true);
                 iv_tou.setImageDrawable(circularBitmapDrawable);
             }
-        });
+        });*/
         tv_name.setText(username);
     }
 
@@ -139,6 +141,10 @@ public class LeftFragment extends Fragment implements PresonView,View.OnClickLis
                 Intent intent4=new Intent(getActivity(),MyguanzhuActivity.class);
                 startActivity(intent4);
              break;
+            case R.id.rt_shoucang:
+                Intent intent5=new Intent(getActivity(),MyShoucangActivity.class);
+                startActivity(intent5);
+                break;
         }
     }
 }

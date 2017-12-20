@@ -34,7 +34,6 @@ import java.util.List;
  */
 
 public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,GetadView,GetVideosView {
-
     private ViewPager remen_vp;
     private XBanner banner_1;
     private List<String> imgesUrl;
@@ -72,7 +71,6 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
         xrecycleview.addHeaderView(view);
         xrecycleview.setPullRefreshEnabled(true);
         xrecycleview.setLoadingMoreEnabled(true);
-
     }
     @Override
     public void loadBanner(XBanner banner, View view, int position) {
@@ -145,14 +143,16 @@ public class ReMenFragment extends Fragment implements XBanner.XBannerAdapter,Ge
                 xrecycleview.loadMoreComplete();
             }
             });
-          }
+         /* list.clear();
+          getVideosPresenter.getvideo(MyInterceptor.uid,"1",page);*/
+           }
     @Override
     public void GetVideoError(String msg){
         Toast.makeText(App.context,msg, Toast.LENGTH_SHORT).show();
     }
-
     @Override
     public void GetVideoOnFair(Throwable e) {
+
         Toast.makeText(App.context,e.toString(), Toast.LENGTH_SHORT).show();
     }
 }

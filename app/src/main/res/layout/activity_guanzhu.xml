@@ -50,7 +50,6 @@
          <TextView
              android:layout_weight="1"
              android:layout_width="0dp"
-
              android:layout_height="wrap_content"
              android:text="关注" />
 
@@ -116,6 +115,17 @@
             android:layout_toEndOf="@+id/textView6"
             android:layout_toRightOf="@+id/textView6"
             android:src="@mipmap/jguanzhu" />
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/yguanzhu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/textView6"
+            android:layout_toRightOf="@+id/textView6"
+            android:src="@mipmap/yguanzhu" />
 
     </RelativeLayout>
     <View

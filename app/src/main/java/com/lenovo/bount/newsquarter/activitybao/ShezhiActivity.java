@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import com.lenovo.bount.newsquarter.base.BasePresenter;
 import com.lenovo.bount.newsquarter.bean.BanbenUpdate;
 import com.lenovo.bount.newsquarter.presenter.UpdataPresenter;
 import com.lenovo.bount.newsquarter.utils.ClearCacheUtils;
+import com.lenovo.bount.newsquarter.utils.SpUtils;
 import com.lenovo.bount.newsquarter.view.UpdateView;
 
 import org.xutils.common.Callback;
@@ -25,9 +28,49 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import okhttp3.internal.Version;
 
-public class ShezhiActivity extends BaseActivity implements UpdateView{
+public class ShezhiActivity extends BaseActivity implements UpdateView,View.OnClickListener{
+    @BindView(R.id.shezhi_back)
+    ImageView shezhiBack;
+    @BindView(R.id.she_r1)
+    RelativeLayout sheR1;
+    @BindView(R.id.she_v1)
+    View sheV1;
+    @BindView(R.id.she_tv_gengxin)
+    TextView sheTvGengxin;
+    @BindView(R.id.textView4)
+    TextView textView4;
+    @BindView(R.id.she_img_gengxin)
+    ImageView sheImgGengxin;
+    @BindView(R.id.rt_banben)
+    RelativeLayout rtBanben;
+    @BindView(R.id.view1)
+    View view1;
+    @BindView(R.id.she_tv_yijian)
+    TextView sheTvYijian;
+    @BindView(R.id.imageView)
+    ImageView imageView;
+    @BindView(R.id.rl_2)
+    RelativeLayout rl2;
+    @BindView(R.id.she_v2)
+    View sheV2;
+    @BindView(R.id.she_tv_huancun)
+    TextView sheTvHuancun;
+    @BindView(R.id.she_tv_hcnum)
+    TextView sheTvHcnum;
+    @BindView(R.id.she_img_huancun)
+    ImageView sheImgHuancun;
+    @BindView(R.id.clear_rt)
+    RelativeLayout clearRt;
+    @BindView(R.id.shezhi_login_clear)
+    Button shezhiLoginClear;
+    @BindView(R.id.she_tv_guanyu)
+    TextView sheTvGuanyu;
+    @BindView(R.id.rt_2)
+    RelativeLayout rt2;
     private RelativeLayout rt_banben;
     private UpdataPresenter presenter;
     private Version version;
@@ -49,82 +92,82 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
     public void setLister() {
         rt_banben.setOnClickListener(this);
         clear_rt.setOnClickListener(this);
+        shezhiLoginClear.setOnClickListener(this);
     }
+
     @Override
     public void Click(View view) {
-       switch (view.getId())
-       {
-           case R.id.rt_banben:
-               AlertDialog.Builder alerdialog=new AlertDialog.Builder(this);
-               alerdialog.setMessage("是否更新下载");
-               alerdialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       presenter.getupdate();
-                       System.out.println("===走====");
-                       downloadApk();
+        switch (view.getId()) {
+            case R.id.rt_banben:
+                AlertDialog.Builder alerdialog = new AlertDialog.Builder(this);
+                alerdialog.setMessage("是否更新下载");
+                alerdialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        presenter.getupdate();
+                        System.out.println("===走====");
+                        downloadApk();
                      /*  if(MyInterceptor.versioncode < qianversionCode)
                        {
                            //下载服务器的Apk
                        }*/
-                   }
-               });
-               alerdialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-               @Override
-               public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                alerdialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-               }
-           });
-            alerdialog.create().show();
-               break;
-           case R.id.clear_rt:
-               final AlertDialog.Builder clearBuilder = new AlertDialog.Builder(this);
-               clearBuilder.setTitle("清理缓存");
-               clearBuilder.setMessage("确定要清理缓存？");
-               clearBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                });
+                alerdialog.create().show();
+                break;
+            case R.id.clear_rt:
+                final AlertDialog.Builder clearBuilder = new AlertDialog.Builder(this);
+                clearBuilder.setTitle("清理缓存");
+                clearBuilder.setMessage("确定要清理缓存？");
+                clearBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                   }
-               });
-               clearBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       //清除缓存功能
-                       clearCacheUtils.clearAllCache(ShezhiActivity.this);
-                       try {
-                           totalCacheSize = clearCacheUtils.getTotalCacheSize(ShezhiActivity.this);
-                       } catch (Exception e) {
-                           e.printStackTrace();
-                       }
-                       she_tv_hcnum.setText(totalCacheSize);
-                   }
-               });
+                    }
+                });
+                clearBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //清除缓存功能
+                        clearCacheUtils.clearAllCache(ShezhiActivity.this);
+                        try {
+                            totalCacheSize = clearCacheUtils.getTotalCacheSize(ShezhiActivity.this);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        she_tv_hcnum.setText(totalCacheSize);
+                    }
+                });
 
-               clearBuilder.show();
+                clearBuilder.show();
 
-               break;
-       }
+                break;
+            case R.id.shezhi_login_clear:
+                SpUtils utils=new SpUtils(this,"Login");
+                 utils.clear();
+                Intent intent=new Intent(this,LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
-    public void initView()
-    {
+    public void initView() {
         setshowActionBar(false);
+        ButterKnife.bind(this);
         rt_banben = findViewById(R.id.rt_banben);
         clear_rt = findViewById(R.id.clear_rt);
         she_tv_hcnum = findViewById(R.id.she_tv_hcnum);
 
 
-
-
-
-
-
-
-
-
     }
+
     @Override
     public void initDate() {
         presenter = new UpdataPresenter(ShezhiActivity.this);
@@ -139,6 +182,7 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
             e.printStackTrace();
         }
     }
+
     private void initProgerss() {
         progress = new ProgressDialog(this);
         progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -150,9 +194,10 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
             }
         });
     }
+
     @Override
     public List<BasePresenter> initPresenter() {
-        List<BasePresenter> presenterList=new ArrayList<>();
+        List<BasePresenter> presenterList = new ArrayList<>();
         presenterList.add(presenter);
         return presenterList;
     }
@@ -164,8 +209,9 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
         apkUrl = data.apkUrl;
         String versionCode = data.versionCode;
         qianversionCode = Integer.parseInt(versionCode);
-        System.out.println("==qianversionCode===="+qianversionCode);
+        System.out.println("==qianversionCode====" + qianversionCode);
     }
+
     private void install(File file) {
         //调用系统安装器
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -173,15 +219,16 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
         intent.setDataAndType(Uri.parse("file://" + file.getAbsolutePath()), "application/vnd.android.package-archive");
         startActivity(intent);
     }
+
     private void downloadApk() {
-        RequestParams param=new RequestParams(apkUrl);
+        RequestParams param = new RequestParams(apkUrl);
         param.setAutoRename(true);//设置是否支持断点下载
         param.setCancelFast(true);//设置是否立即取消
-        cancelable= x.http().get(param, new Callback.ProgressCallback<File>() {
+        cancelable = x.http().get(param, new Callback.ProgressCallback<File>() {
             @Override
             public void onSuccess(File result) {
-                 progress.dismiss();
-                 install(result);
+                progress.dismiss();
+                install(result);
             }
 
             @Override
@@ -211,11 +258,10 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
 
             @Override
             public void onLoading(long total, long current, boolean isDownloading) {
-             if(isDownloading)
-             {
-                progress.setMax((int) total);
-                progress.setProgress((int) current);
-             }
+                if (isDownloading) {
+                    progress.setMax((int) total);
+                    progress.setProgress((int) current);
+                }
             }
         });
 
@@ -223,7 +269,7 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
 
     @Override
     public void Error(String msg) {
-           showToast(msg);
+        showToast(msg);
     }
 
     @Override
@@ -235,4 +281,5 @@ public class ShezhiActivity extends BaseActivity implements UpdateView{
     public void Token(String msg) {
         showToast(msg);
     }
+
 }

@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
   <android.support.v7.widget.RecyclerView
       android:id="@+id/rv_my"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="@dimen/y350"
       />
-</LinearLayout>
+  <FrameLayout
+      android:layout_marginTop="@dimen/y50"
+      android:layout_alignParentBottom="true"
+      android:layout_below="@+id/rv_my"
+      android:layout_width="@dimen/x300"
+      android:layout_height="@dimen/y300"
+      android:id="@+id/rl"
+     android:layout_alignParentRight="true"
+      >
+
+    <ImageView
+        android:id="@+id/img_c"
+        android:layout_width="@dimen/x130"
+        android:layout_height="@dimen/x130"
+        android:padding="10dp"
+        android:src="@mipmap/fxx"/>
+    <ImageView
+        android:id="@+id/img_d"
+        android:layout_width="@dimen/x130"
+        android:layout_height="@dimen/x130"
+        android:padding="10dp"
+        android:src="@mipmap/shanchu"/>
+    <ImageView
+        android:id="@+id/img_e"
+        android:layout_width="@dimen/x130"
+        android:layout_height="@dimen/x130"
+        android:padding="10dp"
+        android:src="@mipmap/zhaoxiang"/>
+
+    <ImageView
+        android:id="@+id/img_a"
+        android:layout_width="@dimen/x130"
+        android:layout_height="@dimen/x130"
+        android:padding="5dp"
+        android:src="@mipmap/hongxing" />
+  </FrameLayout>
+</RelativeLayout>

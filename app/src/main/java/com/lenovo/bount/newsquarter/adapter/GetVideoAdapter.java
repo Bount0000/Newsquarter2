@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -27,16 +28,21 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
 import com.dou361.ijkplayer.widget.PlayStateParams;
 import com.dou361.ijkplayer.widget.PlayerView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lenovo.bount.newsquarter.App;
 import com.lenovo.bount.newsquarter.R;
 import com.lenovo.bount.newsquarter.activitybao.GuanzhuActivity;
 import com.lenovo.bount.newsquarter.bean.GetVideos;
 import com.lenovo.bount.newsquarter.bean.ResponsBodyBean;
 import com.lenovo.bount.newsquarter.interceptor.MyInterceptor;
+import com.lenovo.bount.newsquarter.presenter.AddFavoritePresenter;
 import com.lenovo.bount.newsquarter.presenter.CommentPresenter;
 import com.lenovo.bount.newsquarter.presenter.DianzanPresenter;
+import com.lenovo.bount.newsquarter.presenter.GetVideosPresenter;
+import com.lenovo.bount.newsquarter.view.AddFavoriteView;
 import com.lenovo.bount.newsquarter.view.CommentView;
 import com.lenovo.bount.newsquarter.view.DianzanView;
+import com.lenovo.bount.newsquarter.view.GetVideosView;
 
 import java.util.List;
 
@@ -44,7 +50,7 @@ import java.util.List;
  * Created by lenovo on 2017/11/29.
  */
 
-public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHolder> implements View.OnClickListener,DianzanView,CommentView
+public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHolder> implements View.OnClickListener,DianzanView,CommentView,AddFavoriteView,GetVideosView
 {
     private int a=0;
     private ObjectAnimator animator;
@@ -59,11 +65,12 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
     List<GetVideos.DataBean> dataBeanList;
     private View view3;
     private CommentPresenter commentPresenter;
-    private int wid;
-    private View view1;
+    public static int wid;
     private PopupWindow popupwindow;
-    private TextView pop_pass;
     private DianzanPresenter dianzanPresenter;
+    private TextView pop_quxiao;
+    private AddFavoritePresenter addFavoritePresenter;
+    private GetVideosPresenter videosPresenter;
 
     public GetVideoAdapter(Context context, List<GetVideos.DataBean> dataBeanList) {
         this.context = context;
@@ -80,12 +87,16 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
     public void onBindViewHolder(final MyHolder holder, final int position) {
         dianzanPresenter = new DianzanPresenter(this);
         commentPresenter=new CommentPresenter(this);
+        //收藏作品
+        addFavoritePresenter = new AddFavoritePresenter(this);
+        //热门视屏
+        videosPresenter = new GetVideosPresenter(this);
         wid = dataBeanList.get(position).wid;
-        holder.iv_pinglun.setOnClickListener(this);
+        final View  view1 = View.inflate(context, R.layout.zhuanfa_layout,null);
         holder.iv_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view1 = View.inflate(context, R.layout.zhuanfa_layout,null);
+                pop_quxiao= view1.findViewById(R.id.pop_quxiao);
                 popupwindow = new PopupWindow(view1);
                 popupwindow.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
                 popupwindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -93,14 +104,15 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
                 popupwindow.showAtLocation(holder.rt_item,Gravity.BOTTOM,30,20);
             }
         });
-       pop_pass.setOnClickListener(new View.OnClickListener() {
+
+        holder.setIsRecyclable(false);
+       holder.lt_shoucang.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               popupwindow.dismiss();
+           addFavoritePresenter.getAddFavorite(MyInterceptor.uid,wid+"");
+           holder.iv_xing.setImageResource(R.mipmap.xing2);
            }
        });
-       holder.setIsRecyclable(false);
-
         holder.iv_aixin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
@@ -195,17 +207,38 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
                holder.tv2.setVisibility(View.GONE);
                holder.tv3.setVisibility(View.GONE);
            }
-       });
-        }
+          });
 
-    @Override
+        holder.iv_pinglun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final EditText editText=new EditText(context);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("说点什么吧......").setIcon(android.R.drawable.ic_dialog_info).setView(editText)
+                        .setNegativeButton("取消", null);
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String content = editText.getText().toString();
+                        commentPresenter.getcomment(MyInterceptor.uid,dataBeanList.get(position).wid+"",content);
+                        int wid = dataBeanList.get(position).wid;
+                        System.out.println("======作品wid====="+wid);
+                    }
+                });
+                builder.show();
+            }
+        });
+         List<GetVideos.DataBean.CommentsBean> commentsList = dataBeanList.get(position).comments;
+         LinearLayoutManager manager=new LinearLayoutManager(context);
+         CommentAdapter commentAdapter=new CommentAdapter(context,commentsList);
+         holder.xrc_comment.setLayoutManager(manager);
+         holder.xrc_comment.setAdapter(commentAdapter);
+    }
     public int getItemCount() {
         return dataBeanList.size();
     }
 
     @Override
     public void Success(ResponsBodyBean bodyBean) {
-
         Toast.makeText(context, bodyBean.msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -226,28 +259,20 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         switch (view.getId())
         {
             case R.id.iv_pinglun:
-                final EditText editText=new EditText(context);
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("说点什么吧......").setIcon(android.R.drawable.ic_dialog_info).setView(editText)
-                        .setNegativeButton("取消", null);
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        String content = editText.getText().toString();
-                        commentPresenter.getcomment(MyInterceptor.uid,wid+"",content);
-                    }
-                });
-                builder.show();
                 break;
-            case R.id.pop_pass:
+            case R.id.pop_quxiao:
                 break;
-
+            case R.id.lt_shoucang:
+                break;
         }
     }
 
     @Override
     public void CommentSuccess(ResponsBodyBean bodyBean) {
-
         Toast.makeText(context, bodyBean.msg, Toast.LENGTH_SHORT).show();
+         dataBeanList.clear();
+         videosPresenter.getvideo(MyInterceptor.uid,"1",1);
+         notifyDataSetChanged();
     }
 
     @Override
@@ -260,9 +285,40 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void AddFavoriteSucces(ResponsBodyBean bean) {
+        Toast.makeText(context, bean.msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void AddFavoriteError(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void AddFavoriteOnFair(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+    /*
+     *热门视屏接口
+     */
+    @Override
+    public void GetVideoSuccess(GetVideos value) {
+        Toast.makeText(context, value.msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void GetVideoError(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void GetVideoOnFair(Throwable e) {
+        Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+    }
+
     class MyHolder extends RecyclerView.ViewHolder
     {
-
         private final ImageView iv_icon;
         private final TextView tv_time;
         private final TextView tv_name;
@@ -283,6 +339,8 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
         private final ImageView iv_pinglun;
         private final ImageView iv_share;
         private final RelativeLayout rt_item;
+        private final LinearLayout lt_shoucang;
+        private final XRecyclerView xrc_comment;
 
 
         public MyHolder(View itemView) {
@@ -306,7 +364,8 @@ public class GetVideoAdapter extends RecyclerView.Adapter<GetVideoAdapter.MyHold
             iv_pinglun = itemView.findViewById(R.id.iv_pinglun);
             iv_share = itemView.findViewById(R.id.iv_share);
             rt_item = itemView.findViewById(R.id.rt_item);
-            pop_pass = view1.findViewById(R.id.pop_pass);
+            lt_shoucang = itemView.findViewById(R.id.lt_shoucang);
+            xrc_comment = itemView.findViewById(R.id.xrc_comment);
 
         }
     }

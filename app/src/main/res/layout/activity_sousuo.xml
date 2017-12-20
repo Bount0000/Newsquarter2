@@ -36,7 +36,19 @@
             android:textColor="@color/whiteziti"
             android:text="搜索钟友" />
 </RelativeLayout>
+    <scut.carson_ho.searchview.SearchView
+        android:layout_below="@+id/rt_1"
+        android:id="@+id/search_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:textSizeSearch="5dp"
+        app:textColorSearch="#3F51B5"
+        app:textHintSearch="输入查询关键字"
+        app:searchBlockHeight="150"
+        app:searchBlockColor="#ffffff"
+        />
     <RelativeLayout
+        android:visibility="gone"
         android:layout_marginTop="@dimen/y40"
       android:background="@drawable/biankuangbackgroup3"
         android:id="@+id/rt_2"
@@ -72,10 +84,18 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="取消" />
-  <com.jcodecraeer.xrecyclerview.XRecyclerView
-      android:layout_below="@+id/rt_2"
-      android:id="@+id/sousuo_xrv"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      />
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:visibility="gone"
+        android:id="@+id/sousuo_xrv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/search_view" />
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/randomsousuo_xrv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/sousuo_xrv" />
 </RelativeLayout>

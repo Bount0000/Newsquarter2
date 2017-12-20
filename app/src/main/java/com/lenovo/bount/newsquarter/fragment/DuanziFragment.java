@@ -56,7 +56,7 @@ public class DuanziFragment extends Fragment implements GetJokeView,View.OnClick
         presenter.getjoke(page);
     }
     private void initView() {
-        rv = getView().findViewById(R.id.rv);
+        rv = getView().findViewById(R.id.rt_4);
         View view=View.inflate(getContext(),R.layout.title_layout,null);
         iv_bianji = view.findViewById(R.id.iv_bianji);
         iv_bianji.setOnClickListener(this);

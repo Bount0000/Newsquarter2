@@ -9,7 +9,7 @@
     android:padding="@dimen/x5">
     <RelativeLayout
         android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/y130">
 
         <ImageView
@@ -136,9 +136,10 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/y5"
             />
-    </RelativeLayout>
+     </RelativeLayout>
 
-    <RelativeLayout
+     <RelativeLayout
+       android:id="@+id/rt_4"
         android:layout_below="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="180dp">
@@ -175,7 +176,7 @@
                      android:textColor="@color/whiteziti" />
              </LinearLayout>
             <LinearLayout
-                android:id="@+id/lt_2"
+                android:id="@+id/lt_shoucang"
                 android:layout_below="@+id/lt_1"
                 android:orientation="vertical"
                 android:layout_width="@dimen/y80"
@@ -199,7 +200,7 @@
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/lt_3"
-                android:layout_below="@+id/lt_2"
+                android:layout_below="@+id/lt_shoucang"
                 android:orientation="vertical"
                 android:layout_width="@dimen/y80"
                 android:layout_height="@dimen/y80"
@@ -241,6 +242,13 @@
                     android:textColor="@color/whiteziti"
                     />
             </LinearLayout>
-    </RelativeLayout>
-    </RelativeLayout>
+         </RelativeLayout>
+     </RelativeLayout>
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/xrc_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/rt_4"
+        android:layout_alignStart="@+id/rt_4"
+        android:layout_below="@+id/rt_4" />
 </RelativeLayout>

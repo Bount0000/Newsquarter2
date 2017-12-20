@@ -7,7 +7,7 @@
     tools:context="com.lenovo.bount.newsquarter.activitybao.BianjiActivity">
    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
        xmlns:fresco="http://schemas.android.com/apk/res-auto"
-       android:id="@+id/relativeLayout"
+       android:id="@+id/rt_qq"
        android:layout_width="match_parent"
        android:layout_height="@dimen/y100"
        android:layout_alignParentLeft="true"
@@ -40,7 +40,7 @@
 
    <ImageView
 
-       android:layout_below="@id/relativeLayout"
+       android:layout_below="@id/rt_qq"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:layout_alignParentBottom="true"
